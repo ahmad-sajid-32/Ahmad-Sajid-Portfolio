@@ -822,7 +822,7 @@ svg {
 
 
 .contact_input {
-  padding: 1rem 1.25rem;
+  padding: 1rem 1rem;
   border-radius: .5rem;
   background-color: var(--container-color);
   color: var(--title-color);
