@@ -94,7 +94,7 @@ This project is licensed under the **MIT License**. See the [LICENSE](./LICENSE)
 
 -   [Remixicon](https://remixicon.com/)
 -   [ScrollReveal](https://scrollrevealjs.org/)
--   [EmailJS](https://www.emailjs.com/)
+-   [Formspree](https://formspree.io/)
 -   [Typed.js](https://github.com/mattboldt/typed.js/)
 
 ## 📧 Contact
