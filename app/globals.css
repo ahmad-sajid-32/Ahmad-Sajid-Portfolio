@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+  Lahore Dusk theme — token values locked in THEME.md (contrast-audited).
+  :root = Dawn (light). .dark = Dusk. Fills keep brand colours; text
+  colours are tuned per mode. Never use raw colour values in components.
+*/
+:root {
+  --background: #faf3e7;
+  --surface: #f2e6d0;
+  --surface-raised: #ffffff;
+  --foreground: #2b171e;
+  --muted-foreground: #71493c;
+  --primary: #e8a33d;
+  --primary-foreground: #26160a;
+  --primary-deep: #33202b;
+  --accent: #0f5a4e;
+  --accent-fill: #0f5a4e;
+  --accent-foreground: #ffffff;
+  --amber-text: #8f5c06;
+  --highlight: #8f5c06;
+  --border: #dec9a6;
+  --input: #96702f;
+  --ring: #0f5a4e;
+  --destructive: #b3261e;
+  --success: #1e7a46;
+  --cursor: #0f5a4e;
+}
+
+.dark {
+  --background: #140d16;
+  --surface: #1e1420;
+  --surface-raised: #291b2e;
+  --foreground: #f5ede4;
+  --muted-foreground: #c9ada3;
+  --primary: #e8a33d;
+  --primary-foreground: #221303;
+  --primary-deep: #291b2e;
+  --accent: #4fb3a6;
+  --accent-fill: #1f7a6d;
+  --accent-foreground: #ffffff;
+  --amber-text: #e8a33d;
+  --highlight: #cd949b;
+  --border: #3a2738;
+  --input: #7a5a6c;
+  --ring: #e8a33d;
+  --destructive: #f0857c;
+  --success: #5fbf8a;
+  --cursor: #e8a33d;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-deep: var(--primary-deep);
+  --color-accent: var(--accent);
+  --color-accent-fill: var(--accent-fill);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-amber-text: var(--amber-text);
+  --color-highlight: var(--highlight);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-cursor: var(--cursor);
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-manrope);
+  --font-mono: var(--font-jetbrains);
+}
+
+@layer base {
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+  }
+}
