@@ -123,7 +123,7 @@ export default async function HomePage() {
               <p className="font-display text-2xl text-highlight italic">
                 {home.hero.greeting}
               </p>
-              <h1 className="mt-2 font-display text-6xl leading-[0.95] font-semibold uppercase sm:text-7xl">
+              <h1 className="mt-2 font-display text-[65px] leading-[0.95] font-semibold uppercase sm:text-[78px]">
                 {home.hero.name}
               </h1>
               <p className="mt-4 font-mono text-sm tracking-[0.22em] text-foreground/80 uppercase">
