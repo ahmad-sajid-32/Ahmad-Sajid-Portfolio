@@ -12,6 +12,7 @@ import {
 
 import { PostCard } from '@/components/blog/post-card'
 import { HeroWord } from '@/components/hero/hero-word'
+import { TechMarquee } from '@/components/home/tech-marquee'
 import { Reveal } from '@/components/motion/reveal'
 import { SlideIn } from '@/components/motion/slide-in'
 import { ProjectCard } from '@/components/projects/project-card'
@@ -21,6 +22,7 @@ import {
   getFeaturedProjects,
   getHeroCounts,
   getPublishedPosts,
+  getTechnologies,
 } from '@/lib/data'
 
 /** Brand icons for the hero social badges, keyed by site.json social key. */
@@ -52,6 +54,7 @@ export default async function HomePage() {
   }
   const featured = await getFeaturedProjects()
   const posts = (await getPublishedPosts()).slice(0, 3)
+  const technologies = await getTechnologies()
 
   const personJsonLd = {
     '@context': 'https://schema.org',
@@ -236,6 +239,8 @@ export default async function HomePage() {
           </SlideIn>
         </div>
       </section>
+
+      <TechMarquee technologies={technologies} />
 
       {/* Intro / expertise */}
       <section className="border-t border-border py-14">
