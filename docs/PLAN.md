@@ -154,6 +154,22 @@ Last updated: 2026-11-06.
   Dawn and Dusk, desktop and mobile (a missing `grid-cols-1` caused
   a 52px mobile overflow — found by measurement and fixed; the stats
   row now wraps on small screens).
+- Feedback pass (Ahmad's review, 2026-11-06): availability line
+  removed from the hero; statement rewritten first-person as
+  "Software Engineer" (was Associate, project-flavoured); DEVELOPER
+  re-sized to 15vw and centred behind the portrait (the R clipped
+  on Ahmad's display at 16.5vw); role line switched from teal to
+  foreground/80 (teal clashed with the amber word); portrait
+  enlarged (680px on xl) and pulled up so the head overlaps the
+  word's fade — the 3D pop; hero is now full viewport height
+  (100svh − header) with the portrait bottom-anchored at any
+  resolution; social badges added under the stats (GitHub,
+  LinkedIn, Instagram, Facebook, Fiverr — brand glyphs in
+  `components/ui/brand-icons.tsx`, Simple Icons CC0, because
+  lucide-react dropped brand icons; site.json socials extended,
+  so the footer and the Person JSON-LD `sameAs` picked them up
+  too). Verified by screenshots at 1600×1000 and 1366×768 in Dusk
+  and Dawn.
 
 ## Open items (content & decisions)
 - **FleetSlot** is seeded as a draft — its stack, type, and links

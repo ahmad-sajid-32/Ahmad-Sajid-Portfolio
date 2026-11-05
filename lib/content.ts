@@ -53,7 +53,6 @@ const homeSchema = z.object({
     portraitUrl: z.string().min(1),
     portraitAlt: z.string().min(1),
     statement: z.string().min(1),
-    availability: z.string().min(1),
     stats: z
       .array(
         z.object({

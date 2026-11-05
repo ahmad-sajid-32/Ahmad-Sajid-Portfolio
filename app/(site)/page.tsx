@@ -1,6 +1,14 @@
 import { ArrowRight } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import type { ReactNode } from 'react'
+
+import {
+  FacebookIcon,
+  GithubIcon,
+  InstagramIcon,
+  LinkedinIcon,
+} from '@/components/ui/brand-icons'
 
 import { PostCard } from '@/components/blog/post-card'
 import { HeroWord } from '@/components/hero/hero-word'
@@ -11,9 +19,24 @@ import { SectionHeading } from '@/components/ui/section-heading'
 import { getHomeContent, getSiteContent } from '@/lib/content'
 import { getFeaturedProjects, getPublishedPosts } from '@/lib/data'
 
+/** Brand icons for the hero social badges, keyed by site.json social key. */
+const SOCIAL_ICONS: Record<string, ReactNode> = {
+  github: <GithubIcon className="h-[18px] w-[18px]" />,
+  linkedin: <LinkedinIcon className="h-[18px] w-[18px]" />,
+  instagram: <InstagramIcon className="h-[18px] w-[18px]" />,
+  facebook: <FacebookIcon className="h-[18px] w-[18px]" />,
+  // Lucide has no Fiverr mark; the badge carries its "fi" monogram.
+  fiverr: <span className="text-[13px] font-bold tracking-tight">fi</span>,
+}
+
+const HERO_SOCIAL_KEYS = ['github', 'linkedin', 'instagram', 'facebook', 'fiverr']
+
 export default async function HomePage() {
   const home = getHomeContent()
   const site = getSiteContent()
+  const heroSocials = site.socials.filter((social) =>
+    HERO_SOCIAL_KEYS.includes(social.key),
+  )
   const featured = await getFeaturedProjects()
   const posts = (await getPublishedPosts()).slice(0, 3)
 
@@ -44,12 +67,12 @@ export default async function HomePage() {
       />
       {/* Hero — portrait composition: giant word behind, portrait
           centred in front, intro stack left, stats rail right. */}
-      <section className="relative overflow-hidden pt-12 sm:pt-16">
+      <section className="relative flex min-h-[calc(100svh-3.6rem)] flex-col overflow-hidden pt-12 sm:pt-16">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-14 flex justify-center sm:top-16 lg:top-20"
+          className="pointer-events-none absolute inset-x-0 top-12 flex justify-center sm:top-14 lg:top-[19%]"
         >
-          <span className="font-display text-[16.5vw] leading-[0.85] font-bold tracking-tight whitespace-nowrap select-none">
+          <span className="font-display text-[15vw] leading-[0.85] font-bold tracking-tight whitespace-nowrap select-none">
             <HeroWord word={home.hero.giantWord} />
           </span>
         </div>
@@ -76,7 +99,7 @@ export default async function HomePage() {
           {'=>'}
         </span>
 
-        <div className="relative grid grid-cols-1 gap-10 lg:min-h-[620px] lg:grid-cols-[1fr_auto_1fr]">
+        <div className="relative grid w-full flex-1 grid-cols-1 gap-10 lg:grid-cols-[1fr_auto_1fr]">
           <div className="relative z-10 flex flex-col justify-between gap-10 pb-14">
             <SlideIn from="left">
               <p className="font-display text-2xl text-highlight italic">
@@ -85,7 +108,7 @@ export default async function HomePage() {
               <h1 className="mt-2 font-display text-6xl leading-[0.95] font-semibold uppercase sm:text-7xl">
                 {home.hero.name}
               </h1>
-              <p className="mt-4 font-mono text-sm tracking-[0.22em] text-accent uppercase">
+              <p className="mt-4 font-mono text-sm tracking-[0.22em] text-foreground/80 uppercase">
                 {home.hero.role}
               </p>
             </SlideIn>
@@ -108,21 +131,18 @@ export default async function HomePage() {
                   {home.hero.secondaryCta.label}
                 </Link>
               </div>
-              <p className="mt-7 font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
-                {home.hero.availability}
-              </p>
             </SlideIn>
           </div>
 
           <div className="relative z-[5] flex items-end justify-center">
-            <SlideIn from="up" delay={0.5}>
+            <SlideIn from="up" delay={0.5} className="lg:-mt-28 xl:-mt-36">
               <Image
                 src={home.hero.portraitUrl}
                 alt={home.hero.portraitAlt}
                 width={1600}
                 height={1280}
                 priority
-                className="h-auto w-[min(80vw,400px)] drop-shadow-[0_24px_48px_rgba(0,0,0,0.45)] sm:w-[440px] lg:w-[480px]"
+                className="h-auto w-[min(88vw,420px)] drop-shadow-[0_24px_48px_rgba(0,0,0,0.45)] sm:w-[500px] lg:w-[620px] xl:w-[680px]"
               />
             </SlideIn>
           </div>
@@ -142,6 +162,20 @@ export default async function HomePage() {
                 </p>
               </div>
             ))}
+            <div className="flex basis-full items-center justify-center gap-2.5 lg:basis-auto lg:justify-end">
+              {heroSocials.map((social) => (
+                <a
+                  key={social.key}
+                  href={social.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={social.label}
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface/60 text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/60 hover:text-primary"
+                >
+                  {SOCIAL_ICONS[social.key]}
+                </a>
+              ))}
+            </div>
           </SlideIn>
         </div>
       </section>

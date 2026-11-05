@@ -18,7 +18,6 @@
     }
   ],
   "hero": {
-    "availability": "Open to junior-to-mid developer roles — on-site or remote.",
     "giantWord": "DEVELOPER",
     "portraitUrl": "/api/media/file/hero-portrait.png",
     "portraitAlt": "Studio portrait of Ahmad Sajid in a black blazer, amber rim light",
@@ -33,7 +32,7 @@
       "href": "/contact",
       "label": "Get in Touch"
     },
-    "statement": "Associate Software Engineer with end-to-end ownership of an AI agent platform in live production — FastAPI, NestJS and Next.js backends, Docker on AWS, and automation across the CRMs businesses actually run on.",
+    "statement": "Software Engineer who takes products from idea to live production — I build AI agent platforms, FastAPI, NestJS and Next.js backends, Docker deployments on AWS, and automation across the CRMs businesses actually run on.",
     "stats": [
       {
         "label": "Projects built",

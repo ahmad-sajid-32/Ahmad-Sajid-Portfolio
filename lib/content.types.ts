@@ -26,7 +26,6 @@ export interface HomeContent {
     portraitUrl: string
     portraitAlt: string
     statement: string
-    availability: string
     stats: {
       value: string
       label: string
