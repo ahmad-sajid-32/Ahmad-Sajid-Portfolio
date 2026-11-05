@@ -1,0 +1,80 @@
+# PLAN.md — Progress Tracker
+
+Rebuild of Ahmad Sajid's portfolio: static HTML/CSS/JS → Next.js +
+Payload CMS on Supabase, deployed on the same Vercel project and
+domain (`ahmad-sajid.vercel.app`). Architecture: `docs/ARCHITECTURE.md`.
+Working rules: `docs/AGENT.md`.
+
+Last updated: 2026-11-05.
+
+## Phase status
+
+### ✅ Phase 0 — Foundations (complete, 2026-11-04)
+- GitHub branches created from `main`: `legacy-html` (frozen archive
+  of the old site) and `rebuild` (all new work). `main` untouched.
+- Supabase project created (Postgres 17, Seoul region) with a public
+  `media` storage bucket; environment variables set locally and in
+  Vercel (Preview scope).
+
+### ✅ Phase 1 — Scaffold (complete, 2026-11-04 → 2026-11-05)
+- Next.js 16 + Payload 3 scaffold with the Lahore Dusk theme tokens,
+  Dusk/Dawn toggle, and route groups `(site)` / `(payload)`.
+- Pushed to `rebuild`: scaffold commit `e157d41`, admin-styling fix
+  `3f1c6ba` (the Payload admin CSS import).
+- Verified end to end: Vercel preview deployed, Ahmad registered the
+  first admin account, and the acceptance media upload was confirmed
+  in the database and the storage bucket.
+
+### 🔄 Phase 2 — Data layer & seed (in progress, started 2026-11-05)
+Done locally:
+- Collections: Projects, Technologies, Posts, Post Categories,
+  Contact Submissions; Media upgraded (required alt, caption, image
+  sizes for thumbnail/card/hero).
+- Access control (public = published only), hooks (slug generation,
+  reading time, path revalidation), case-study blocks (overview,
+  problem, solution, challenges, outcome, architecture, features,
+  media).
+- JSON data houses (`content/site|home|about|contact.json`) with
+  typed Zod loaders in `lib/content.ts`.
+- Seed script with placeholder covers: 16 technologies, 3 post
+  categories, 7 projects, 3 draft blog posts — all copy from verified
+  facts only.
+- One deliberate deviation: the project field is `deploymentStatus`,
+  not `status` (Payload reserves `status`).
+
+Remaining:
+- Proof that a missing JSON key fails the build.
+- Seed run against Supabase + verification (admin and public REST).
+- Lint / typecheck / build green, then push to `rebuild`.
+
+### ⬜ Phase 3 — Pages
+Home, About, Projects index + detail, Blog index + detail, Contact —
+multi-page, built on the Phase 2 data layer.
+
+### ⬜ Phase 4 — Motion & 3D
+"Dusk Field" hero scene (React Three Fiber), Lenis smooth scroll,
+scroll reveals and parallax, custom cursor — all with
+reduced-motion fallbacks.
+
+### ⬜ Phase 5 — Contact & SEO
+Contact form delivery (Resend + Cloudflare Turnstile, admin email
+hook), metadata/OG, sitemap, analytics-free launch polish.
+
+### ⬜ Phase 6 — Launch
+Performance pass (Lighthouse ≥ 90 mobile, LCP < 2.5 s, no three.js
+off the home page), adopt committed DB migrations, remove the old
+static files from `rebuild`, single merge `rebuild` → `main`
+(Vercel rollback is the safety net).
+
+## Open items (content & decisions)
+- **FleetSlot** is seeded as a draft — its stack, type, and links
+  need Ahmad's confirmed facts before it can be published.
+- Real per-project media (screenshots, gallery images, demo videos,
+  live/repo links) to be collected and swapped in for the generated
+  placeholder covers.
+- `/resume` page vs CV-download-only — undecided; download-only is
+  the current proposal for v1.
+- Updating the portfolio URL on resumes, LinkedIn, and job profiles —
+  a separate later task, only on Ahmad's instruction.
+- The Vercel preview sits behind Deployment Protection; relax it only
+  if shareable preview links are wanted.
