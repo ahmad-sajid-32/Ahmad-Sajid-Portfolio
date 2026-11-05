@@ -223,6 +223,16 @@ Last updated: 2026-11-06.
   so both themes now show the identical photograph, expression
   and blazer, with only the lighting changed. The earlier Dawn
   pair (ids 15/16) is superseded and unused.
+- "What I do" section rebuilt as the Giant Index (Concept 3,
+  picked by Ahmad from three rendered prototypes, 2026-11-06):
+  giant Fraunces rows; on desktop the active row lights amber,
+  nudges sideways and a tilted detail card floats to it (spring
+  motion, clamped to the section); below lg the detail expands
+  inline under the tapped row. Chips and the "More about me"
+  About CTA live in the home data house; Lucide icon per area.
+  The section's eyebrow was removed at Ahmad's request (it
+  repeated the title); SectionHeading's eyebrow is now optional.
+  The throwaway /proto route was deleted after the pick.
 
 ## Open items (content & decisions)
 - **FleetSlot** is seeded as a draft — its stack, type, and links

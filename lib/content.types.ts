@@ -39,10 +39,15 @@ export interface HomeContent {
   intro: {
     heading: string
     body: string
+    aboutCta: {
+      label: string
+      href: string
+    }
   }
   expertise: {
     title: string
     body: string
+    chips: string[]
   }[]
   sections: {
     featuredProjects: string

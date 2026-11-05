@@ -70,12 +70,17 @@ const homeSchema = z.object({
   intro: z.object({
     heading: z.string().min(1),
     body: z.string().min(1),
+    aboutCta: z.object({
+      label: z.string().min(1),
+      href: z.string().min(1),
+    }),
   }),
   expertise: z
     .array(
       z.object({
         title: z.string().min(1),
         body: z.string().min(1),
+        chips: z.array(z.string().min(1)).min(1),
       }),
     )
     .min(1),

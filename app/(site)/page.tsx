@@ -12,6 +12,7 @@ import {
 
 import { PostCard } from '@/components/blog/post-card'
 import { HeroWord } from '@/components/hero/hero-word'
+import { ExpertiseIndex } from '@/components/home/expertise-index'
 import { TechMarquee } from '@/components/home/tech-marquee'
 import { Reveal } from '@/components/motion/reveal'
 import { SlideIn } from '@/components/motion/slide-in'
@@ -247,22 +248,22 @@ export default async function HomePage() {
           hairline instead of doubling up. */}
       <section className="py-14">
         <Reveal>
-          <SectionHeading eyebrow="01 — What I do" title={home.intro.heading} />
+          <SectionHeading title={home.intro.heading} />
           <p className="mt-5 max-w-2xl leading-relaxed text-muted-foreground">
             {home.intro.body}
           </p>
         </Reveal>
-        <div className="mt-10 grid gap-4 sm:grid-cols-2">
-          {home.expertise.map((area, index) => (
-            <Reveal key={area.title} delay={index * 0.08}>
-              <div className="h-full rounded-[14px] border border-border bg-surface p-5">
-                <h3 className="font-display text-xl font-medium">{area.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {area.body}
-                </p>
-              </div>
-            </Reveal>
-          ))}
+        <Reveal className="mt-10">
+          <ExpertiseIndex areas={home.expertise} />
+        </Reveal>
+        <div className="mt-12">
+          <Link
+            href={home.intro.aboutCta.href}
+            className="group inline-flex items-center gap-2 rounded-lg border border-input px-5 py-2.5 text-sm font-medium transition-colors duration-300 hover:border-primary/60 hover:text-primary"
+          >
+            {home.intro.aboutCta.label}
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+          </Link>
         </div>
       </section>
 
