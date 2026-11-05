@@ -1,0 +1,49 @@
+{
+  "name": "ahmad-sajid-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "payload": "cross-env PAYLOAD_CONFIG_PATH=./payload/payload.config.ts NODE_OPTIONS=--no-deprecation payload",
+    "generate:importmap": "cross-env PAYLOAD_CONFIG_PATH=./payload/payload.config.ts NODE_OPTIONS=--no-deprecation payload generate:importmap",
+    "generate:types": "cross-env PAYLOAD_CONFIG_PATH=./payload/payload.config.ts NODE_OPTIONS=--no-deprecation payload generate:types"
+  },
+  "dependencies": {
+    "@payloadcms/db-postgres": "^3.92.1",
+    "@payloadcms/email-resend": "^3.92.1",
+    "@payloadcms/next": "^3.92.1",
+    "@payloadcms/richtext-lexical": "^3.92.1",
+    "@payloadcms/storage-s3": "^3.92.1",
+    "@react-three/fiber": "^9.8.2",
+    "clsx": "^2.1.1",
+    "lenis": "^1.3.27",
+    "motion": "^14.9.1",
+    "next": "16.4.5",
+    "payload": "^3.92.1",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "resend": "^6.37.0",
+    "sharp": "^0.35.5",
+    "tailwind-merge": "^3.7.0",
+    "three": "^0.187.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@smithy/node-http-handler": "^4.14.1",
+    "@tailwindcss/turbopack": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/three": "^0.187.0",
+    "cross-env": "^10.1.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.5",
+    "https-proxy-agent": "^9.1.0",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
