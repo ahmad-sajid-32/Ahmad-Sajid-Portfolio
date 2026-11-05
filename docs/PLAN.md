@@ -47,9 +47,20 @@ Last updated: 2026-11-05.
   `node scripts/generate-covers.mjs` before seeding a fresh database.
 - Lint, typecheck, and production build all green at close.
 
-### ⬜ Phase 3 — Pages
-Home, About, Projects index + detail, Blog index + detail, Contact —
-multi-page, built on the Phase 2 data layer.
+### ✅ Phase 3 — Pages (complete, 2026-11-05)
+- All pages live on the Phase 2 data layer: Home (split hero,
+  expertise, featured projects, contact CTA), About (bio, experience,
+  education, skills, certificates), Projects index with track
+  filtering, case-study detail pages (blocks, gallery, video, prev /
+  next), Blog index + detail, Contact.
+- Verified in dev and in a production serve: every route 200 with
+  real seeded content; the FleetSlot draft returns 404 publicly;
+  the contact form stores submissions (Phase 5 adds spam protection
+  and email delivery); the blog shows an honest empty state until
+  the first draft is published.
+- The hero's right side carries a token-drawn placeholder for the
+  Dusk Field scene — Phase 4 swaps in the real 3D.
+- Lint, typecheck, and production build green at close.
 
 ### ⬜ Phase 4 — Motion & 3D
 "Dusk Field" hero scene (React Three Fiber), Lenis smooth scroll,

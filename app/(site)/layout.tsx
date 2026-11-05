@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
 import { Fraunces, JetBrains_Mono, Manrope } from 'next/font/google'
 
-import { ThemeToggle } from '@/components/layout/theme-toggle'
+import { SiteFooter } from '@/components/layout/site-footer'
+import { SiteHeader } from '@/components/layout/site-header'
+import { getSiteContent } from '@/lib/content'
 
 import '../globals.css'
 
@@ -21,10 +23,15 @@ const jetBrainsMono = JetBrains_Mono({
   variable: '--font-jetbrains',
 })
 
+const site = getSiteContent()
+
 export const metadata: Metadata = {
-  title: 'Ahmad Sajid — Software Engineer',
-  description:
-    'Backend, AI agents and automation. Portfolio of Ahmad Sajid, software engineer based in Lahore, Pakistan.',
+  metadataBase: new URL('https://ahmad-sajid.vercel.app'),
+  title: {
+    default: site.defaultSeo.title,
+    template: '%s — Ahmad Sajid',
+  },
+  description: site.defaultSeo.description,
 }
 
 // Runs before first paint: stored choice wins, then system preference,
@@ -42,22 +49,9 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body>
-        <header className="border-b border-border">
-          <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-            <span className="font-mono text-xs tracking-[0.18em] uppercase">
-              Ahmad Sajid
-            </span>
-            <ThemeToggle />
-          </div>
-        </header>
+        <SiteHeader />
         <main className="mx-auto max-w-5xl px-6">{children}</main>
-        <footer className="border-t border-border">
-          <div className="mx-auto max-w-5xl px-6 py-4">
-            <span className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
-              Lahore / Remote
-            </span>
-          </div>
-        </footer>
+        <SiteFooter />
       </body>
     </html>
   )
