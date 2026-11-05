@@ -1,7 +1,7 @@
 'use client'
 
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type * as THREE from 'three'
 
 export interface DuskFieldColors {
@@ -31,12 +31,19 @@ function PerformanceWatchdog({ onLowPerformance }: { onLowPerformance: () => voi
       return
     }
     s.elapsed += delta
-    if (s.elapsed < 2.5) {
+    if (s.elapsed < 1.2) {
       return // warm-up: shader compile and first frames are not judged
     }
     s.frames += 1
     s.windowTime += delta
-    if (s.frames >= 90) {
+    // Fast exit for hopeless cases: if the first frames already
+    // average under ~9 FPS, don't wait out the full window.
+    if (s.frames === 12 && s.windowTime / s.frames > 0.11) {
+      s.tripped = true
+      onLowPerformance()
+      return
+    }
+    if (s.frames >= 45) {
       const fps = s.frames / s.windowTime
       if (fps < 28) {
         s.tripped = true
@@ -141,15 +148,36 @@ function Composition({ colors }: { colors: DuskFieldColors }) {
 }
 
 export default function DuskFieldScene({ colors, onLowPerformance }: SceneProps) {
+  const wrapRef = useRef<HTMLDivElement>(null)
+  const [visible, setVisible] = useState(true)
+
+  // Render only while the hero is on screen — an ambient scene the
+  // visitor has scrolled past should cost no GPU or battery.
+  useEffect(() => {
+    const el = wrapRef.current
+    if (!el) {
+      return
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => setVisible(entry.isIntersecting),
+      { threshold: 0.02 },
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <Canvas
-      dpr={[1, 1.75]}
-      camera={{ position: [0, 0, 7], fov: 42 }}
-      gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
-      style={{ background: 'transparent' }}
-    >
-      <PerformanceWatchdog onLowPerformance={onLowPerformance} />
-      <Composition colors={colors} />
-    </Canvas>
+    <div ref={wrapRef} className="absolute inset-0">
+      <Canvas
+        frameloop={visible ? 'always' : 'never'}
+        dpr={[1, 1.75]}
+        camera={{ position: [0, 0, 7], fov: 42 }}
+        gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
+        style={{ background: 'transparent' }}
+      >
+        <PerformanceWatchdog onLowPerformance={onLowPerformance} />
+        <Composition colors={colors} />
+      </Canvas>
+    </div>
   )
 }
