@@ -5,7 +5,7 @@ Payload CMS on Supabase, deployed on the same Vercel project and
 domain (`ahmad-sajid.vercel.app`). Architecture: `docs/ARCHITECTURE.md`.
 Working rules: `docs/AGENT.md`.
 
-Last updated: 2026-11-05.
+Last updated: 2026-11-06.
 
 ## Phase status
 
@@ -127,6 +127,68 @@ Last updated: 2026-11-05.
   draft project 404, old assets 404, sitemap with all 6 projects,
   Turnstile widget rendered on /contact and a tokenless submit
   rejected (400) — spam protection active; /admin up.
+
+### 🔄 Improvement round 2 — Hero redesign (on `rebuild`, 2026-11-06; merge pending Ahmad's go)
+- Full-width layout across the site (header, main, footer share the
+  same full-bleed padded wrapper; inner text blocks keep readable
+  max-widths).
+- New hero after the reference reel's composition, in Lahore Dusk:
+  giant amber-gradient word "DEVELOPER" behind a centred studio
+  portrait cutout (generated from Ahmad's photo, background removed;
+  the file lives in Payload Media, `hero-portrait.png`, and the URL
+  sits in the `content/home.json` data house). Intro stack left
+  (greeting, name, role, statement, CTAs, availability — no location
+  in the hero; Lahore, Pakistan stays in the footer), stats rail
+  right (7 projects / 16 technologies / 4 specialisations).
+- Entrance animations (all reduced-motion safe): DEVELOPER letters
+  drop in one at a time left→right; intro glides from the left,
+  stats from the right, portrait rises from below. New primitives:
+  `components/motion/slide-in.tsx`, `components/hero/hero-word.tsx`.
+- Custom first-load loader (`components/layout/site-loader.tsx`):
+  animated rings-and-prism illustration + wordmark + progress sweep,
+  once per session, <2s, skipped under reduced motion.
+- Dusk Field retired: the three.js scene components are deleted and
+  `three` / `@react-three/fiber` uninstalled; the home page ships no
+  WebGL now.
+- Verified locally: production build green; screenshots checked in
+  Dawn and Dusk, desktop and mobile (a missing `grid-cols-1` caused
+  a 52px mobile overflow — found by measurement and fixed; the stats
+  row now wraps on small screens).
+- Feedback pass (Ahmad's review, 2026-11-06): availability line
+  removed from the hero; statement rewritten first-person as
+  "Software Engineer" (was Associate, project-flavoured); DEVELOPER
+  re-sized to 15vw and centred behind the portrait (the R clipped
+  on Ahmad's display at 16.5vw); role line switched from teal to
+  foreground/80 (teal clashed with the amber word); portrait
+  enlarged (680px on xl) and pulled up so the head overlaps the
+  word's fade — the 3D pop; hero is now full viewport height
+  (100svh − header) with the portrait bottom-anchored at any
+  resolution; social badges added under the stats (GitHub,
+  LinkedIn, Instagram, Facebook, Fiverr — brand glyphs in
+  `components/ui/brand-icons.tsx`, Simple Icons CC0, because
+  lucide-react dropped brand icons; site.json socials extended,
+  so the footer and the Person JSON-LD `sameAs` picked them up
+  too). Verified by screenshots at 1600×1000 and 1366×768 in Dusk
+  and Dawn.
+- Mobile/tablet pass + live stats (Ahmad, 2026-11-06): hero
+  socials cut to GitHub / LinkedIn / Instagram (Facebook and
+  Fiverr live in the footer list). Below `lg` the DEVELOPER word
+  is hidden (it collided with the heading) and a light full-screen
+  amber wash (`from-primary/20`) carries the hero; the portrait
+  becomes a bordered circular medallion of the studio portrait
+  (new Media item `hero-portrait-studio.png`, URL in home.json as
+  `circlePortraitUrl`) with a gentle float animation
+  (`.animate-float` in globals.css, reduced-motion safe) and more
+  air before the stats. Desktop composition unchanged. Hero stats
+  are now computed at render: projects = published count and
+  technologies = count from Payload (`getHeroCounts` in
+  lib/data.ts), specialisations = number of expertise areas in
+  the data house; home.json stats carry keys + labels only. The
+  projects stat therefore reads 6 until FleetSlot is published.
+- Gradient off + bigger medallion (Ahmad, 2026-11-06): the
+  mobile amber wash and the radial glow blob are hidden below
+  `lg` (desktop keeps both); the circular portrait grows to
+  240px (288px on sm+).
 
 ## Open items (content & decisions)
 - **FleetSlot** is seeded as a draft — its stack, type, and links
