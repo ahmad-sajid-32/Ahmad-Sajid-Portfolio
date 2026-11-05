@@ -46,9 +46,22 @@ const siteSchema = z.object({
 
 const homeSchema = z.object({
   hero: z.object({
-    eyebrow: z.string().min(1),
-    headline: z.string().min(1),
+    greeting: z.string().min(1),
+    name: z.string().min(1),
+    role: z.string().min(1),
+    giantWord: z.string().min(1),
+    portraitUrl: z.string().min(1),
+    circlePortraitUrl: z.string().min(1),
+    portraitAlt: z.string().min(1),
     statement: z.string().min(1),
+    stats: z
+      .array(
+        z.object({
+          key: z.string().min(1),
+          label: z.string().min(1),
+        }),
+      )
+      .min(1),
     primaryCta: linkSchema,
     secondaryCta: linkSchema,
   }),

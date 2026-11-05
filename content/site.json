@@ -1,1 +1,70 @@
-{"availability":"Open to junior-to-mid developer roles — Lahore on-site, or remote.","defaultSeo":{"description":"Software engineer based in Lahore, Pakistan. Backend systems, AI agents, CRM automation and frontend — including an AI agent platform running in live production.","title":"Ahmad Sajid — Software Engineer"},"footerText":"Designed and built by Ahmad Sajid — Next.js, Payload CMS and Supabase.","location":"Lahore, Pakistan","name":"Ahmad Sajid","nav":[{"href":"/","label":"Home"},{"href":"/about","label":"About"},{"href":"/projects","label":"Projects"},{"href":"/blog","label":"Blog"},{"href":"/contact","label":"Contact"}],"roles":["Backend Developer","AI Agent Builder","CRM Automation Specialist","Frontend Developer"],"socials":[{"href":"https://github.com/ahmad-sajid-32","key":"github","label":"GitHub"},{"href":"https://www.linkedin.com/in/ahmad-sajid-offcial","key":"linkedin","label":"LinkedIn"},{"href":"mailto:ahmadsajid41324@gmail.com","key":"email","label":"Email"}]}
+{
+  "availability": "Open to junior-to-mid developer roles — Lahore on-site, or remote.",
+  "defaultSeo": {
+    "description": "Software engineer based in Lahore, Pakistan. Backend systems, AI agents, CRM automation and frontend — including an AI agent platform running in live production.",
+    "title": "Ahmad Sajid — Software Engineer"
+  },
+  "footerText": "Designed and built by Ahmad Sajid — Next.js, Payload CMS and Supabase.",
+  "location": "Lahore, Pakistan",
+  "name": "Ahmad Sajid",
+  "nav": [
+    {
+      "href": "/",
+      "label": "Home"
+    },
+    {
+      "href": "/about",
+      "label": "About"
+    },
+    {
+      "href": "/projects",
+      "label": "Projects"
+    },
+    {
+      "href": "/blog",
+      "label": "Blog"
+    },
+    {
+      "href": "/contact",
+      "label": "Contact"
+    }
+  ],
+  "roles": [
+    "Backend Developer",
+    "AI Agent Builder",
+    "CRM Automation Specialist",
+    "Frontend Developer"
+  ],
+  "socials": [
+    {
+      "href": "https://github.com/ahmad-sajid-32",
+      "key": "github",
+      "label": "GitHub"
+    },
+    {
+      "href": "https://www.linkedin.com/in/ahmad-sajid-offcial",
+      "key": "linkedin",
+      "label": "LinkedIn"
+    },
+    {
+      "href": "https://www.instagram.com/ahmad_sajid_official",
+      "key": "instagram",
+      "label": "Instagram"
+    },
+    {
+      "href": "https://www.facebook.com/ahmadsajid32/",
+      "key": "facebook",
+      "label": "Facebook"
+    },
+    {
+      "href": "https://www.fiverr.com/s/R7558KR",
+      "key": "fiverr",
+      "label": "Fiverr"
+    },
+    {
+      "href": "mailto:ahmadsajid41324@gmail.com",
+      "key": "email",
+      "label": "Email"
+    }
+  ]
+}

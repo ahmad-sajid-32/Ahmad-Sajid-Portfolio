@@ -19,9 +19,18 @@ export interface SiteContent {
 
 export interface HomeContent {
   hero: {
-    eyebrow: string
-    headline: string
+    greeting: string
+    name: string
+    role: string
+    giantWord: string
+    portraitUrl: string
+    circlePortraitUrl: string
+    portraitAlt: string
     statement: string
+    stats: {
+      key: string
+      label: string
+    }[]
     primaryCta: ContentLink
     secondaryCta: ContentLink
   }

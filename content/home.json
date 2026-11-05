@@ -1,1 +1,66 @@
-{"expertise":[{"body":"FastAPI, NestJS, Express and Laravel APIs — PostgreSQL, MySQL and MongoDB, Docker deployments on AWS.","title":"Backend"},{"body":"Tool-calling agents over OpenAI with voice (ElevenLabs), retrieval with pgvector, and self-built calendar, inbox and workflow tools.","title":"AI Agents"},{"body":"Zoho, HubSpot and GoHighLevel implementations, plus n8n, Zapier and Make pipelines that remove manual work.","title":"CRM Automation"},{"body":"React and Next.js interfaces with TypeScript and Tailwind — component-based, theme-driven, accessible.","title":"Frontend"}],"hero":{"eyebrow":"Software Engineer — Lahore / Remote","headline":"I build backend systems and AI agents that run in production.","primaryCta":{"href":"/projects","label":"View Projects"},"secondaryCta":{"href":"/contact","label":"Get in Touch"},"statement":"Associate Software Engineer with end-to-end ownership of an AI agent platform in live production — FastAPI, NestJS and Next.js backends, Docker on AWS, and automation across the CRMs businesses actually run on."},"intro":{"body":"My core strength is the backend: APIs, data models and the integrations around them. On top of that I build AI agents with tool-calling, automate CRM workflows in Zoho, HubSpot and GoHighLevel, and ship the frontend when the project needs one hand on the whole stack.","heading":"What I do"},"sections":{"contactCta":{"body":"I reply personally to every message.","heading":"Have a role or a project in mind?","href":"/contact","label":"Contact me"},"featuredProjects":"Featured projects","latestPosts":"Latest from the blog"}}
+{
+  "expertise": [
+    {
+      "body": "FastAPI, NestJS, Express and Laravel APIs — PostgreSQL, MySQL and MongoDB, Docker deployments on AWS.",
+      "title": "Backend"
+    },
+    {
+      "body": "Tool-calling agents over OpenAI with voice (ElevenLabs), retrieval with pgvector, and self-built calendar, inbox and workflow tools.",
+      "title": "AI Agents"
+    },
+    {
+      "body": "Zoho, HubSpot and GoHighLevel implementations, plus n8n, Zapier and Make pipelines that remove manual work.",
+      "title": "CRM Automation"
+    },
+    {
+      "body": "React and Next.js interfaces with TypeScript and Tailwind — component-based, theme-driven, accessible.",
+      "title": "Frontend"
+    }
+  ],
+  "hero": {
+    "giantWord": "DEVELOPER",
+    "portraitUrl": "/api/media/file/hero-portrait.png",
+    "circlePortraitUrl": "/api/media/file/hero-portrait-studio.png",
+    "portraitAlt": "Studio portrait of Ahmad Sajid in a black blazer, amber rim light",
+    "greeting": "Hello, I'm",
+    "name": "Ahmad Sajid",
+    "primaryCta": {
+      "href": "/projects",
+      "label": "View Projects"
+    },
+    "role": "Software Engineer",
+    "secondaryCta": {
+      "href": "/contact",
+      "label": "Get in Touch"
+    },
+    "statement": "Software Engineer who takes products from idea to live production — I build AI agent platforms, FastAPI, NestJS and Next.js backends, Docker deployments on AWS, and automation across the CRMs businesses actually run on.",
+    "stats": [
+      {
+        "key": "projects",
+        "label": "Projects built"
+      },
+      {
+        "key": "technologies",
+        "label": "Technologies"
+      },
+      {
+        "key": "specialisations",
+        "label": "Specialisations"
+      }
+    ]
+  },
+  "intro": {
+    "body": "My core strength is the backend: APIs, data models and the integrations around them. On top of that I build AI agents with tool-calling, automate CRM workflows in Zoho, HubSpot and GoHighLevel, and ship the frontend when the project needs one hand on the whole stack.",
+    "heading": "What I do"
+  },
+  "sections": {
+    "contactCta": {
+      "body": "I reply personally to every message.",
+      "heading": "Have a role or a project in mind?",
+      "href": "/contact",
+      "label": "Contact me"
+    },
+    "featuredProjects": "Featured projects",
+    "latestPosts": "Latest from the blog"
+  }
+}

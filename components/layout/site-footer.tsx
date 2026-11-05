@@ -5,7 +5,7 @@ export function SiteFooter() {
 
   return (
     <footer className="border-t border-border">
-      <div className="mx-auto flex max-w-5xl flex-col gap-4 px-6 py-8 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex w-full flex-col gap-4 px-6 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-10 lg:px-14 xl:px-20">
         <div>
           <p className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
             {site.location}
