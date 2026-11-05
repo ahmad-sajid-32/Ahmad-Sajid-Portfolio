@@ -208,6 +208,14 @@ Last updated: 2026-11-06.
   opening a right-hand slide-in drawer. A tech-stack logo marquee
   is built and awaiting Ahmad's preview approval before it joins
   the page.
+- Corrections from Ahmad's phone review (2026-11-06): the
+  toggle's sun/moon disc is vertically centred (a double
+  translate — utility class + inline style — had pushed it into
+  the top edge). The mobile drawer drops its borders on the
+  three-dot and close buttons, the name header, the email/social
+  text footer (now three icon buttons: GitHub, LinkedIn,
+  Instagram) and the link index numbers; link text steps down a
+  size.
 
 ## Open items (content & decisions)
 - **FleetSlot** is seeded as a draft — its stack, type, and links

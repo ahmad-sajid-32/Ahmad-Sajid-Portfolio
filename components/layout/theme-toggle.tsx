@@ -131,11 +131,14 @@ export function ThemeToggle() {
           }
         />
       </svg>
-      {/* The travelling sun / moon */}
+      {/* The travelling sun / moon — centred by its top offset
+          ((36px track − 26px disc) / 2); the inline transform is
+          the only transform, so no utility translate can double it
+          and push the disc into the top edge. */}
       <span
         aria-hidden="true"
-        className="absolute top-1/2 left-[5px] h-[26px] w-[26px] -translate-y-1/2 transition-transform duration-500 [transition-timing-function:cubic-bezier(0.34,1.4,0.64,1)]"
-        style={{ transform: `translateY(-50%) translateX(${isDusk ? 40 : 0}px)` }}
+        className="absolute top-[5px] left-[5px] h-[26px] w-[26px] transition-transform duration-500 [transition-timing-function:cubic-bezier(0.34,1.4,0.64,1)]"
+        style={{ transform: `translateX(${isDusk ? 40 : 0}px)` }}
       >
         <span
           className={cn(

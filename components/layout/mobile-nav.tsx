@@ -4,25 +4,35 @@ import { AnimatePresence, motion } from 'motion/react'
 import { MoreVertical, X } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 
+import {
+  GithubIcon,
+  InstagramIcon,
+  LinkedinIcon,
+} from '@/components/ui/brand-icons'
 import { cn } from '@/lib/utils'
 
+/** Brand icons for the drawer footer, keyed by site.json social key. */
+const SOCIAL_ICONS: Record<string, ReactNode> = {
+  github: <GithubIcon className="h-[18px] w-[18px]" />,
+  linkedin: <LinkedinIcon className="h-[18px] w-[18px]" />,
+  instagram: <InstagramIcon className="h-[18px] w-[18px]" />,
+}
+
 interface MobileNavProps {
-  name: string
-  email: string
   nav: { label: string; href: string }[]
-  socials: { label: string; href: string }[]
+  socials: { key: string; label: string; href: string }[]
 }
 
 /**
- * Mobile navigation: a three-dot button opening a drawer that
- * slides in from the right (backdrop blur, staggered links,
- * socials at the foot). Rendered only below the `sm` breakpoint,
- * where the header's inline nav is hidden. Closes on backdrop
- * tap, the X, Escape, or any link tap.
+ * Mobile navigation: a borderless three-dot button opening a
+ * drawer that slides in from the right (backdrop blur, staggered
+ * links, social icon buttons at the foot). Rendered only below
+ * the `sm` breakpoint, where the header's inline nav is hidden.
+ * Closes on backdrop tap, the X, Escape, or any link tap.
  */
-export function MobileNav({ name, email, nav, socials }: MobileNavProps) {
+export function MobileNav({ nav, socials }: MobileNavProps) {
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
 
@@ -46,7 +56,7 @@ export function MobileNav({ name, email, nav, socials }: MobileNavProps) {
         onClick={() => setOpen(true)}
         aria-label="Open navigation menu"
         aria-expanded={open}
-        className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:text-foreground"
+        className="flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-primary/10 hover:text-foreground"
       >
         <MoreVertical className="h-5 w-5" />
       </button>
@@ -73,21 +83,18 @@ export function MobileNav({ name, email, nav, socials }: MobileNavProps) {
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
             >
-              <div className="flex items-center justify-between border-b border-border px-6 py-4">
-                <span className="font-mono text-xs font-semibold tracking-[0.18em] uppercase">
-                  {name}
-                </span>
+              <div className="flex items-center justify-end px-4 py-3">
                 <button
                   type="button"
                   onClick={() => setOpen(false)}
                   aria-label="Close navigation menu"
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:text-foreground"
+                  className="flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-primary/10 hover:text-foreground"
                 >
                   <X className="h-5 w-5" />
                 </button>
               </div>
 
-              <nav aria-label="Mobile" className="flex flex-col gap-1 px-4 py-6">
+              <nav aria-label="Mobile" className="flex flex-col gap-1 px-4 py-4">
                 {nav.map((item, index) => {
                   const active = pathname === item.href
                   return (
@@ -102,17 +109,14 @@ export function MobileNav({ name, email, nav, socials }: MobileNavProps) {
                         onClick={() => setOpen(false)}
                         aria-current={active ? 'page' : undefined}
                         className={cn(
-                          'flex items-center justify-between rounded-lg px-3 py-3 transition-colors',
+                          'block rounded-lg px-3 py-2.5 transition-colors',
                           active
                             ? 'bg-primary/10 text-primary'
                             : 'text-foreground hover:bg-primary/5',
                         )}
                       >
-                        <span className="font-display text-2xl font-medium">
+                        <span className="font-display text-xl font-medium">
                           {item.label}
-                        </span>
-                        <span className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
-                          {String(index + 1).padStart(2, '0')}
                         </span>
                       </Link>
                     </motion.div>
@@ -120,26 +124,19 @@ export function MobileNav({ name, email, nav, socials }: MobileNavProps) {
                 })}
               </nav>
 
-              <div className="mt-auto border-t border-border px-6 py-5">
-                <a
-                  href={`mailto:${email}`}
-                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
-                >
-                  {email}
-                </a>
-                <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
-                  {socials.map((social) => (
-                    <a
-                      key={social.href}
-                      href={social.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="font-mono text-[11px] tracking-[0.16em] text-muted-foreground uppercase transition-colors hover:text-primary"
-                    >
-                      {social.label}
-                    </a>
-                  ))}
-                </div>
+              <div className="mt-auto flex items-center gap-2.5 px-6 py-5">
+                {socials.map((social) => (
+                  <a
+                    key={social.key}
+                    href={social.href}
+                  target="_blank"
+                    rel="noreferrer"
+                    aria-label={social.label}
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background/40 text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/60 hover:text-primary"
+                  >
+                    {SOCIAL_ICONS[social.key]}
+                  </a>
+                ))}
               </div>
             </motion.aside>
           </>

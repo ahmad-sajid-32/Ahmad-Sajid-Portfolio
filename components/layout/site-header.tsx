@@ -8,10 +8,10 @@ import { ThemeToggle } from './theme-toggle'
 export function SiteHeader() {
   const site = getSiteContent()
   const navItems = site.nav.filter((item) => item.href !== '/')
-  const email = site.socials
-    .find((social) => social.key === 'email')
-    ?.href.replace('mailto:', '')
-  const webSocials = site.socials.filter((social) => social.key !== 'email')
+  // The drawer footer carries the same three socials as the hero.
+  const drawerSocials = site.socials.filter((social) =>
+    ['github', 'linkedin', 'instagram'].includes(social.key),
+  )
 
   return (
     <header className="border-b border-border">
@@ -35,12 +35,7 @@ export function SiteHeader() {
         </nav>
         <div className="flex items-center gap-3">
           <ThemeToggle />
-          <MobileNav
-            name={site.name}
-            email={email ?? ''}
-            nav={site.nav}
-            socials={webSocials}
-          />
+          <MobileNav nav={site.nav} socials={drawerSocials} />
         </div>
       </div>
     </header>
