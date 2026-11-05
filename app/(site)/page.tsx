@@ -256,7 +256,7 @@ export default async function HomePage() {
         <Reveal className="mt-10">
           <ExpertiseIndex areas={home.expertise} />
         </Reveal>
-        <div className="mt-12">
+        <div className="mt-12 text-center">
           <Link
             href={home.intro.aboutCta.href}
             className="group inline-flex items-center gap-2 rounded-lg border border-input px-5 py-2.5 text-sm font-medium transition-colors duration-300 hover:border-primary/60 hover:text-primary"
