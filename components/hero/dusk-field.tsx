@@ -1,7 +1,7 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { useCallback, useState, useSyncExternalStore } from 'react'
+import { useCallback, useEffect, useState, useSyncExternalStore } from 'react'
 
 import { DuskFieldPoster } from './dusk-field-poster'
 import type { DuskFieldColors } from './dusk-field-scene'
@@ -96,9 +96,33 @@ export function DuskField() {
   const [watchdogTripped, setWatchdogTripped] = useState(false)
   const live = capable && !watchdogTripped
 
+  // The scene starts on idle, after first paint: the poster's look
+  // is identical, so the swap is invisible, and the headline's LCP
+  // never competes with GPU warm-up on a weak device.
+  const [started, setStarted] = useState(false)
+  useEffect(() => {
+    if (!live) {
+      return
+    }
+    let cancelled = false
+    const start = () => {
+      if (!cancelled) {
+        setStarted(true)
+      }
+    }
+    if (typeof window.requestIdleCallback === 'function') {
+      window.requestIdleCallback(start, { timeout: 900 })
+    } else {
+      window.setTimeout(start, 600)
+    }
+    return () => {
+      cancelled = true
+    }
+  }, [live])
+
   const handleLowPerformance = useCallback(() => setWatchdogTripped(true), [])
 
-  if (!live) {
+  if (!live || !started) {
     return <DuskFieldPoster />
   }
 
