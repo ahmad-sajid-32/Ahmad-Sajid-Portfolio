@@ -25,8 +25,7 @@ Last updated: 2026-11-05.
   first admin account, and the acceptance media upload was confirmed
   in the database and the storage bucket.
 
-### 🔄 Phase 2 — Data layer & seed (in progress, started 2026-11-05)
-Done locally:
+### ✅ Phase 2 — Data layer & seed (complete, 2026-11-05)
 - Collections: Projects, Technologies, Posts, Post Categories,
   Contact Submissions; Media upgraded (required alt, caption, image
   sizes for thumbnail/card/hero).
@@ -35,17 +34,18 @@ Done locally:
   problem, solution, challenges, outcome, architecture, features,
   media).
 - JSON data houses (`content/site|home|about|contact.json`) with
-  typed Zod loaders in `lib/content.ts`.
-- Seed script with placeholder covers: 16 technologies, 3 post
-  categories, 7 projects, 3 draft blog posts — all copy from verified
-  facts only.
+  typed Zod loaders in `lib/content.ts` — verified: removing a key
+  fails the production build with a Zod error; restored, it passes.
+- Seed run against Supabase, verified in the database and via public
+  REST: 16 technologies, 3 post categories, 7 projects (6 published,
+  FleetSlot held as a draft), 3 draft blog posts, 8 placeholder-cover
+  media items. Public API returns published projects only; drafts
+  are invisible.
 - One deliberate deviation: the project field is `deploymentStatus`,
   not `status` (Payload reserves `status`).
-
-Remaining:
-- Proof that a missing JSON key fails the build.
-- Seed run against Supabase + verification (admin and public REST).
-- Lint / typecheck / build green, then push to `rebuild`.
+- Note: placeholder covers are generated artifacts — regenerate with
+  `node scripts/generate-covers.mjs` before seeding a fresh database.
+- Lint, typecheck, and production build all green at close.
 
 ### ⬜ Phase 3 — Pages
 Home, About, Projects index + detail, Blog index + detail, Contact —

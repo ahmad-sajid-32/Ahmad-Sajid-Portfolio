@@ -1,12 +1,20 @@
+import { getHomeContent, getSiteContent } from '@/lib/content'
+
 export default function HomePage() {
+  const home = getHomeContent()
+  const site = getSiteContent()
+
   return (
     <section className="py-16">
       <p className="font-mono text-xs tracking-[0.18em] text-highlight uppercase">
-        Phase 1 — Scaffold check
+        {home.hero.eyebrow}
       </p>
       <h1 className="mt-4 font-display text-5xl leading-tight font-medium">
-        Lahore Dusk, on a clean premium structure.
+        {home.hero.headline}
       </h1>
+      <p className="mt-3 font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
+        {site.availability}
+      </p>
       <p className="mt-4 max-w-xl text-muted-foreground">
         This placeholder page exists to prove the token system in both modes.
         Every colour below comes from a semantic token in THEME.md — no raw
