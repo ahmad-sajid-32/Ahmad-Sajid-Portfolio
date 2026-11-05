@@ -133,6 +133,23 @@ export async function getHeroCounts(): Promise<HeroCounts> {
   }
 }
 
+export interface TechnologyName {
+  name: string
+  slug: string
+}
+
+/** All technologies (name + slug) for logo strips and indexes. */
+export async function getTechnologies(): Promise<TechnologyName[]> {
+  const payloadClient = await payload()
+  const result = await payloadClient.find({
+    collection: 'technologies',
+    limit: 100,
+    sort: 'name',
+    overrideAccess: false,
+  })
+  return result.docs.map((doc) => ({ name: doc.name, slug: doc.slug }))
+}
+
 export async function getProjectBySlug(
   slug: string,
 ): Promise<ProjectDoc | null> {

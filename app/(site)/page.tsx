@@ -12,6 +12,8 @@ import {
 
 import { PostCard } from '@/components/blog/post-card'
 import { HeroWord } from '@/components/hero/hero-word'
+import { ExpertiseIndex } from '@/components/home/expertise-index'
+import { TechMarquee } from '@/components/home/tech-marquee'
 import { Reveal } from '@/components/motion/reveal'
 import { SlideIn } from '@/components/motion/slide-in'
 import { ProjectCard } from '@/components/projects/project-card'
@@ -21,6 +23,7 @@ import {
   getFeaturedProjects,
   getHeroCounts,
   getPublishedPosts,
+  getTechnologies,
 } from '@/lib/data'
 
 /** Brand icons for the hero social badges, keyed by site.json social key. */
@@ -52,6 +55,7 @@ export default async function HomePage() {
   }
   const featured = await getFeaturedProjects()
   const posts = (await getPublishedPosts()).slice(0, 3)
+  const technologies = await getTechnologies()
 
   const personJsonLd = {
     '@context': 'https://schema.org',
@@ -120,7 +124,7 @@ export default async function HomePage() {
               <p className="font-display text-2xl text-highlight italic">
                 {home.hero.greeting}
               </p>
-              <h1 className="mt-2 font-display text-6xl leading-[0.95] font-semibold uppercase sm:text-7xl">
+              <h1 className="mt-2 font-display text-[65px] leading-[0.95] font-semibold uppercase sm:text-[78px]">
                 {home.hero.name}
               </h1>
               <p className="mt-4 font-mono text-sm tracking-[0.22em] text-foreground/80 uppercase">
@@ -152,30 +156,55 @@ export default async function HomePage() {
           <div className="relative z-[5] flex items-end justify-center">
             <SlideIn from="up" delay={0.5} className="lg:-mt-28 xl:-mt-36">
               {/* Mobile/tablet: bordered circular medallion of the
-                  studio portrait, gently floating. */}
+                  studio portrait, gently floating. The Dusk and
+                  Dawn portraits cross-fade on the theme class, so
+                  toggling never flashes or swaps abruptly. */}
               <div className="animate-float relative mx-auto lg:hidden">
                 <div
                   aria-hidden="true"
                   className="absolute -inset-3 rounded-full bg-primary/20 blur-xl"
                 />
+                <div className="relative h-60 w-60 overflow-hidden rounded-full border-2 border-primary/60 shadow-[0_18px_40px_rgba(0,0,0,0.35)] sm:h-72 sm:w-72">
+                  <Image
+                    src={home.hero.circlePortraitUrl}
+                    alt=""
+                    aria-hidden="true"
+                    width={640}
+                    height={640}
+                    priority
+                    className="absolute inset-0 h-full w-full object-cover object-[center_18%] opacity-0 transition-opacity duration-700 dark:opacity-100"
+                  />
+                  <Image
+                    src={home.hero.circlePortraitLightUrl}
+                    alt={home.hero.portraitAlt}
+                    width={640}
+                    height={640}
+                    priority
+                    className="absolute inset-0 h-full w-full object-cover object-[center_18%] transition-opacity duration-700 dark:opacity-0"
+                  />
+                </div>
+              </div>
+              {/* Desktop: the full cutout overlapping the word,
+                  cross-faded per theme the same way. */}
+              <div className="relative hidden w-[min(88vw,420px)] sm:w-[500px] lg:block lg:w-[620px] xl:w-[680px]">
                 <Image
-                  src={home.hero.circlePortraitUrl}
-                  alt={home.hero.portraitAlt}
-                  width={640}
-                  height={640}
+                  src={home.hero.portraitUrl}
+                  alt=""
+                  aria-hidden="true"
+                  width={1600}
+                  height={1280}
                   priority
-                  className="relative h-60 w-60 rounded-full border-2 border-primary/60 object-cover object-[center_18%] shadow-[0_18px_40px_rgba(0,0,0,0.35)] sm:h-72 sm:w-72"
+                  className="h-auto w-full opacity-0 drop-shadow-[0_24px_48px_rgba(0,0,0,0.45)] transition-opacity duration-700 dark:opacity-100"
+                />
+                <Image
+                  src={home.hero.portraitLightUrl}
+                  alt={home.hero.portraitAlt}
+                  width={1600}
+                  height={1280}
+                  priority
+                  className="absolute inset-0 h-full w-full object-contain drop-shadow-[0_24px_48px_rgba(0,0,0,0.30)] transition-opacity duration-700 dark:opacity-0"
                 />
               </div>
-              {/* Desktop: the full cutout overlapping the word. */}
-              <Image
-                src={home.hero.portraitUrl}
-                alt={home.hero.portraitAlt}
-                width={1600}
-                height={1280}
-                priority
-                className="hidden h-auto w-[min(88vw,420px)] drop-shadow-[0_24px_48px_rgba(0,0,0,0.45)] sm:w-[500px] lg:block lg:w-[620px] xl:w-[680px]"
-              />
             </SlideIn>
           </div>
 
@@ -212,25 +241,29 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Intro / expertise */}
-      <section className="border-t border-border py-14">
+      <TechMarquee technologies={technologies} />
+
+      {/* Intro / expertise — the marquee above carries the
+          section's top border, so the line stays a single
+          hairline instead of doubling up. */}
+      <section className="py-14">
         <Reveal>
-          <SectionHeading eyebrow="01 — What I do" title={home.intro.heading} />
+          <SectionHeading title={home.intro.heading} />
           <p className="mt-5 max-w-2xl leading-relaxed text-muted-foreground">
             {home.intro.body}
           </p>
         </Reveal>
-        <div className="mt-10 grid gap-4 sm:grid-cols-2">
-          {home.expertise.map((area, index) => (
-            <Reveal key={area.title} delay={index * 0.08}>
-              <div className="h-full rounded-[14px] border border-border bg-surface p-5">
-                <h3 className="font-display text-xl font-medium">{area.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {area.body}
-                </p>
-              </div>
-            </Reveal>
-          ))}
+        <Reveal className="mt-10">
+          <ExpertiseIndex areas={home.expertise} />
+        </Reveal>
+        <div className="mt-12 text-center">
+          <Link
+            href={home.intro.aboutCta.href}
+            className="group inline-flex items-center gap-2 rounded-lg border border-input px-5 py-2.5 text-sm font-medium transition-colors duration-300 hover:border-primary/60 hover:text-primary"
+          >
+            {home.intro.aboutCta.label}
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+          </Link>
         </div>
       </section>
 

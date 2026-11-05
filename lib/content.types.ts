@@ -24,7 +24,9 @@ export interface HomeContent {
     role: string
     giantWord: string
     portraitUrl: string
+    portraitLightUrl: string
     circlePortraitUrl: string
+    circlePortraitLightUrl: string
     portraitAlt: string
     statement: string
     stats: {
@@ -37,10 +39,15 @@ export interface HomeContent {
   intro: {
     heading: string
     body: string
+    aboutCta: {
+      label: string
+      href: string
+    }
   }
   expertise: {
     title: string
     body: string
+    chips: string[]
   }[]
   sections: {
     featuredProjects: string

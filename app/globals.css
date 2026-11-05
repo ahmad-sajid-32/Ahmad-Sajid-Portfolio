@@ -97,6 +97,18 @@
   }
 }
 
+/* Tech-stack marquee: the track holds two identical rows and
+   slides exactly one row's width, so the loop is seamless. */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 38s linear infinite;
+}
+
 @layer base {
   body {
     @apply bg-background font-sans text-foreground antialiased;

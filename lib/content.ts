@@ -51,7 +51,9 @@ const homeSchema = z.object({
     role: z.string().min(1),
     giantWord: z.string().min(1),
     portraitUrl: z.string().min(1),
+    portraitLightUrl: z.string().min(1),
     circlePortraitUrl: z.string().min(1),
+    circlePortraitLightUrl: z.string().min(1),
     portraitAlt: z.string().min(1),
     statement: z.string().min(1),
     stats: z
@@ -68,12 +70,17 @@ const homeSchema = z.object({
   intro: z.object({
     heading: z.string().min(1),
     body: z.string().min(1),
+    aboutCta: z.object({
+      label: z.string().min(1),
+      href: z.string().min(1),
+    }),
   }),
   expertise: z
     .array(
       z.object({
         title: z.string().min(1),
         body: z.string().min(1),
+        chips: z.array(z.string().min(1)).min(1),
       }),
     )
     .min(1),

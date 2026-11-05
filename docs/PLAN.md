@@ -196,6 +196,43 @@ Last updated: 2026-11-06.
   live stats (6 / 16 / 4), both portrait files optimise through
   the Next image pipeline (200), all routes 200, FleetSlot draft
   still 404, sitemap at 14 URLs, no Dusk Field traces.
+- Post-launch hero tweaks (on `rebuild`, 2026-11-06): hero
+  entrances now wait for the loader (it dispatches
+  `pf:intro-done` as it fades; `useIntroReady` gates SlideIn and
+  HeroWord, with a safety timeout) so the choreography is seen,
+  not spent behind the veil. Dawn gets its own portrait set
+  (Media ids 15/16) cross-faded against the Dusk set on the theme
+  class — no swap glitch. The theme toggle is now a miniature
+  desert scene (sun/moon travelling over dunes, stars at Dusk).
+  Mobile header: the link strip is replaced by a three-dot button
+  opening a right-hand slide-in drawer. A tech-stack logo marquee
+  is built and awaiting Ahmad's preview approval before it joins
+  the page.
+- Corrections from Ahmad's phone review (2026-11-06): the
+  toggle's sun/moon disc is vertically centred (a double
+  translate — utility class + inline style — had pushed it into
+  the top edge). The mobile drawer drops its borders on the
+  three-dot and close buttons, the name header, the email/social
+  text footer (now three icon buttons: GitHub, LinkedIn,
+  Instagram) and the link index numbers; link text steps down a
+  size.
+- Portrait correction (Ahmad, 2026-11-06): the first Dawn
+  portrait was a separate generation (different expression) —
+  replaced by a RELIGHT of the Dusk portrait itself (Media ids
+  17/18, `hero-portrait-dawn.png` / `hero-portrait-studio-dawn.png`),
+  so both themes now show the identical photograph, expression
+  and blazer, with only the lighting changed. The earlier Dawn
+  pair (ids 15/16) is superseded and unused.
+- "What I do" section rebuilt as the Giant Index (Concept 3,
+  picked by Ahmad from three rendered prototypes, 2026-11-06):
+  giant Fraunces rows; on desktop the active row lights amber,
+  nudges sideways and a tilted detail card floats to it (spring
+  motion, clamped to the section); below lg the detail expands
+  inline under the tapped row. Chips and the "More about me"
+  About CTA live in the home data house; Lucide icon per area.
+  The section's eyebrow was removed at Ahmad's request (it
+  repeated the title); SectionHeading's eyebrow is now optional.
+  The throwaway /proto route was deleted after the pick.
 
 ## Open items (content & decisions)
 - **FleetSlot** is seeded as a draft — its stack, type, and links
