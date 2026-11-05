@@ -108,11 +108,25 @@ Last updated: 2026-11-05.
   intentionally holds no keys — local dev runs the form in
   stored-only mode.
 
-### ⬜ Phase 6 — Launch
-Performance pass (Lighthouse ≥ 90 mobile, LCP < 2.5 s, no three.js
-off the home page), adopt committed DB migrations, remove the old
-static files from `rebuild`, single merge `rebuild` → `main`
-(Vercel rollback is the safety net).
+### ✅ Phase 6 — Launch (complete, 2026-11-05 — SITE IS LIVE)
+- Performance pass: Dusk Field hardened — idle start after first
+  paint, render pauses off-screen, faster two-stage FPS watchdog.
+  Sandbox Lighthouse (software GPU): a11y 100, best practices 100,
+  SEO 100, CLS 0; the performance score there is not representative
+  for a WebGL page — the real-device reading comes from PageSpeed
+  Insights on the live URL.
+- Committed DB migrations adopted: `migrations/` holds the initial
+  migration (44 tables); the live database is baselined as applied.
+- Old static files removed from `rebuild` (23 files; the old site
+  survives on `legacy-html`).
+- Launch merged in two PRs: #1 took `rebuild` to Phase 5 state —
+  its production build failed because Production env vars were not
+  set yet; once Ahmad set them, #2 merged the Phase 6 remainder and
+  the production build succeeded.
+- Verified live on https://ahmad-sajid.vercel.app: every route 200,
+  draft project 404, old assets 404, sitemap with all 6 projects,
+  Turnstile widget rendered on /contact and a tokenless submit
+  rejected (400) — spam protection active; /admin up.
 
 ## Open items (content & decisions)
 - **FleetSlot** is seeded as a draft — its stack, type, and links
