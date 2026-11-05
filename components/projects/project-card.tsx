@@ -9,6 +9,7 @@ export function ProjectCard({ project }: { project: ProjectDoc }) {
   return (
     <Link
       href={`/projects/${project.slug}`}
+      data-cursor="view"
       className="group block overflow-hidden rounded-[14px] border border-border bg-surface transition-all duration-300 hover:-translate-y-1 hover:border-input"
     >
       {cover?.url ? (

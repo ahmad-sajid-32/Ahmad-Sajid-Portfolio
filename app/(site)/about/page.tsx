@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 
+import { Reveal } from '@/components/motion/reveal'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { getAboutContent } from '@/lib/content'
 
@@ -26,6 +27,7 @@ export default function AboutPage() {
         ))}
       </div>
 
+      <Reveal>
       <section className="mt-16">
         <SectionHeading eyebrow="01 — Experience" title="Where I've worked" />
         <div className="mt-8 space-y-0">
@@ -49,7 +51,9 @@ export default function AboutPage() {
           ))}
         </div>
       </section>
+      </Reveal>
 
+      <Reveal>
       <section className="mt-16">
         <SectionHeading eyebrow="02 — Education" title="Education" />
         <div className="mt-8 grid gap-4 sm:grid-cols-2">
@@ -72,7 +76,9 @@ export default function AboutPage() {
           ))}
         </div>
       </section>
+      </Reveal>
 
+      <Reveal>
       <section className="mt-16">
         <SectionHeading eyebrow="03 — Skills" title="What I work with" />
         <div className="mt-8 grid gap-4 sm:grid-cols-2">
@@ -96,7 +102,9 @@ export default function AboutPage() {
           ))}
         </div>
       </section>
+      </Reveal>
 
+      <Reveal>
       <section className="mt-16">
         <SectionHeading eyebrow="04 — Certificates" title="Certificates" />
         <ul className="mt-8 divide-y divide-border border-y border-border">
@@ -116,6 +124,7 @@ export default function AboutPage() {
           ))}
         </ul>
       </section>
+      </Reveal>
     </div>
   )
 }

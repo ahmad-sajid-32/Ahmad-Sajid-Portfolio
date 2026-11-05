@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 
 import { PostCard } from '@/components/blog/post-card'
+import { Reveal } from '@/components/motion/reveal'
 import { getPublishedPosts } from '@/lib/data'
 
 export const metadata: Metadata = {
@@ -27,11 +28,13 @@ export default async function BlogPage() {
       </p>
 
       {posts.length > 0 ? (
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {posts.map((post) => (
-            <PostCard key={post.id} post={post} />
-          ))}
-        </div>
+        <Reveal>
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {posts.map((post) => (
+              <PostCard key={post.id} post={post} />
+            ))}
+          </div>
+        </Reveal>
       ) : (
         <div className="mt-10 rounded-[14px] border border-border bg-surface p-8">
           <h2 className="font-display text-2xl font-medium">

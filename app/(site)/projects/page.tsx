@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
+import { Reveal } from '@/components/motion/reveal'
 import { ProjectCard } from '@/components/projects/project-card'
 import { getPublishedProjects, TRACK_LABELS } from '@/lib/data'
 
@@ -65,11 +66,13 @@ export default async function ProjectsPage({ searchParams }: ProjectsPageProps) 
       </div>
 
       {visible.length > 0 ? (
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {visible.map((project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
-        </div>
+        <Reveal>
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {visible.map((project) => (
+              <ProjectCard key={project.id} project={project} />
+            ))}
+          </div>
+        </Reveal>
       ) : (
         <p className="mt-10 rounded-[14px] border border-border bg-surface p-6 text-muted-foreground">
           No published projects in this track yet.

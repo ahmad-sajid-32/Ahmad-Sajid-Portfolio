@@ -80,4 +80,18 @@
   body {
     @apply bg-background font-sans text-foreground antialiased;
   }
+
+  /* Custom cursor is active (set by components/motion/cursor.tsx on
+     fine-pointer, motion-allowed devices only): hide the native
+     cursor everywhere except form fields, where it is restored. */
+  .has-cursor,
+  .has-cursor * {
+    cursor: none !important;
+  }
+  .has-cursor input,
+  .has-cursor textarea,
+  .has-cursor select,
+  .has-cursor [contenteditable='true'] {
+    cursor: auto !important;
+  }
 }

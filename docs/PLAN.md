@@ -62,10 +62,26 @@ Last updated: 2026-11-05.
   Dusk Field scene — Phase 4 swaps in the real 3D.
 - Lint, typecheck, and production build green at close.
 
-### ⬜ Phase 4 — Motion & 3D
-"Dusk Field" hero scene (React Three Fiber), Lenis smooth scroll,
-scroll reveals and parallax, custom cursor — all with
-reduced-motion fallbacks.
+### ✅ Phase 4 — Motion & 3D (complete, 2026-11-05)
+- "Dusk Field" hero scene (React Three Fiber): three translucent
+  rings + a prism in theme colours, warm key light, slow orbital
+  drift and pointer parallax. Theme-aware (Dusk/Dawn palettes),
+  DPR clamped, home page only — three.js ships as a lazy chunk no
+  other route can load.
+- Fallback contract honoured: static poster (same composition in
+  CSS) for reduced-motion, no-WebGL, and low-FPS devices (an in-scene
+  watchdog hands back to the poster below 28 FPS).
+- Lenis smooth scrolling with anchor support, scroll reveals
+  (fade + rise, once per element), parallax accents, and a short
+  page transition on navigation — all disabled under
+  `prefers-reduced-motion`.
+- Custom cursor: amber dot + trailing ring, expands over links,
+  becomes a filled "View" badge over project cards; never on touch
+  devices, native cursor restored in form fields, and the Payload
+  admin is untouched.
+- Lint, typecheck, and production build green at close; production
+  serve verified (cursor markup, poster in SSR HTML, View hooks on
+  cards).
 
 ### ⬜ Phase 5 — Contact & SEO
 Contact form delivery (Resend + Cloudflare Turnstile, admin email
