@@ -124,7 +124,7 @@ export function MobileNav({ nav, socials }: MobileNavProps) {
                 })}
               </nav>
 
-              <div className="mt-auto flex items-center gap-2.5 px-6 py-5">
+              <div className="mt-auto flex items-center justify-center gap-2.5 px-6 py-5">
                 {socials.map((social) => (
                   <a
                     key={social.key}
