@@ -242,8 +242,10 @@ export default async function HomePage() {
 
       <TechMarquee technologies={technologies} />
 
-      {/* Intro / expertise */}
-      <section className="border-t border-border py-14">
+      {/* Intro / expertise — the marquee above carries the
+          section's top border, so the line stays a single
+          hairline instead of doubling up. */}
+      <section className="py-14">
         <Reveal>
           <SectionHeading eyebrow="01 — What I do" title={home.intro.heading} />
           <p className="mt-5 max-w-2xl leading-relaxed text-muted-foreground">

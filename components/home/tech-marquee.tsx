@@ -76,7 +76,7 @@ export function TechMarquee({ technologies }: { technologies: TechnologyName[] }
   )
 
   return (
-    <section aria-label="Tech stack" className="overflow-hidden border-b border-border py-7">
+    <section aria-label="Tech stack" className="overflow-hidden border-y border-border py-7">
       <div className="group relative [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
         <div className="animate-marquee flex w-max group-hover:[animation-play-state:paused] motion-reduce:animate-none">
           <MarqueeRow technologies={ordered} />
