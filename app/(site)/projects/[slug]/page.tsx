@@ -30,9 +30,25 @@ export async function generateMetadata({
   if (!project) {
     return { title: 'Project not found' }
   }
+  const title = project.seo?.metaTitle ?? project.title
+  const description = project.seo?.metaDescription ?? project.excerpt
+  const image = project.coverImage?.url
   return {
-    title: project.seo?.metaTitle ?? project.title,
-    description: project.seo?.metaDescription ?? project.excerpt,
+    title,
+    description,
+    openGraph: {
+      type: 'article',
+      title,
+      description,
+      url: `https://ahmad-sajid.vercel.app/projects/${project.slug}`,
+      images: image ? [{ url: image, alt: project.coverImage.alt }] : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: image ? [image] : undefined,
+    },
   }
 }
 

@@ -24,9 +24,26 @@ export async function generateMetadata({
   if (!post) {
     return { title: 'Post not found' }
   }
+  const title = post.seo?.metaTitle ?? post.title
+  const description = post.seo?.metaDescription ?? post.excerpt
+  const image = post.coverImage?.url
   return {
-    title: post.seo?.metaTitle ?? post.title,
-    description: post.seo?.metaDescription ?? post.excerpt,
+    title,
+    description,
+    openGraph: {
+      type: 'article',
+      title,
+      description,
+      url: `https://ahmad-sajid.vercel.app/blog/${post.slug}`,
+      publishedTime: post.publishedAt ?? undefined,
+      images: image ? [{ url: image, alt: post.coverImage.alt }] : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: image ? [image] : undefined,
+    },
   }
 }
 

@@ -1,5 +1,6 @@
 'use client'
 
+import Script from 'next/script'
 import { useState } from 'react'
 
 import type { ContactContent } from '@/lib/content.types'
@@ -12,7 +13,14 @@ const inputClass =
 const labelClass =
   'font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase'
 
-export function ContactForm({ form }: { form: ContactContent['form'] }) {
+interface ContactFormProps {
+  form: ContactContent['form']
+  /** Public Turnstile site key; when set, the widget renders and the
+   * server verifies its token before storing the message. */
+  turnstileSiteKey?: string
+}
+
+export function ContactForm({ form, turnstileSiteKey }: ContactFormProps) {
   const [state, setState] = useState<FormState>('idle')
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -21,7 +29,7 @@ export function ContactForm({ form }: { form: ContactContent['form'] }) {
     const data = new FormData(formElement)
     setState('sending')
     try {
-      const response = await fetch('/api/contact-submissions', {
+      const response = await fetch('/contact/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -29,6 +37,7 @@ export function ContactForm({ form }: { form: ContactContent['form'] }) {
           email: data.get('email'),
           subject: data.get('subject'),
           message: data.get('message'),
+          turnstileToken: data.get('cf-turnstile-response') ?? undefined,
         }),
       })
       if (!response.ok) {
@@ -103,6 +112,16 @@ export function ContactForm({ form }: { form: ContactContent['form'] }) {
           className={inputClass}
         />
       </div>
+      {turnstileSiteKey ? (
+        <>
+          <Script
+            src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+            async
+            defer
+          />
+          <div className="cf-turnstile" data-sitekey={turnstileSiteKey} />
+        </>
+      ) : null}
       {state === 'error' ? (
         <p className="text-sm text-destructive">{form.errorMessage}</p>
       ) : null}

@@ -1,4 +1,5 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { resendAdapter } from '@payloadcms/email-resend'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { s3Storage } from '@payloadcms/storage-s3'
 import { NodeHttpHandler } from '@smithy/node-http-handler'
@@ -39,6 +40,18 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Projects, Technologies, Posts, PostCategories, ContactSubmissions],
+  // Email via Resend when RESEND_API_KEY is set; without it Payload
+  // logs mail to the console (safe for local dev). The onboarding
+  // sender can only deliver to the Resend account owner's inbox —
+  // which is exactly the contact-notification target. Switch the
+  // From address once a sending domain is verified in Resend.
+  email: process.env.RESEND_API_KEY
+    ? resendAdapter({
+        defaultFromAddress: 'onboarding@resend.dev',
+        defaultFromName: 'Ahmad Sajid — Portfolio',
+        apiKey: process.env.RESEND_API_KEY,
+      })
+    : undefined,
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

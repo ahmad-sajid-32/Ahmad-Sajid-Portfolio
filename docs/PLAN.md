@@ -83,9 +83,27 @@ Last updated: 2026-11-05.
   serve verified (cursor markup, poster in SSR HTML, View hooks on
   cards).
 
-### ⬜ Phase 5 — Contact & SEO
-Contact form delivery (Resend + Cloudflare Turnstile, admin email
-hook), metadata/OG, sitemap, analytics-free launch polish.
+### ✅ Phase 5 — Contact & SEO (complete, 2026-11-05 — keys pending)
+- SEO: dynamic sitemap (static routes + published projects/posts),
+  robots (admin/api disallowed), SVG icon in theme colours,
+  Open Graph + Twitter cards site-wide and per project/post (cover
+  image as the share image), Person JSON-LD on the home page.
+- Contact delivery: submissions now post to a dedicated
+  `/contact/submit` route, are stored in Payload, and fire an
+  afterChange hook that emails Ahmad a notification (payload's
+  Resend adapter; the mail step can never block or lose a message).
+- Spam protection: Cloudflare Turnstile widget + server-side
+  verification in the submit route (fails closed when configured).
+- Verified: build green; sitemap lists all published projects;
+  robots and icon served; OG tags present on detail pages; a test
+  submission stored with status "new" and the notification email
+  attempted to Ahmad's inbox (test row cleaned up).
+- **Remaining activation step:** add `RESEND_API_KEY`,
+  `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, and `TURNSTILE_SECRET_KEY` to
+  the environment (Vercel + local). The code activates each piece
+  automatically when its key appears — until then the form still
+  stores submissions, mail logs to console, and Turnstile is
+  skipped.
 
 ### ⬜ Phase 6 — Launch
 Performance pass (Lighthouse ≥ 90 mobile, LCP < 2.5 s, no three.js

@@ -27,7 +27,10 @@ export default function ContactPage() {
       </p>
 
       <div className="mt-12 grid gap-10 lg:grid-cols-[1fr_320px]">
-        <ContactForm form={contact.form} />
+        <ContactForm
+          form={contact.form}
+          turnstileSiteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
+        />
 
         <aside className="space-y-8">
           <div className="rounded-[14px] border border-border bg-surface p-5">

@@ -15,8 +15,31 @@ export default async function HomePage() {
   const featured = await getFeaturedProjects()
   const posts = (await getPublishedPosts()).slice(0, 3)
 
+  const personJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: site.name,
+    url: 'https://ahmad-sajid.vercel.app',
+    jobTitle: 'Software Engineer',
+    description: site.defaultSeo.description,
+    email: 'mailto:ahmadsajid41324@gmail.com',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Lahore',
+      addressCountry: 'PK',
+    },
+    sameAs: site.socials
+      .map((social) => social.href)
+      .filter((href) => href.startsWith('http')),
+    knowsAbout: home.expertise.map((area) => area.title),
+  }
+
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+      />
       {/* Hero */}
       <section className="grid items-center gap-10 py-16 sm:py-20 lg:grid-cols-2">
         <div>
