@@ -185,6 +185,10 @@ Last updated: 2026-11-06.
   lib/data.ts), specialisations = number of expertise areas in
   the data house; home.json stats carry keys + labels only. The
   projects stat therefore reads 6 until FleetSlot is published.
+- Gradient off + bigger medallion (Ahmad, 2026-11-06): the
+  mobile amber wash and the radial glow blob are hidden below
+  `lg` (desktop keeps both); the circular portrait grows to
+  240px (288px on sm+).
 
 ## Open items (content & decisions)
 - **FleetSlot** is seeded as a draft — its stack, type, and links

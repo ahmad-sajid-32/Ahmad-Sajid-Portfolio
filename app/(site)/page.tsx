@@ -82,12 +82,7 @@ export default async function HomePage() {
           centred in front, intro stack left, stats rail right. */}
       <section className="relative flex min-h-[calc(100svh-3.6rem)] flex-col overflow-hidden pt-12 sm:pt-16">
         {/* Mobile/tablet: the giant word steps aside (it collides
-            with the heading at these widths) — a light full-screen
-            amber wash carries the hero instead. */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-primary/20 via-primary/8 to-transparent lg:hidden"
-        />
+            with the heading at these widths). */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 top-12 hidden justify-center sm:top-14 lg:top-[19%] lg:flex"
@@ -98,7 +93,7 @@ export default async function HomePage() {
         </div>
         <div
           aria-hidden="true"
-          className="absolute top-40 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-primary/15 blur-3xl"
+          className="absolute top-40 left-1/2 hidden h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-primary/15 blur-3xl lg:block"
         />
         <span
           aria-hidden="true"
@@ -169,7 +164,7 @@ export default async function HomePage() {
                   width={640}
                   height={640}
                   priority
-                  className="relative h-52 w-52 rounded-full border-2 border-primary/60 object-cover object-[center_18%] shadow-[0_18px_40px_rgba(0,0,0,0.35)] sm:h-60 sm:w-60"
+                  className="relative h-60 w-60 rounded-full border-2 border-primary/60 object-cover object-[center_18%] shadow-[0_18px_40px_rgba(0,0,0,0.35)] sm:h-72 sm:w-72"
                 />
               </div>
               {/* Desktop: the full cutout overlapping the word. */}
