@@ -128,7 +128,7 @@ Last updated: 2026-11-06.
   Turnstile widget rendered on /contact and a tokenless submit
   rejected (400) — spam protection active; /admin up.
 
-### 🔄 Improvement round 2 — Hero redesign (on `rebuild`, 2026-11-06; merge pending Ahmad's go)
+### ✅ Improvement round 2 — Hero redesign (complete, 2026-11-06 — MERGED & LIVE via PR #3, main `a7e8758`)
 - Full-width layout across the site (header, main, footer share the
   same full-bleed padded wrapper; inner text blocks keep readable
   max-widths).
@@ -189,6 +189,13 @@ Last updated: 2026-11-06.
   mobile amber wash and the radial glow blob are hidden below
   `lg` (desktop keeps both); the circular portrait grows to
   240px (288px on sm+).
+- **Launch verification (2026-11-06):** PR #3 merged (one
+  conflict, docs/PLAN.md only — resolved by aligning main's PLAN
+  to the rebuild tracker, a strict superset). Verified live on
+  https://ahmad-sajid.vercel.app: home serves the new hero with
+  live stats (6 / 16 / 4), both portrait files optimise through
+  the Next image pipeline (200), all routes 200, FleetSlot draft
+  still 404, sitemap at 14 URLs, no Dusk Field traces.
 
 ## Open items (content & decisions)
 - **FleetSlot** is seeded as a draft — its stack, type, and links
