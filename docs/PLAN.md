@@ -83,7 +83,7 @@ Last updated: 2026-11-05.
   serve verified (cursor markup, poster in SSR HTML, View hooks on
   cards).
 
-### ✅ Phase 5 — Contact & SEO (complete, 2026-11-05 — keys pending)
+### ✅ Phase 5 — Contact & SEO (complete, 2026-11-05; keys added by Ahmad the same day)
 - SEO: dynamic sitemap (static routes + published projects/posts),
   robots (admin/api disallowed), SVG icon in theme colours,
   Open Graph + Twitter cards site-wide and per project/post (cover
@@ -98,12 +98,15 @@ Last updated: 2026-11-05.
   robots and icon served; OG tags present on detail pages; a test
   submission stored with status "new" and the notification email
   attempted to Ahmad's inbox (test row cleaned up).
-- **Remaining activation step:** add `RESEND_API_KEY`,
+- **Activation:** Ahmad added `RESEND_API_KEY`,
   `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, and `TURNSTILE_SECRET_KEY` to
-  the environment (Vercel + local). The code activates each piece
-  automatically when its key appears — until then the form still
-  stores submissions, mail logs to console, and Turnstile is
-  skipped.
+  the Vercel environment on 2026-11-05 (confirmed by him; the
+  preview sits behind Deployment Protection, so the deployed check
+  is his acceptance pass: widget visible on /contact, a test
+  submission, and the notification email in his inbox). Production
+  scope gets the same variables at Phase 6. Local `.env.local`
+  intentionally holds no keys — local dev runs the form in
+  stored-only mode.
 
 ### ⬜ Phase 6 — Launch
 Performance pass (Lighthouse ≥ 90 mobile, LCP < 2.5 s, no three.js
