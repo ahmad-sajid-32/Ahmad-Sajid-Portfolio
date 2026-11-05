@@ -216,6 +216,13 @@ Last updated: 2026-11-06.
   text footer (now three icon buttons: GitHub, LinkedIn,
   Instagram) and the link index numbers; link text steps down a
   size.
+- Portrait correction (Ahmad, 2026-11-06): the first Dawn
+  portrait was a separate generation (different expression) —
+  replaced by a RELIGHT of the Dusk portrait itself (Media ids
+  17/18, `hero-portrait-dawn.png` / `hero-portrait-studio-dawn.png`),
+  so both themes now show the identical photograph, expression
+  and blazer, with only the lighting changed. The earlier Dawn
+  pair (ids 15/16) is superseded and unused.
 
 ## Open items (content & decisions)
 - **FleetSlot** is seeded as a draft — its stack, type, and links
