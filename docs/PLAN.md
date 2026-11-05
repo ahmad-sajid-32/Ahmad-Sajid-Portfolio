@@ -5,7 +5,7 @@ Payload CMS on Supabase, deployed on the same Vercel project and
 domain (`ahmad-sajid.vercel.app`). Architecture: `docs/ARCHITECTURE.md`.
 Working rules: `docs/AGENT.md`.
 
-Last updated: 2026-11-05.
+Last updated: 2026-11-06.
 
 ## Phase status
 
@@ -127,6 +127,33 @@ Last updated: 2026-11-05.
   draft project 404, old assets 404, sitemap with all 6 projects,
   Turnstile widget rendered on /contact and a tokenless submit
   rejected (400) — spam protection active; /admin up.
+
+### 🔄 Improvement round 2 — Hero redesign (on `rebuild`, 2026-11-06; merge pending Ahmad's go)
+- Full-width layout across the site (header, main, footer share the
+  same full-bleed padded wrapper; inner text blocks keep readable
+  max-widths).
+- New hero after the reference reel's composition, in Lahore Dusk:
+  giant amber-gradient word "DEVELOPER" behind a centred studio
+  portrait cutout (generated from Ahmad's photo, background removed;
+  the file lives in Payload Media, `hero-portrait.png`, and the URL
+  sits in the `content/home.json` data house). Intro stack left
+  (greeting, name, role, statement, CTAs, availability — no location
+  in the hero; Lahore, Pakistan stays in the footer), stats rail
+  right (7 projects / 16 technologies / 4 specialisations).
+- Entrance animations (all reduced-motion safe): DEVELOPER letters
+  drop in one at a time left→right; intro glides from the left,
+  stats from the right, portrait rises from below. New primitives:
+  `components/motion/slide-in.tsx`, `components/hero/hero-word.tsx`.
+- Custom first-load loader (`components/layout/site-loader.tsx`):
+  animated rings-and-prism illustration + wordmark + progress sweep,
+  once per session, <2s, skipped under reduced motion.
+- Dusk Field retired: the three.js scene components are deleted and
+  `three` / `@react-three/fiber` uninstalled; the home page ships no
+  WebGL now.
+- Verified locally: production build green; screenshots checked in
+  Dawn and Dusk, desktop and mobile (a missing `grid-cols-1` caused
+  a 52px mobile overflow — found by measurement and fixed; the stats
+  row now wraps on small screens).
 
 ## Open items (content & decisions)
 - **FleetSlot** is seeded as a draft — its stack, type, and links

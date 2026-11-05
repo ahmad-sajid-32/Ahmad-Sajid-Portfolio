@@ -3,6 +3,7 @@ import { Fraunces, JetBrains_Mono, Manrope } from 'next/font/google'
 
 import { SiteFooter } from '@/components/layout/site-footer'
 import { SiteHeader } from '@/components/layout/site-header'
+import { SiteLoader } from '@/components/layout/site-loader'
 import { Cursor } from '@/components/motion/cursor'
 import { LenisProvider } from '@/components/motion/lenis-provider'
 import { getSiteContent } from '@/lib/content'
@@ -68,10 +69,11 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body>
+        <SiteLoader />
         <LenisProvider />
         <Cursor />
         <SiteHeader />
-        <main className="mx-auto max-w-5xl px-6">{children}</main>
+        <main className="w-full px-6 sm:px-10 lg:px-14 xl:px-20">{children}</main>
         <SiteFooter />
       </body>
     </html>
