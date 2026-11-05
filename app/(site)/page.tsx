@@ -17,7 +17,11 @@ import { SlideIn } from '@/components/motion/slide-in'
 import { ProjectCard } from '@/components/projects/project-card'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { getHomeContent, getSiteContent } from '@/lib/content'
-import { getFeaturedProjects, getPublishedPosts } from '@/lib/data'
+import {
+  getFeaturedProjects,
+  getHeroCounts,
+  getPublishedPosts,
+} from '@/lib/data'
 
 /** Brand icons for the hero social badges, keyed by site.json social key. */
 const SOCIAL_ICONS: Record<string, ReactNode> = {
@@ -29,7 +33,7 @@ const SOCIAL_ICONS: Record<string, ReactNode> = {
   fiverr: <span className="text-[13px] font-bold tracking-tight">fi</span>,
 }
 
-const HERO_SOCIAL_KEYS = ['github', 'linkedin', 'instagram', 'facebook', 'fiverr']
+const HERO_SOCIAL_KEYS = ['github', 'linkedin', 'instagram']
 
 export default async function HomePage() {
   const home = getHomeContent()
@@ -37,6 +41,15 @@ export default async function HomePage() {
   const heroSocials = site.socials.filter((social) =>
     HERO_SOCIAL_KEYS.includes(social.key),
   )
+  // Hero stats are computed, never typed: project and technology
+  // counts come live from Payload; specialisations counts the
+  // expertise areas defined in the home data house.
+  const heroCounts = await getHeroCounts()
+  const statValues: Record<string, number> = {
+    projects: heroCounts.projects,
+    technologies: heroCounts.technologies,
+    specialisations: home.expertise.length,
+  }
   const featured = await getFeaturedProjects()
   const posts = (await getPublishedPosts()).slice(0, 3)
 
@@ -68,9 +81,16 @@ export default async function HomePage() {
       {/* Hero — portrait composition: giant word behind, portrait
           centred in front, intro stack left, stats rail right. */}
       <section className="relative flex min-h-[calc(100svh-3.6rem)] flex-col overflow-hidden pt-12 sm:pt-16">
+        {/* Mobile/tablet: the giant word steps aside (it collides
+            with the heading at these widths) — a light full-screen
+            amber wash carries the hero instead. */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-12 flex justify-center sm:top-14 lg:top-[19%]"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-primary/20 via-primary/8 to-transparent lg:hidden"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-12 hidden justify-center sm:top-14 lg:top-[19%] lg:flex"
         >
           <span className="font-display text-[15vw] leading-[0.85] font-bold tracking-tight whitespace-nowrap select-none">
             <HeroWord word={home.hero.giantWord} />
@@ -99,7 +119,7 @@ export default async function HomePage() {
           {'=>'}
         </span>
 
-        <div className="relative grid w-full flex-1 grid-cols-1 gap-10 lg:grid-cols-[1fr_auto_1fr]">
+        <div className="relative grid w-full flex-1 grid-cols-1 gap-x-10 gap-y-14 lg:grid-cols-[1fr_auto_1fr] lg:gap-10">
           <div className="relative z-10 flex flex-col justify-between gap-10 pb-14">
             <SlideIn from="left">
               <p className="font-display text-2xl text-highlight italic">
@@ -136,13 +156,30 @@ export default async function HomePage() {
 
           <div className="relative z-[5] flex items-end justify-center">
             <SlideIn from="up" delay={0.5} className="lg:-mt-28 xl:-mt-36">
+              {/* Mobile/tablet: bordered circular medallion of the
+                  studio portrait, gently floating. */}
+              <div className="animate-float relative mx-auto lg:hidden">
+                <div
+                  aria-hidden="true"
+                  className="absolute -inset-3 rounded-full bg-primary/20 blur-xl"
+                />
+                <Image
+                  src={home.hero.circlePortraitUrl}
+                  alt={home.hero.portraitAlt}
+                  width={640}
+                  height={640}
+                  priority
+                  className="relative h-52 w-52 rounded-full border-2 border-primary/60 object-cover object-[center_18%] shadow-[0_18px_40px_rgba(0,0,0,0.35)] sm:h-60 sm:w-60"
+                />
+              </div>
+              {/* Desktop: the full cutout overlapping the word. */}
               <Image
                 src={home.hero.portraitUrl}
                 alt={home.hero.portraitAlt}
                 width={1600}
                 height={1280}
                 priority
-                className="h-auto w-[min(88vw,420px)] drop-shadow-[0_24px_48px_rgba(0,0,0,0.45)] sm:w-[500px] lg:w-[620px] xl:w-[680px]"
+                className="hidden h-auto w-[min(88vw,420px)] drop-shadow-[0_24px_48px_rgba(0,0,0,0.45)] sm:w-[500px] lg:block lg:w-[620px] xl:w-[680px]"
               />
             </SlideIn>
           </div>
@@ -155,7 +192,7 @@ export default async function HomePage() {
             {home.hero.stats.map((stat) => (
               <div key={stat.label} className="text-center lg:text-right">
                 <p className="font-display text-5xl font-semibold text-primary">
-                  {stat.value}
+                  {statValues[stat.key] ?? 0}
                 </p>
                 <p className="mt-1 font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
                   {stat.label}

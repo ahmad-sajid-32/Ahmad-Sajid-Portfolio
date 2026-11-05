@@ -24,10 +24,11 @@ export interface HomeContent {
     role: string
     giantWord: string
     portraitUrl: string
+    circlePortraitUrl: string
     portraitAlt: string
     statement: string
     stats: {
-      value: string
+      key: string
       label: string
     }[]
     primaryCta: ContentLink

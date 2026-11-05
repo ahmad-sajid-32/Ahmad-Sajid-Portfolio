@@ -170,6 +170,21 @@ Last updated: 2026-11-06.
   so the footer and the Person JSON-LD `sameAs` picked them up
   too). Verified by screenshots at 1600×1000 and 1366×768 in Dusk
   and Dawn.
+- Mobile/tablet pass + live stats (Ahmad, 2026-11-06): hero
+  socials cut to GitHub / LinkedIn / Instagram (Facebook and
+  Fiverr live in the footer list). Below `lg` the DEVELOPER word
+  is hidden (it collided with the heading) and a light full-screen
+  amber wash (`from-primary/20`) carries the hero; the portrait
+  becomes a bordered circular medallion of the studio portrait
+  (new Media item `hero-portrait-studio.png`, URL in home.json as
+  `circlePortraitUrl`) with a gentle float animation
+  (`.animate-float` in globals.css, reduced-motion safe) and more
+  air before the stats. Desktop composition unchanged. Hero stats
+  are now computed at render: projects = published count and
+  technologies = count from Payload (`getHeroCounts` in
+  lib/data.ts), specialisations = number of expertise areas in
+  the data house; home.json stats carry keys + labels only. The
+  projects stat therefore reads 6 until FleetSlot is published.
 
 ## Open items (content & decisions)
 - **FleetSlot** is seeded as a draft — its stack, type, and links

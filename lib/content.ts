@@ -51,12 +51,13 @@ const homeSchema = z.object({
     role: z.string().min(1),
     giantWord: z.string().min(1),
     portraitUrl: z.string().min(1),
+    circlePortraitUrl: z.string().min(1),
     portraitAlt: z.string().min(1),
     statement: z.string().min(1),
     stats: z
       .array(
         z.object({
-          value: z.string().min(1),
+          key: z.string().min(1),
           label: z.string().min(1),
         }),
       )
