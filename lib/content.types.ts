@@ -24,7 +24,9 @@ export interface HomeContent {
     role: string
     giantWord: string
     portraitUrl: string
+    portraitLightUrl: string
     circlePortraitUrl: string
+    circlePortraitLightUrl: string
     portraitAlt: string
     statement: string
     stats: {

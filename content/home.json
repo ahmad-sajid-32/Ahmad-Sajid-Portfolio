@@ -20,7 +20,9 @@
   "hero": {
     "giantWord": "DEVELOPER",
     "portraitUrl": "/api/media/file/hero-portrait.png",
+    "portraitLightUrl": "/api/media/file/hero-portrait-light.png",
     "circlePortraitUrl": "/api/media/file/hero-portrait-studio.png",
+    "circlePortraitLightUrl": "/api/media/file/hero-portrait-studio-light.png",
     "portraitAlt": "Studio portrait of Ahmad Sajid in a black blazer, amber rim light",
     "greeting": "Hello, I'm",
     "name": "Ahmad Sajid",

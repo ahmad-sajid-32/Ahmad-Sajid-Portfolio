@@ -196,6 +196,18 @@ Last updated: 2026-11-06.
   live stats (6 / 16 / 4), both portrait files optimise through
   the Next image pipeline (200), all routes 200, FleetSlot draft
   still 404, sitemap at 14 URLs, no Dusk Field traces.
+- Post-launch hero tweaks (on `rebuild`, 2026-11-06): hero
+  entrances now wait for the loader (it dispatches
+  `pf:intro-done` as it fades; `useIntroReady` gates SlideIn and
+  HeroWord, with a safety timeout) so the choreography is seen,
+  not spent behind the veil. Dawn gets its own portrait set
+  (Media ids 15/16) cross-faded against the Dusk set on the theme
+  class — no swap glitch. The theme toggle is now a miniature
+  desert scene (sun/moon travelling over dunes, stars at Dusk).
+  Mobile header: the link strip is replaced by a three-dot button
+  opening a right-hand slide-in drawer. A tech-stack logo marquee
+  is built and awaiting Ahmad's preview approval before it joins
+  the page.
 
 ## Open items (content & decisions)
 - **FleetSlot** is seeded as a draft — its stack, type, and links

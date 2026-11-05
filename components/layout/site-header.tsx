@@ -2,10 +2,16 @@ import Link from 'next/link'
 
 import { getSiteContent } from '@/lib/content'
 
+import { MobileNav } from './mobile-nav'
 import { ThemeToggle } from './theme-toggle'
 
 export function SiteHeader() {
   const site = getSiteContent()
+  const navItems = site.nav.filter((item) => item.href !== '/')
+  const email = site.socials
+    .find((social) => social.key === 'email')
+    ?.href.replace('mailto:', '')
+  const webSocials = site.socials.filter((social) => social.key !== 'email')
 
   return (
     <header className="border-b border-border">
@@ -17,36 +23,26 @@ export function SiteHeader() {
           {site.name}
         </Link>
         <nav aria-label="Primary" className="hidden items-center gap-6 sm:flex">
-          {site.nav
-            .filter((item) => item.href !== '/')
-            .map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase transition-colors hover:text-foreground"
-              >
-                {item.label}
-              </Link>
-            ))}
-        </nav>
-        <ThemeToggle />
-      </div>
-      <nav
-        aria-label="Primary mobile"
-        className="flex items-center gap-5 overflow-x-auto px-6 pb-3 sm:hidden"
-      >
-        {site.nav
-          .filter((item) => item.href !== '/')
-          .map((item) => (
+          {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase"
+              className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase transition-colors hover:text-foreground"
             >
               {item.label}
             </Link>
           ))}
-      </nav>
+        </nav>
+        <div className="flex items-center gap-3">
+          <ThemeToggle />
+          <MobileNav
+            name={site.name}
+            email={email ?? ''}
+            nav={site.nav}
+            socials={webSocials}
+          />
+        </div>
+      </div>
     </header>
   )
 }

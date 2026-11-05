@@ -3,6 +3,8 @@
 import { motion, useReducedMotion } from 'motion/react'
 import type { ReactNode } from 'react'
 
+import { useIntroReady } from './use-intro-ready'
+
 interface SlideInProps {
   children: ReactNode
   /** Direction the content travels in from. */
@@ -20,11 +22,14 @@ const OFFSETS = {
 
 /**
  * One-shot entrance (hero): content glides in from a side or rises
- * from below with a fade, on mount. Under reduced motion the content
+ * from below with a fade — once the first-load loader releases the
+ * intro (useIntroReady), so the choreography is seen rather than
+ * spent behind the loader veil. Under reduced motion the content
  * simply renders.
  */
 export function SlideIn({ children, from = 'up', delay = 0, className }: SlideInProps) {
   const reduceMotion = useReducedMotion()
+  const introReady = useIntroReady()
 
   if (reduceMotion) {
     return <div className={className}>{children}</div>
@@ -36,7 +41,7 @@ export function SlideIn({ children, from = 'up', delay = 0, className }: SlideIn
     <motion.div
       className={className}
       initial={{ opacity: 0, x: offset.x, y: offset.y }}
-      animate={{ opacity: 1, x: 0, y: 0 }}
+      animate={introReady ? { opacity: 1, x: 0, y: 0 } : undefined}
       transition={{ duration: 0.85, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}

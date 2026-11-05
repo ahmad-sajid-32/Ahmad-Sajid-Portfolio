@@ -152,30 +152,55 @@ export default async function HomePage() {
           <div className="relative z-[5] flex items-end justify-center">
             <SlideIn from="up" delay={0.5} className="lg:-mt-28 xl:-mt-36">
               {/* Mobile/tablet: bordered circular medallion of the
-                  studio portrait, gently floating. */}
+                  studio portrait, gently floating. The Dusk and
+                  Dawn portraits cross-fade on the theme class, so
+                  toggling never flashes or swaps abruptly. */}
               <div className="animate-float relative mx-auto lg:hidden">
                 <div
                   aria-hidden="true"
                   className="absolute -inset-3 rounded-full bg-primary/20 blur-xl"
                 />
+                <div className="relative h-60 w-60 overflow-hidden rounded-full border-2 border-primary/60 shadow-[0_18px_40px_rgba(0,0,0,0.35)] sm:h-72 sm:w-72">
+                  <Image
+                    src={home.hero.circlePortraitUrl}
+                    alt=""
+                    aria-hidden="true"
+                    width={640}
+                    height={640}
+                    priority
+                    className="absolute inset-0 h-full w-full object-cover object-[center_18%] opacity-0 transition-opacity duration-700 dark:opacity-100"
+                  />
+                  <Image
+                    src={home.hero.circlePortraitLightUrl}
+                    alt={home.hero.portraitAlt}
+                    width={640}
+                    height={640}
+                    priority
+                    className="absolute inset-0 h-full w-full object-cover object-[center_18%] transition-opacity duration-700 dark:opacity-0"
+                  />
+                </div>
+              </div>
+              {/* Desktop: the full cutout overlapping the word,
+                  cross-faded per theme the same way. */}
+              <div className="relative hidden w-[min(88vw,420px)] sm:w-[500px] lg:block lg:w-[620px] xl:w-[680px]">
                 <Image
-                  src={home.hero.circlePortraitUrl}
-                  alt={home.hero.portraitAlt}
-                  width={640}
-                  height={640}
+                  src={home.hero.portraitUrl}
+                  alt=""
+                  aria-hidden="true"
+                  width={1600}
+                  height={1280}
                   priority
-                  className="relative h-60 w-60 rounded-full border-2 border-primary/60 object-cover object-[center_18%] shadow-[0_18px_40px_rgba(0,0,0,0.35)] sm:h-72 sm:w-72"
+                  className="h-auto w-full opacity-0 drop-shadow-[0_24px_48px_rgba(0,0,0,0.45)] transition-opacity duration-700 dark:opacity-100"
+                />
+                <Image
+                  src={home.hero.portraitLightUrl}
+                  alt={home.hero.portraitAlt}
+                  width={1600}
+                  height={1280}
+                  priority
+                  className="absolute inset-0 h-full w-full object-contain drop-shadow-[0_24px_48px_rgba(0,0,0,0.30)] transition-opacity duration-700 dark:opacity-0"
                 />
               </div>
-              {/* Desktop: the full cutout overlapping the word. */}
-              <Image
-                src={home.hero.portraitUrl}
-                alt={home.hero.portraitAlt}
-                width={1600}
-                height={1280}
-                priority
-                className="hidden h-auto w-[min(88vw,420px)] drop-shadow-[0_24px_48px_rgba(0,0,0,0.45)] sm:w-[500px] lg:block lg:w-[620px] xl:w-[680px]"
-              />
             </SlideIn>
           </div>
 

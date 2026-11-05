@@ -11,17 +11,33 @@ import { useEffect, useState } from 'react'
  * reduced motion. Content renders underneath from the start, so the
  * loader is pure ceremony, never a gate.
  */
+/**
+ * Hero entrance animations wait for this signal (see
+ * components/motion/use-intro-ready.ts): it fires when the loader
+ * starts fading — or immediately when the loader is skipped — so
+ * the hero choreography plays in front of the user, not behind
+ * the veil.
+ */
+function signalIntroDone() {
+  document.documentElement.dataset.introDone = '1'
+  window.dispatchEvent(new Event('pf:intro-done'))
+}
+
 export function SiteLoader() {
   const reduceMotion = useReducedMotion()
   const [phase, setPhase] = useState<'show' | 'fade' | 'gone'>('show')
 
   useEffect(() => {
     if (reduceMotion || sessionStorage.getItem('pf-loader-seen')) {
+      signalIntroDone()
       setPhase('gone')
       return
     }
     sessionStorage.setItem('pf-loader-seen', '1')
-    const fadeTimer = setTimeout(() => setPhase('fade'), 1450)
+    const fadeTimer = setTimeout(() => {
+      signalIntroDone()
+      setPhase('fade')
+    }, 1450)
     const goneTimer = setTimeout(() => setPhase('gone'), 1900)
     return () => {
       clearTimeout(fadeTimer)
