@@ -192,9 +192,6 @@ export function BlogSpotlight({ posts }: { posts: PostDoc[] }) {
             </button>
           )
         })}
-        <p className="px-1 pt-1 font-mono text-[10px] tracking-[0.14em] text-muted-foreground uppercase">
-          Auto-plays through the latest stories
-        </p>
       </div>
     </div>
   )
