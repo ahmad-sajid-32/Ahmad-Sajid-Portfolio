@@ -271,10 +271,7 @@ export default async function HomePage() {
       {featured.length > 0 ? (
         <section className="border-t border-border py-14">
           <div className="flex items-end justify-between gap-6">
-            <SectionHeading
-              eyebrow="02 — Selected work"
-              title={home.sections.featuredProjects}
-            />
+            <SectionHeading title={home.sections.featuredProjects} />
             <Link
               href="/projects"
               className="hidden font-mono text-[11px] tracking-[0.18em] text-accent uppercase underline underline-offset-4 sm:block"
@@ -296,10 +293,7 @@ export default async function HomePage() {
       {posts.length > 0 ? (
         <section className="border-t border-border py-14">
           <div className="flex items-end justify-between gap-6">
-            <SectionHeading
-              eyebrow="03 — Blog"
-              title={home.sections.latestPosts}
-            />
+            <SectionHeading title={home.sections.latestPosts} />
             <Link
               href="/blog"
               className="hidden font-mono text-[11px] tracking-[0.18em] text-accent uppercase underline underline-offset-4 sm:block"
