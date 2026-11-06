@@ -1,7 +1,7 @@
 'use client'
 
 import { useReducedMotion } from 'motion/react'
-import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useCallback, useEffect, useRef, useState } from 'react'
@@ -13,19 +13,68 @@ import { cn } from '@/lib/utils'
 const AUTOPLAY_MS = 4500
 const DRAG_THRESHOLD = 42
 
+function CardBody({ project }: { project: ProjectDoc }) {
+  const cover = project.coverImage
+  return (
+    <>
+      {cover?.url ? (
+        <div className="relative aspect-[16/10] overflow-hidden">
+          <Image
+            src={cover.url}
+            alt={cover.alt}
+            fill
+            sizes="(max-width: 640px) 88vw, 600px"
+            className="object-cover"
+            draggable={false}
+          />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/15 via-transparent to-transparent" />
+          {project.deploymentStatus === 'deployed' ? (
+            <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full border border-highlight/50 bg-background/60 px-2.5 py-1 font-mono text-[9px] tracking-[0.12em] text-highlight uppercase backdrop-blur">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-highlight" />
+              {DEPLOYMENT_LABELS[project.deploymentStatus]}
+            </span>
+          ) : null}
+        </div>
+      ) : null}
+      <div className="px-6 py-7 text-center sm:px-8 sm:py-8">
+        <h3 className="font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+          {project.title}
+        </h3>
+        <p className="mx-auto mt-3 line-clamp-2 min-h-11 max-w-md leading-relaxed text-muted-foreground">
+          {project.tagline}
+        </p>
+        <div className="mt-6 flex flex-wrap justify-center gap-2">
+          {project.tracks.map((track) => (
+            <span
+              key={track}
+              className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3 py-1.5 font-mono text-[11px] tracking-[0.12em] text-foreground/90 uppercase"
+            >
+              <span className="h-1 w-1 rounded-full bg-primary" />
+              {TRACK_LABELS[track] ?? track}
+            </span>
+          ))}
+        </div>
+      </div>
+    </>
+  )
+}
+
 /**
  * Featured projects as a 3D coverflow carousel (Concept C,
- * chosen by Ahmad): the centre card stands upright with the
- * full story and glows; neighbours tilt away in perspective
- * and fade. Auto-plays through ALL featured projects (pauses
- * on hover, focus, drag, hidden tab, or reduced motion);
- * arrows, dots, clicking a side card, and drag/swipe all move
- * it. The centre card is the case-study link.
+ * chosen by Ahmad; sizing/spacing per his 2026-11-06 review):
+ * one large centre card — the whole card is the case-study
+ * link and the custom cursor turns into its "View" badge on
+ * hover — with neighbours tilted away in perspective. Cards
+ * are sized to fill the section on every device. Auto-plays
+ * through ALL featured projects (pauses on hover, focus, drag,
+ * hidden tab, or reduced motion). Desktop gets arrows + dots;
+ * mobile gets dots only and swipe/drag.
  */
 export function ProjectsCoverflow({ projects }: { projects: ProjectDoc[] }) {
   const count = projects.length
   const [active, setActive] = useState(0)
   const [paused, setPaused] = useState(false)
+  const [wide, setWide] = useState(true)
   const reduceMotion = useReducedMotion()
   const dragStartX = useRef<number | null>(null)
   const lastDragAt = useRef(0)
@@ -36,6 +85,17 @@ export function ProjectsCoverflow({ projects }: { projects: ProjectDoc[] }) {
   )
   const next = useCallback(() => goTo(active + 1), [active, goTo])
   const prev = useCallback(() => goTo(active - 1), [active, goTo])
+
+  // Fan spread: tighter on small screens so the side cards
+  // peek instead of crowding the centre card.
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 640px)')
+    const update = () => setWide(mq.matches)
+    update()
+    mq.addEventListener('change', update)
+    return () => mq.removeEventListener('change', update)
+  }, [])
+  const spread = wide ? 62 : 84
 
   useEffect(() => {
     if (paused || reduceMotion || count < 2) return
@@ -66,7 +126,7 @@ export function ProjectsCoverflow({ projects }: { projects: ProjectDoc[] }) {
       onBlur={() => setPaused(false)}
     >
       <div
-        className="relative h-[470px] touch-pan-y select-none sm:h-[540px] [perspective:1200px]"
+        className="relative h-[540px] cursor-grab touch-pan-y select-none sm:h-[660px] lg:h-[700px] [perspective:1200px]"
         onPointerDown={(event) => {
           dragStartX.current = event.clientX
         }}
@@ -93,19 +153,18 @@ export function ProjectsCoverflow({ projects }: { projects: ProjectDoc[] }) {
           const rel = relativeOffset(index)
           const abs = Math.abs(rel)
           const isCenter = rel === 0
-          const cover = project.coverImage
           return (
             <article
               key={project.id}
               aria-hidden={!isCenter || undefined}
               className={cn(
-                'absolute top-1/2 left-1/2 w-[min(80vw,380px)] overflow-hidden rounded-3xl border bg-surface',
+                'absolute top-1/2 left-1/2 w-[min(88vw,600px)] overflow-hidden rounded-3xl border bg-surface',
                 isCenter
                   ? 'border-primary/50 shadow-[0_50px_100px_rgba(0,0,0,0.55),0_0_80px_rgba(232,163,61,0.14)]'
                   : 'border-border',
               )}
               style={{
-                transform: `translate(-50%, -50%) translateX(${rel * 62}%) translateZ(${-abs * 190}px) rotateY(${-rel * 36}deg)`,
+                transform: `translate(-50%, -50%) translateX(${rel * spread}%) translateZ(${-abs * 190}px) rotateY(${-rel * 36}deg)`,
                 opacity: abs <= 2 ? 1 - abs * 0.3 : 0,
                 zIndex: 20 - abs,
                 pointerEvents: abs <= 2 ? 'auto' : 'none',
@@ -116,71 +175,32 @@ export function ProjectsCoverflow({ projects }: { projects: ProjectDoc[] }) {
                 if (!isCenter && abs <= 2) goTo(index)
               }}
             >
-              {cover?.url ? (
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <Image
-                    src={cover.url}
-                    alt={isCenter ? cover.alt : ''}
-                    fill
-                    sizes="380px"
-                    className="object-cover"
-                    draggable={false}
-                  />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/15 via-transparent to-transparent" />
-                  {project.deploymentStatus === 'deployed' ? (
-                    <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full border border-highlight/50 bg-background/60 px-2.5 py-1 font-mono text-[9px] tracking-[0.12em] text-highlight uppercase backdrop-blur">
-                      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-highlight" />
-                      {DEPLOYMENT_LABELS[project.deploymentStatus]}
-                    </span>
-                  ) : null}
+              {isCenter ? (
+                <Link
+                  href={`/projects/${project.slug}`}
+                  data-cursor="view"
+                  className="block"
+                  aria-label={`${project.title} — view case study`}
+                >
+                  <CardBody project={project} />
+                </Link>
+              ) : (
+                <div aria-hidden="true">
+                  <CardBody project={project} />
                 </div>
-              ) : null}
-              <div className="p-5 text-center">
-                <p className="font-mono text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
-                  {project.year} · {project.role}
-                </p>
-                <h3 className="mt-1.5 font-display text-3xl font-semibold">
-                  {project.title}
-                </h3>
-                <p className="mx-auto mt-1.5 line-clamp-2 min-h-10 max-w-xs text-sm leading-relaxed text-muted-foreground">
-                  {project.tagline}
-                </p>
-                <div className="mt-3.5 flex flex-wrap justify-center gap-2">
-                  {project.tracks.map((track) => (
-                    <span
-                      key={track}
-                      className="rounded-full border border-border px-2.5 py-1 font-mono text-[10px] tracking-[0.14em] text-muted-foreground uppercase"
-                    >
-                      {TRACK_LABELS[track] ?? track}
-                    </span>
-                  ))}
-                </div>
-                {isCenter ? (
-                  <Link
-                    href={`/projects/${project.slug}`}
-                    data-cursor="view"
-                    className="mt-4 inline-flex items-center gap-1.5 font-mono text-[11px] tracking-[0.18em] text-accent uppercase underline underline-offset-4"
-                  >
-                    View case study <ArrowRight className="h-3.5 w-3.5" />
-                  </Link>
-                ) : (
-                  <p className="mt-4 font-mono text-[11px] tracking-[0.18em] text-muted-foreground/60 uppercase">
-                    View case study
-                  </p>
-                )}
-              </div>
+              )}
             </article>
           )
         })}
       </div>
 
       {count > 1 ? (
-        <div className="mt-1 flex items-center justify-center gap-4">
+        <div className="mt-2 flex items-center justify-center gap-4">
           <button
             type="button"
             onClick={prev}
             aria-label="Previous project"
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors duration-300 hover:border-primary/60 hover:text-primary"
+            className="hidden h-10 w-10 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors duration-300 hover:border-primary/60 hover:text-primary sm:flex"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
@@ -203,7 +223,7 @@ export function ProjectsCoverflow({ projects }: { projects: ProjectDoc[] }) {
             type="button"
             onClick={next}
             aria-label="Next project"
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors duration-300 hover:border-primary/60 hover:text-primary"
+            className="hidden h-10 w-10 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors duration-300 hover:border-primary/60 hover:text-primary sm:flex"
           >
             <ChevronRight className="h-5 w-5" />
           </button>
