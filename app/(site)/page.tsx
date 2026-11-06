@@ -10,7 +10,7 @@ import {
   LinkedinIcon,
 } from '@/components/ui/brand-icons'
 
-import { PostCard } from '@/components/blog/post-card'
+import { BlogSpotlight } from '@/components/home/blog-spotlight'
 import { HeroWord } from '@/components/hero/hero-word'
 import { ExpertiseIndex } from '@/components/home/expertise-index'
 import { TechMarquee } from '@/components/home/tech-marquee'
@@ -54,7 +54,7 @@ export default async function HomePage() {
     specialisations: home.expertise.length,
   }
   const featured = await getFeaturedProjects()
-  const posts = (await getPublishedPosts()).slice(0, 3)
+  const posts = (await getPublishedPosts()).slice(0, 5)
   const technologies = await getTechnologies()
 
   const personJsonLd = {
@@ -291,23 +291,22 @@ export default async function HomePage() {
         </section>
       ) : null}
 
-      {/* Latest posts — rendered only once posts are published */}
+      {/* Latest posts — spotlight stage + playlist (Concept D) */}
       {posts.length > 0 ? (
         <section className="border-t border-border py-14">
-          <div className="flex items-end justify-between gap-6">
+          <div className="flex items-center justify-between gap-6">
             <SectionHeading title={home.sections.latestPosts} />
             <Link
               href="/blog"
-              className="hidden font-mono text-[11px] tracking-[0.18em] text-accent uppercase underline underline-offset-4 sm:block"
+              className="inline-flex shrink-0 items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-[0_10px_30px_rgba(232,163,61,0.35)] transition-shadow duration-300 hover:shadow-[0_14px_40px_rgba(232,163,61,0.5)]"
             >
-              All posts
+              {home.sections.allPosts}
+              <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
           <Reveal>
-            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {posts.map((post) => (
-                <PostCard key={post.id} post={post} />
-              ))}
+            <div className="mt-10">
+              <BlogSpotlight posts={posts} />
             </div>
           </Reveal>
         </section>

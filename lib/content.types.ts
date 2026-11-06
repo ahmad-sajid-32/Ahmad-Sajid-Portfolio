@@ -52,6 +52,7 @@ export interface HomeContent {
   sections: {
     featuredProjects: string
     allProjects: string
+    allPosts: string
     latestPosts: string
     contactCta: {
       heading: string
