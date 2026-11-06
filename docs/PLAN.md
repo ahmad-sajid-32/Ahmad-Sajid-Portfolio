@@ -274,3 +274,31 @@ Last updated: 2026-11-06.
   a separate later task, only on Ahmad's instruction.
 - The Vercel preview sits behind Deployment Protection; relax it only
   if shareable preview links are wanted.
+
+## Blog section: Spotlight Stage (added 2026-11-06, on rebuild)
+
+Six prototypes across two rounds (Magazine, Story Rail,
+Rotating Stack, then the glossier Spotlight Stage, Headline
+Index, Glass Tilt Cards); Ahmad picked Concept D — Spotlight
+Stage. Production component: components/home/blog-spotlight.tsx.
+A cinematic stage (current post's cover full-bleed, gradients,
+glass "Now reading · category" pill, title/excerpt/meta over
+the scrim, the whole stage is the post link with the "View"
+cursor) beside a playlist of the latest posts (home now takes
+the newest 5). Auto-advances every 5.5s with a crossfade; a
+progress bar under the stage fills over the cycle
+(.animate-spotlight-progress keyframe in globals.css, exactly
+matching the timer) and the active playlist row carries
+animated equalizer bars (.animate-eq). Pauses on hover, focus,
+hidden tab, or reduced motion; clicking a row jumps the stage
+there and restarts the cycle. The section header pairs the
+title with the prominent solid "View all posts" button
+(sections.allPosts). Verified by build + CDP: the stage
+advanced from story 01 to 03 on its own past one cycle and
+aria-current tracked it.
+
+Discovery during prototyping: the three seeded blog posts are
+PUBLISHED in the database (published 5 Nov 2026), not drafts —
+so this section renders live content today. All three posts
+currently share one generic cover in the CMS; per-post covers
+can be swapped in the admin whenever Ahmad wants topic art.
