@@ -245,6 +245,15 @@ Last updated: 2026-11-06.
   the carousel (label in the home data house). Label maps moved
   to client-safe lib/labels.ts (data.ts re-exports) so client
   components no longer pull Payload into the browser bundle.
+  Coverflow corrections (Ahmad's live review, 2026-11-06):
+  cards enlarged to fill the section (min(88vw, 600px), 16/10
+  covers, taller stage; fan spread tightens on mobile); the
+  whole centre card is the case-study link with the custom
+  cursor's "View" badge — the inner text link is gone; the
+  year · role line above the title is removed; title larger
+  (text-4xl/5xl); track badges redesigned as amber-tinted
+  pills with a dot; roomier card padding; on mobile the
+  arrows are hidden — dots only, swipe drives it.
 
 ## Open items (content & decisions)
 - **FleetSlot** is seeded as a draft — its stack, type, and links
