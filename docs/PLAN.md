@@ -233,6 +233,34 @@ Last updated: 2026-11-06.
   The section's eyebrow was removed at Ahmad's request (it
   repeated the title); SectionHeading's eyebrow is now optional.
   The throwaway /proto route was deleted after the pick.
+- Featured Projects rebuilt as a 3D coverflow carousel
+  (Concept C, picked by Ahmad from glossy round-2 prototypes,
+  2026-11-06): centre card upright and glowing with the full
+  story, neighbours tilted in perspective; auto-plays through
+  ALL featured projects (getFeaturedProjects no longer slices
+  to 3), pauses on hover/focus/drag/hidden tab/reduced motion;
+  arrows, dots, side-card clicks and drag/swipe all drive it.
+  Heading centred; the old "All projects" text link replaced by
+  a prominent solid "View all projects" button centred under
+  the carousel (label in the home data house). Label maps moved
+  to client-safe lib/labels.ts (data.ts re-exports) so client
+  components no longer pull Payload into the browser bundle.
+  Coverflow corrections (Ahmad's live review, 2026-11-06):
+  cards enlarged to fill the section (min(88vw, 600px), 16/10
+  covers, taller stage; fan spread tightens on mobile); the
+  whole centre card is the case-study link with the custom
+  cursor's "View" badge — the inner text link is gone; the
+  year · role line above the title is removed; title larger
+  (text-4xl/5xl); track badges redesigned as amber-tinted
+  pills with a dot; roomier card padding; on mobile the
+  arrows are hidden — dots only, swipe drives it.
+  Scaling rules (Ahmad, 2026-11-06): the featured cap is
+  gone in code AND data — all six published projects are now
+  flagged featured (Emilly was the only unflagged one). Card
+  width steps down as the featured count grows (600/540/500/
+  460px at 3/4/5/6+), and exactly five cards stay in view
+  (centre ± 2, gentler 28° tilt) while any number can be
+  featured — the rest rotate through the fan.
 
 ## Open items (content & decisions)
 - **FleetSlot** is seeded as a draft — its stack, type, and links

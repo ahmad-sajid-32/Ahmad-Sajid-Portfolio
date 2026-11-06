@@ -16,7 +16,7 @@ import { ExpertiseIndex } from '@/components/home/expertise-index'
 import { TechMarquee } from '@/components/home/tech-marquee'
 import { Reveal } from '@/components/motion/reveal'
 import { SlideIn } from '@/components/motion/slide-in'
-import { ProjectCard } from '@/components/projects/project-card'
+import { ProjectsCoverflow } from '@/components/home/projects-coverflow'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { getHomeContent, getSiteContent } from '@/lib/content'
 import {
@@ -267,28 +267,27 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Featured projects */}
+      {/* Featured projects — 3D coverflow carousel (Concept C);
+          heading and the View-all button are centred per the
+          chosen prototype. */}
       {featured.length > 0 ? (
         <section className="border-t border-border py-14">
-          <div className="flex items-end justify-between gap-6">
-            <SectionHeading
-              eyebrow="02 — Selected work"
-              title={home.sections.featuredProjects}
-            />
+          <SectionHeading
+            title={home.sections.featuredProjects}
+            className="text-center"
+          />
+          <Reveal className="mt-4">
+            <ProjectsCoverflow projects={featured} />
+          </Reveal>
+          <div className="mt-10 text-center">
             <Link
               href="/projects"
-              className="hidden font-mono text-[11px] tracking-[0.18em] text-accent uppercase underline underline-offset-4 sm:block"
+              className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[0_10px_30px_rgba(232,163,61,0.35)] transition-transform duration-300 hover:-translate-y-0.5"
             >
-              All projects
+              {home.sections.allProjects}
+              <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
-          <Reveal>
-            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {featured.map((project) => (
-                <ProjectCard key={project.id} project={project} />
-              ))}
-            </div>
-          </Reveal>
         </section>
       ) : null}
 
@@ -296,10 +295,7 @@ export default async function HomePage() {
       {posts.length > 0 ? (
         <section className="border-t border-border py-14">
           <div className="flex items-end justify-between gap-6">
-            <SectionHeading
-              eyebrow="03 — Blog"
-              title={home.sections.latestPosts}
-            />
+            <SectionHeading title={home.sections.latestPosts} />
             <Link
               href="/blog"
               className="hidden font-mono text-[11px] tracking-[0.18em] text-accent uppercase underline underline-offset-4 sm:block"

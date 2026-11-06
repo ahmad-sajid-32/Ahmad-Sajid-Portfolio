@@ -29,7 +29,7 @@ export default function AboutPage() {
 
       <Reveal>
       <section className="mt-16">
-        <SectionHeading eyebrow="01 — Experience" title="Where I've worked" />
+        <SectionHeading title="Where I've worked" />
         <div className="mt-8 space-y-0">
           {about.experience.map((item) => (
             <article
@@ -55,7 +55,7 @@ export default function AboutPage() {
 
       <Reveal>
       <section className="mt-16">
-        <SectionHeading eyebrow="02 — Education" title="Education" />
+        <SectionHeading title="Education" />
         <div className="mt-8 grid gap-4 sm:grid-cols-2">
           {about.education.map((item) => (
             <div
@@ -80,7 +80,7 @@ export default function AboutPage() {
 
       <Reveal>
       <section className="mt-16">
-        <SectionHeading eyebrow="03 — Skills" title="What I work with" />
+        <SectionHeading title="What I work with" />
         <div className="mt-8 grid gap-4 sm:grid-cols-2">
           {about.skillGroups.map((group) => (
             <div
@@ -106,7 +106,7 @@ export default function AboutPage() {
 
       <Reveal>
       <section className="mt-16">
-        <SectionHeading eyebrow="04 — Certificates" title="Certificates" />
+        <SectionHeading title="Certificates" />
         <ul className="mt-8 divide-y divide-border border-y border-border">
           {about.certificates.map((cert) => (
             <li
