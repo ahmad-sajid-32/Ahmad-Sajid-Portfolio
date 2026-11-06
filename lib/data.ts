@@ -101,7 +101,9 @@ export async function getPublishedProjects(): Promise<ProjectDoc[]> {
 
 export async function getFeaturedProjects(): Promise<ProjectDoc[]> {
   const projects = await getPublishedProjects()
-  return projects.filter((project) => project.featured).slice(0, 3)
+  // All featured projects: the home section is a coverflow
+  // carousel, so every featured project rotates through.
+  return projects.filter((project) => project.featured)
 }
 
 export interface HeroCounts {
@@ -199,24 +201,10 @@ export async function getPostBySlug(slug: string): Promise<PostDoc | null> {
   return (result.docs[0] as unknown as PostDoc) ?? null
 }
 
-export const TRACK_LABELS: Record<string, string> = {
-  backend: 'Backend',
-  'crm-automation': 'CRM Automation',
-  frontend: 'Frontend',
-  'full-stack': 'Full Stack',
-  ai: 'AI',
-  'game-dev': 'Game Dev',
-}
-
-export const PROJECT_TYPE_LABELS: Record<string, string> = {
-  client: 'Client work',
-  professional: 'Professional',
-  personal: 'Personal',
-  academic: 'Academic / FYP',
-}
-
-export const DEPLOYMENT_LABELS: Record<string, string> = {
-  deployed: 'In production',
-  'not-deployed': 'Delivered',
-  'in-progress': 'In progress',
-}
+// Label maps live in lib/labels.ts (client-safe); re-exported
+// here so existing server-side imports keep working.
+export {
+  DEPLOYMENT_LABELS,
+  PROJECT_TYPE_LABELS,
+  TRACK_LABELS,
+} from './labels'

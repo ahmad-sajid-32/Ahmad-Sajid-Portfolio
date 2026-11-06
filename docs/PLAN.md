@@ -233,6 +233,18 @@ Last updated: 2026-11-06.
   The section's eyebrow was removed at Ahmad's request (it
   repeated the title); SectionHeading's eyebrow is now optional.
   The throwaway /proto route was deleted after the pick.
+- Featured Projects rebuilt as a 3D coverflow carousel
+  (Concept C, picked by Ahmad from glossy round-2 prototypes,
+  2026-11-06): centre card upright and glowing with the full
+  story, neighbours tilted in perspective; auto-plays through
+  ALL featured projects (getFeaturedProjects no longer slices
+  to 3), pauses on hover/focus/drag/hidden tab/reduced motion;
+  arrows, dots, side-card clicks and drag/swipe all drive it.
+  Heading centred; the old "All projects" text link replaced by
+  a prominent solid "View all projects" button centred under
+  the carousel (label in the home data house). Label maps moved
+  to client-safe lib/labels.ts (data.ts re-exports) so client
+  components no longer pull Payload into the browser bundle.
 
 ## Open items (content & decisions)
 - **FleetSlot** is seeded as a draft — its stack, type, and links
