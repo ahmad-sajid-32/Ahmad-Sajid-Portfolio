@@ -72,6 +72,16 @@ function CardBody({ project }: { project: ProjectDoc }) {
  */
 export function ProjectsCoverflow({ projects }: { projects: ProjectDoc[] }) {
   const count = projects.length
+  // Cards step down in size as more projects are featured, so
+  // the fan stays composed instead of overwhelming the section
+  // (Ahmad, 2026-11-06).
+  const cardMaxWidth = count <= 3 ? 600 : count === 4 ? 540 : count === 5 ? 500 : 460
+  const stageHeight =
+    count <= 3
+      ? 'h-[540px] sm:h-[660px] lg:h-[700px]'
+      : count <= 5
+        ? 'h-[500px] sm:h-[600px] lg:h-[640px]'
+        : 'h-[470px] sm:h-[560px] lg:h-[600px]'
   const [active, setActive] = useState(0)
   const [paused, setPaused] = useState(false)
   const [wide, setWide] = useState(true)
@@ -95,7 +105,7 @@ export function ProjectsCoverflow({ projects }: { projects: ProjectDoc[] }) {
     mq.addEventListener('change', update)
     return () => mq.removeEventListener('change', update)
   }, [])
-  const spread = wide ? 62 : 84
+  const spread = wide ? (count >= 6 ? 58 : 62) : 84
 
   useEffect(() => {
     if (paused || reduceMotion || count < 2) return
@@ -126,7 +136,7 @@ export function ProjectsCoverflow({ projects }: { projects: ProjectDoc[] }) {
       onBlur={() => setPaused(false)}
     >
       <div
-        className="relative h-[540px] cursor-grab touch-pan-y select-none sm:h-[660px] lg:h-[700px] [perspective:1200px]"
+        className={`relative cursor-grab touch-pan-y select-none [perspective:1200px] ${stageHeight}`}
         onPointerDown={(event) => {
           dragStartX.current = event.clientX
         }}
@@ -158,14 +168,19 @@ export function ProjectsCoverflow({ projects }: { projects: ProjectDoc[] }) {
               key={project.id}
               aria-hidden={!isCenter || undefined}
               className={cn(
-                'absolute top-1/2 left-1/2 w-[min(88vw,600px)] overflow-hidden rounded-3xl border bg-surface',
+                'absolute top-1/2 left-1/2 overflow-hidden rounded-3xl border bg-surface',
                 isCenter
                   ? 'border-primary/50 shadow-[0_50px_100px_rgba(0,0,0,0.55),0_0_80px_rgba(232,163,61,0.14)]'
                   : 'border-border',
               )}
               style={{
-                transform: `translate(-50%, -50%) translateX(${rel * spread}%) translateZ(${-abs * 190}px) rotateY(${-rel * 36}deg)`,
-                opacity: abs <= 2 ? 1 - abs * 0.3 : 0,
+                width: `min(88vw, ${cardMaxWidth}px)`,
+                // Five cards stay in view (centre ± 2); anything
+                // further round the loop fades out entirely, so
+                // the carousel scales to any number of featured
+                // projects while the fan always shows five.
+                transform: `translate(-50%, -50%) translateX(${rel * spread}%) translateZ(${-abs * 150}px) rotateY(${-rel * 28}deg)`,
+                opacity: abs <= 2 ? 1 - abs * 0.22 : 0,
                 zIndex: 20 - abs,
                 pointerEvents: abs <= 2 ? 'auto' : 'none',
                 transition:

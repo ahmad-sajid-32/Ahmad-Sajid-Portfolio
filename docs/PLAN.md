@@ -254,6 +254,13 @@ Last updated: 2026-11-06.
   (text-4xl/5xl); track badges redesigned as amber-tinted
   pills with a dot; roomier card padding; on mobile the
   arrows are hidden — dots only, swipe drives it.
+  Scaling rules (Ahmad, 2026-11-06): the featured cap is
+  gone in code AND data — all six published projects are now
+  flagged featured (Emilly was the only unflagged one). Card
+  width steps down as the featured count grows (600/540/500/
+  460px at 3/4/5/6+), and exactly five cards stay in view
+  (centre ± 2, gentler 28° tilt) while any number can be
+  featured — the rest rotate through the fan.
 
 ## Open items (content & decisions)
 - **FleetSlot** is seeded as a draft — its stack, type, and links
