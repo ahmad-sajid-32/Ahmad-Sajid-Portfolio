@@ -125,7 +125,12 @@ export function ExpertiseIndex({ areas }: { areas: ExpertiseArea[] }) {
                 </span>
                 <span
                   className={cn(
-                    'font-display text-[11.5vw] leading-none font-semibold tracking-tight whitespace-nowrap uppercase transition-colors duration-300 sm:text-6xl lg:text-7xl xl:text-8xl',
+                    'font-display leading-none font-semibold tracking-tight whitespace-nowrap uppercase transition-colors duration-300 lg:text-7xl xl:text-8xl',
+                    // Long titles (CRM AUTOMATION) step down on
+                    // small screens so they never overflow.
+                    area.title.length > 10
+                      ? 'text-[8.2vw] sm:text-5xl'
+                      : 'text-[11.5vw] sm:text-6xl',
                     isActive ? 'text-primary' : 'text-foreground/85',
                   )}
                 >
