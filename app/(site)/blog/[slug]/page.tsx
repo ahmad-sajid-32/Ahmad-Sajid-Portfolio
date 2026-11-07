@@ -105,17 +105,19 @@ export default async function PostDetailPage({ params }: PostPageProps) {
       </ScrollSlide>
 
       {cover?.url ? (
-        <div className="relative mt-10 aspect-[3/2] overflow-hidden rounded-3xl border border-border shadow-[0_40px_80px_rgba(0,0,0,0.35)]">
-          <Image
-            src={cover.url}
-            alt={cover.alt}
-            fill
-            priority
-            sizes="(max-width: 1024px) 100vw, 1024px"
-            className="object-cover"
-          />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent" />
-        </div>
+        <ScrollSlide from="up" className="mt-10">
+          <div className="relative aspect-[3/2] overflow-hidden rounded-3xl border border-border shadow-[0_40px_80px_rgba(0,0,0,0.35)]">
+            <Image
+              src={cover.url}
+              alt={cover.alt}
+              fill
+              priority
+              sizes="(max-width: 1024px) 100vw, 1024px"
+              className="object-cover"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent" />
+          </div>
+        </ScrollSlide>
       ) : null}
 
       <div className="mt-12 max-w-3xl">
@@ -125,13 +127,12 @@ export default async function PostDetailPage({ params }: PostPageProps) {
       {post.tags && post.tags.length > 0 ? (
         <div className="mt-12 flex flex-wrap gap-2 border-t border-border pt-8">
           {post.tags.map((entry, index) => (
-            <span
-              key={entry.id ?? index}
-              className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3 py-1.5 font-mono text-[10px] tracking-[0.14em] text-foreground/90 uppercase"
-            >
-              <span className="h-1 w-1 rounded-full bg-primary" />
-              {entry.tag}
-            </span>
+            <ScrollSlide key={entry.id ?? index} from="up" delay={index * 0.05}>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3 py-1.5 font-mono text-[10px] tracking-[0.14em] text-foreground/90 uppercase">
+                <span className="h-1 w-1 rounded-full bg-primary" />
+                {entry.tag}
+              </span>
+            </ScrollSlide>
           ))}
         </div>
       ) : null}

@@ -29,9 +29,7 @@ export default async function ContactPage() {
 
   return (
     <div className="py-14">
-      <ScrollSlide from="left">
-        <PageHeader path="~/contact" title={contact.heading} intro={contact.intro} />
-      </ScrollSlide>
+      <PageHeader path="~/contact" title={contact.heading} intro={contact.intro} />
 
       <div className="mt-12 grid gap-8 lg:grid-cols-[1fr_340px]">
         <ScrollSlide from="left" className="h-fit">
@@ -43,32 +41,40 @@ export default async function ContactPage() {
           </div>
         </ScrollSlide>
 
-        <ScrollSlide from="right">
-          <aside className="space-y-8">
-          <div className="rounded-3xl border border-border bg-surface p-6">
-            <div className="flex items-center gap-3">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-primary/30 bg-primary/10 text-primary">
-                <Mail className="h-[18px] w-[18px]" />
-              </span>
-              <p className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
-                {contact.emailCard.label}
-              </p>
+        <aside className="space-y-8">
+          <ScrollSlide from="right">
+            <div className="rounded-3xl border border-border bg-surface p-6">
+              <div className="flex items-center gap-3">
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-primary/30 bg-primary/10 text-primary">
+                  <Mail className="h-[18px] w-[18px]" />
+                </span>
+                <p className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
+                  {contact.emailCard.label}
+                </p>
+              </div>
+              <a
+                href={`mailto:${contact.emailCard.address}`}
+                className="mt-4 block font-medium break-all text-accent underline underline-offset-4"
+              >
+                {contact.emailCard.address}
+              </a>
             </div>
-            <a
-              href={`mailto:${contact.emailCard.address}`}
-              className="mt-4 block font-medium break-all text-accent underline underline-offset-4"
-            >
-              {contact.emailCard.address}
-            </a>
-          </div>
+          </ScrollSlide>
 
           <div>
-            <h2 className="font-display text-2xl font-semibold tracking-tight">
-              {contact.socialsHeading}
-            </h2>
+            <ScrollSlide from="right">
+              <h2 className="font-display text-2xl font-semibold tracking-tight">
+                {contact.socialsHeading}
+              </h2>
+            </ScrollSlide>
             <ul className="mt-4 space-y-2.5">
-              {socials.map((social) => (
-                <li key={social.key}>
+              {socials.map((social, index) => (
+                <ScrollSlide
+                  as="li"
+                  key={social.key}
+                  from="right"
+                  delay={index * 0.06}
+                >
                   <a
                     href={social.href}
                     {...(social.href.startsWith('http')
@@ -82,16 +88,17 @@ export default async function ContactPage() {
                     <span className="font-medium">{social.label}</span>
                     <ArrowUpRight className="ml-auto h-4 w-4 text-muted-foreground transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-primary" />
                   </a>
-                </li>
+                </ScrollSlide>
               ))}
             </ul>
-            <p className="mt-6 inline-flex items-center gap-2 rounded-full border border-highlight/50 bg-background/60 px-3.5 py-1.5 font-mono text-[10px] tracking-[0.14em] text-highlight uppercase backdrop-blur">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-highlight" />
-              {site.availability}
-            </p>
+            <ScrollSlide from="right">
+              <p className="mt-6 inline-flex items-center gap-2 rounded-full border border-highlight/50 bg-background/60 px-3.5 py-1.5 font-mono text-[10px] tracking-[0.14em] text-highlight uppercase backdrop-blur">
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-highlight" />
+                {site.availability}
+              </p>
+            </ScrollSlide>
           </div>
-          </aside>
-        </ScrollSlide>
+        </aside>
       </div>
     </div>
   )

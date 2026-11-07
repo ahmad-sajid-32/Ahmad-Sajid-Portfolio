@@ -1,4 +1,3 @@
-import { ArrowRight } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -90,10 +89,6 @@ export function PostCard({
           <p className="mt-3 line-clamp-3 leading-relaxed text-muted-foreground">
             {post.excerpt}
           </p>
-          <p className="mt-auto inline-flex items-center gap-2 pt-7 font-mono text-[11px] tracking-[0.18em] text-accent uppercase">
-            Read post
-            <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
-          </p>
         </div>
       </Link>
     )
@@ -129,10 +124,6 @@ export function PostCard({
         </h3>
         <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
           {post.excerpt}
-        </p>
-        <p className="mt-5 inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.18em] text-accent uppercase">
-          Read post
-          <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
         </p>
       </div>
     </Link>

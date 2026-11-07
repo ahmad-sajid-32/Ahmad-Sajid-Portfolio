@@ -263,14 +263,16 @@ export default async function HomePage() {
           chosen prototype. */}
       {featured.length > 0 ? (
         <section className="border-t border-border py-14">
-          <SectionHeading
-            title={home.sections.featuredProjects}
-            className="text-center"
-          />
+          <ScrollSlide from="up">
+            <SectionHeading
+              title={home.sections.featuredProjects}
+              className="text-center"
+            />
+          </ScrollSlide>
           <ScrollSlide from="left" className="mt-4">
             <ProjectsCoverflow projects={featured} />
           </ScrollSlide>
-          <div className="mt-10 text-center">
+          <Reveal className="mt-10 text-center">
             <Link
               href="/projects"
               className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[0_10px_30px_rgba(232,163,61,0.35)] transition-transform duration-300 hover:-translate-y-0.5"
@@ -278,23 +280,25 @@ export default async function HomePage() {
               {home.sections.allProjects}
               <ArrowRight className="h-4 w-4" />
             </Link>
-          </div>
+          </Reveal>
         </section>
       ) : null}
 
       {/* Latest posts — spotlight stage + playlist (Concept D) */}
       {posts.length > 0 ? (
         <section className="border-t border-border py-14">
-          <div className="flex items-center justify-between gap-6">
-            <SectionHeading title={home.sections.latestPosts} />
-            <Link
-              href="/blog"
-              className="inline-flex shrink-0 items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-[0_10px_30px_rgba(232,163,61,0.35)] transition-shadow duration-300 hover:shadow-[0_14px_40px_rgba(232,163,61,0.5)]"
-            >
-              {home.sections.allPosts}
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
+          <ScrollSlide from="left">
+            <div className="flex items-center justify-between gap-6">
+              <SectionHeading title={home.sections.latestPosts} />
+              <Link
+                href="/blog"
+                className="inline-flex shrink-0 items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-[0_10px_30px_rgba(232,163,61,0.35)] transition-shadow duration-300 hover:shadow-[0_14px_40px_rgba(232,163,61,0.5)]"
+              >
+                {home.sections.allPosts}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </ScrollSlide>
           <ScrollSlide from="right">
             <div className="mt-10">
               <BlogSpotlight posts={posts} />

@@ -144,23 +144,31 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
 
       <ScrollSlide from="right" className="mt-10">
         <div className="grid grid-cols-2 gap-6 rounded-3xl border border-border bg-surface p-6 sm:grid-cols-4 sm:p-7">
-        <MetaItem label="Role" value={project.role} />
-        <MetaItem label="Year" value={String(project.year)} />
-        <MetaItem
-          label="Tracks"
-          value={
-            project.tracks
-              .map((track) => TRACK_LABELS[track] ?? track)
-              .join(', ') || '—'
-          }
-        />
-        <MetaItem
-          label="Status"
-          value={
-            DEPLOYMENT_LABELS[project.deploymentStatus] ??
-            project.deploymentStatus
-          }
-          />
+          <ScrollSlide from="up">
+            <MetaItem label="Role" value={project.role} />
+          </ScrollSlide>
+          <ScrollSlide from="up" delay={0.06}>
+            <MetaItem label="Year" value={String(project.year)} />
+          </ScrollSlide>
+          <ScrollSlide from="up" delay={0.12}>
+            <MetaItem
+              label="Tracks"
+              value={
+                project.tracks
+                  .map((track) => TRACK_LABELS[track] ?? track)
+                  .join(', ') || '—'
+              }
+            />
+          </ScrollSlide>
+          <ScrollSlide from="up" delay={0.18}>
+            <MetaItem
+              label="Status"
+              value={
+                DEPLOYMENT_LABELS[project.deploymentStatus] ??
+                project.deploymentStatus
+              }
+            />
+          </ScrollSlide>
         </div>
       </ScrollSlide>
 
@@ -170,27 +178,27 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
             Built with
           </p>
           <div className="mt-3 flex flex-wrap gap-2">
-            {project.techStack.map((tech) => (
-              <span
-                key={tech.id}
-                className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1.5 font-mono text-[10px] tracking-[0.14em] text-foreground/90 uppercase"
-              >
-                {TECH_ICONS[tech.slug] ? (
-                  <span className="inline-flex [&>svg]:h-3.5 [&>svg]:w-3.5">
-                    {TECH_ICONS[tech.slug]}
-                  </span>
-                ) : (
-                  <span className="h-1 w-1 rounded-full bg-primary" />
-                )}
-                {tech.name}
-              </span>
+            {project.techStack.map((tech, index) => (
+              <ScrollSlide key={tech.id} from="up" delay={index * 0.04}>
+                <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1.5 font-mono text-[10px] tracking-[0.14em] text-foreground/90 uppercase">
+                  {TECH_ICONS[tech.slug] ? (
+                    <span className="inline-flex [&>svg]:h-3.5 [&>svg]:w-3.5">
+                      {TECH_ICONS[tech.slug]}
+                    </span>
+                  ) : (
+                    <span className="h-1 w-1 rounded-full bg-primary" />
+                  )}
+                  {tech.name}
+                </span>
+              </ScrollSlide>
             ))}
           </div>
         </div>
       ) : null}
 
       {(project.liveUrl || project.githubUrl) && (
-        <div className="mt-8 flex flex-wrap gap-3">
+        <ScrollSlide from="up" className="mt-8">
+          <div className="flex flex-wrap gap-3">
           {project.liveUrl ? (
             <a
               href={project.liveUrl}
@@ -211,7 +219,8 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
               <GithubIcon className="h-4 w-4" /> View on GitHub
             </a>
           ) : null}
-        </div>
+          </div>
+        </ScrollSlide>
       )}
 
       <div className="mt-14">
@@ -220,26 +229,27 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
 
       {project.gallery && project.gallery.length > 0 ? (
         <section className="border-t border-border py-10">
-          <h2 className="font-display text-2xl font-medium sm:text-3xl">
-            Gallery
-          </h2>
+          <ScrollSlide from="left">
+            <h2 className="font-display text-2xl font-medium sm:text-3xl">
+              Gallery
+            </h2>
+          </ScrollSlide>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             {project.gallery
               .map((entry) => entry.image)
               .filter(isMedia)
-              .map((media) => (
-                <div
-                  key={media.id}
-                  className="group relative aspect-[3/2] overflow-hidden rounded-3xl border border-border"
-                >
-                  <Image
-                    src={media.url ?? ''}
-                    alt={media.alt}
-                    fill
-                    sizes="(max-width: 640px) 100vw, 50vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                </div>
+              .map((media, mediaIndex) => (
+                <ScrollSlide key={media.id} from="up" delay={mediaIndex * 0.08}>
+                  <div className="group relative aspect-[3/2] overflow-hidden rounded-3xl border border-border">
+                    <Image
+                      src={media.url ?? ''}
+                      alt={media.alt}
+                      fill
+                      sizes="(max-width: 640px) 100vw, 50vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
+                </ScrollSlide>
               ))}
           </div>
         </section>
@@ -247,27 +257,35 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
 
       {project.videoEmbedUrl ? (
         <section className="border-t border-border py-10">
-          <h2 className="font-display text-2xl font-medium sm:text-3xl">Demo</h2>
-          <div className="mt-4 aspect-video overflow-hidden rounded-3xl border border-border">
-            <iframe
-              src={project.videoEmbedUrl}
-              title={`${project.title} demo video`}
-              className="h-full w-full"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          </div>
+          <ScrollSlide from="up">
+            <h2 className="font-display text-2xl font-medium sm:text-3xl">
+              Demo
+            </h2>
+            <div className="mt-4 aspect-video overflow-hidden rounded-3xl border border-border">
+              <iframe
+                src={project.videoEmbedUrl}
+                title={`${project.title} demo video`}
+                className="h-full w-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          </ScrollSlide>
         </section>
       ) : null}
 
       {isMedia(project.video) && project.video.url ? (
         <section className="border-t border-border py-10">
-          <h2 className="font-display text-2xl font-medium sm:text-3xl">Demo</h2>
-          <video
-            controls
-            className="mt-4 w-full rounded-3xl border border-border"
-            src={project.video.url}
-          />
+          <ScrollSlide from="up">
+            <h2 className="font-display text-2xl font-medium sm:text-3xl">
+              Demo
+            </h2>
+            <video
+              controls
+              className="mt-4 w-full rounded-3xl border border-border"
+              src={project.video.url}
+            />
+          </ScrollSlide>
         </section>
       ) : null}
 
