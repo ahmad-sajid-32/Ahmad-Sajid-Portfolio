@@ -109,6 +109,38 @@
   animation: marquee 38s linear infinite;
 }
 
+/* Blog spotlight: the stage's progress bar fills over exactly
+   one autoplay cycle; the playlist's equalizer bars bounce
+   while a story is "playing". Both honour the component's
+   pause state via animation-play-state. */
+@keyframes spotlight-progress {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.animate-spotlight-progress {
+  animation: spotlight-progress 5.5s linear forwards;
+}
+
+@keyframes eq-bounce {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.animate-eq {
+  transform-origin: bottom;
+  animation: eq-bounce 0.9s ease-in-out infinite;
+}
+
 @layer base {
   body {
     @apply bg-background font-sans text-foreground antialiased;

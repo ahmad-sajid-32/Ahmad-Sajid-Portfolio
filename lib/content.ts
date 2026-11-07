@@ -87,12 +87,15 @@ const homeSchema = z.object({
   sections: z.object({
     featuredProjects: z.string().min(1),
     allProjects: z.string().min(1),
+    allPosts: z.string().min(1),
     latestPosts: z.string().min(1),
     contactCta: z.object({
       heading: z.string().min(1),
       body: z.string().min(1),
       label: z.string().min(1),
       href: z.string().min(1),
+      imageUrl: z.string().min(1),
+      imageLightUrl: z.string().min(1),
     }),
   }),
 })

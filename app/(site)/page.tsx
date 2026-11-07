@@ -10,7 +10,7 @@ import {
   LinkedinIcon,
 } from '@/components/ui/brand-icons'
 
-import { PostCard } from '@/components/blog/post-card'
+import { BlogSpotlight } from '@/components/home/blog-spotlight'
 import { HeroWord } from '@/components/hero/hero-word'
 import { ExpertiseIndex } from '@/components/home/expertise-index'
 import { TechMarquee } from '@/components/home/tech-marquee'
@@ -54,7 +54,7 @@ export default async function HomePage() {
     specialisations: home.expertise.length,
   }
   const featured = await getFeaturedProjects()
-  const posts = (await getPublishedPosts()).slice(0, 3)
+  const posts = (await getPublishedPosts()).slice(0, 5)
   const technologies = await getTechnologies()
 
   const personJsonLd = {
@@ -291,44 +291,71 @@ export default async function HomePage() {
         </section>
       ) : null}
 
-      {/* Latest posts — rendered only once posts are published */}
+      {/* Latest posts — spotlight stage + playlist (Concept D) */}
       {posts.length > 0 ? (
         <section className="border-t border-border py-14">
-          <div className="flex items-end justify-between gap-6">
+          <div className="flex items-center justify-between gap-6">
             <SectionHeading title={home.sections.latestPosts} />
             <Link
               href="/blog"
-              className="hidden font-mono text-[11px] tracking-[0.18em] text-accent uppercase underline underline-offset-4 sm:block"
+              className="inline-flex shrink-0 items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-[0_10px_30px_rgba(232,163,61,0.35)] transition-shadow duration-300 hover:shadow-[0_14px_40px_rgba(232,163,61,0.5)]"
             >
-              All posts
+              {home.sections.allPosts}
+              <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
           <Reveal>
-            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {posts.map((post) => (
-                <PostCard key={post.id} post={post} />
-              ))}
+            <div className="mt-10">
+              <BlogSpotlight posts={posts} />
             </div>
           </Reveal>
         </section>
       ) : null}
 
-      {/* Contact CTA */}
+      {/* Contact CTA — paper-plane art (Dawn/Dusk relights of
+          one image) faded in from the left on the card's right
+          side; a surface scrim keeps the text zone on solid
+          card colour in both themes. */}
       <section className="border-t border-border py-14">
         <Reveal>
-          <div className="rounded-[14px] border border-border bg-surface p-8 sm:p-10">
-          <h2 className="font-display text-3xl leading-tight font-medium">
-            {home.sections.contactCta.heading}
-          </h2>
-          <p className="mt-3 max-w-xl text-muted-foreground">
-            {home.sections.contactCta.body}
-          </p>
-          <Link
-            href={home.sections.contactCta.href}
-            className="mt-6 inline-block rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground"
-          >
-            {home.sections.contactCta.label}
-          </Link>
+          <div className="relative overflow-hidden rounded-[14px] border border-border bg-surface">
+            <div
+              aria-hidden="true"
+              className="absolute inset-y-0 right-0 w-[70%] [mask-image:linear-gradient(to_right,transparent,black_55%)] sm:w-[62%] lg:w-[58%]"
+            >
+              <Image
+                src={home.sections.contactCta.imageLightUrl}
+                alt=""
+                fill
+                sizes="(max-width: 640px) 70vw, (max-width: 1024px) 62vw, 58vw"
+                className="object-cover object-center"
+              />
+              <Image
+                src={home.sections.contactCta.imageUrl}
+                alt=""
+                fill
+                sizes="(max-width: 640px) 70vw, (max-width: 1024px) 62vw, 58vw"
+                className="object-cover object-center opacity-0 transition-opacity duration-700 dark:opacity-100"
+              />
+            </div>
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-gradient-to-r from-surface from-25% via-surface/70 via-55% to-transparent"
+            />
+            <div className="relative max-w-lg p-8 sm:p-10">
+              <h2 className="font-display text-3xl leading-tight font-medium">
+                {home.sections.contactCta.heading}
+              </h2>
+              <p className="mt-3 leading-relaxed text-muted-foreground">
+                {home.sections.contactCta.body}
+              </p>
+              <Link
+                href={home.sections.contactCta.href}
+                className="mt-6 inline-block rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground"
+              >
+                {home.sections.contactCta.label}
+              </Link>
+            </div>
           </div>
         </Reveal>
       </section>

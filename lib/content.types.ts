@@ -52,12 +52,15 @@ export interface HomeContent {
   sections: {
     featuredProjects: string
     allProjects: string
+    allPosts: string
     latestPosts: string
     contactCta: {
       heading: string
       body: string
       label: string
       href: string
+      imageUrl: string
+      imageLightUrl: string
     }
   }
 }
