@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 import { PostCard } from '@/components/blog/post-card'
-import { Reveal } from '@/components/motion/reveal'
+import { ScrollSlide } from '@/components/motion/scroll-slide'
 import { PageHeader } from '@/components/ui/page-header'
 import { getPublishedPosts } from '@/lib/data'
 
@@ -18,27 +18,29 @@ export default async function BlogPage() {
 
   return (
     <div className="py-14">
-      <PageHeader
-        path="~/blog"
-        title="Blog"
-        intro="What building and running real systems teaches you — deployment, retrieval, automation, and the lessons that arrive with an invoice attached."
-      />
+      <ScrollSlide from="left">
+        <PageHeader
+          path="~/blog"
+          title="Blog"
+          intro="What building and running real systems teaches you — deployment, retrieval, automation, and the lessons that arrive with an invoice attached."
+        />
+      </ScrollSlide>
 
       {posts.length > 0 ? (
         <>
-          <Reveal>
+          <ScrollSlide from="left">
             <div className="mt-12">
               <PostCard post={lead} featured />
             </div>
-          </Reveal>
+          </ScrollSlide>
           {rest.length > 0 ? (
-            <Reveal>
+            <ScrollSlide from="right">
               <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 {rest.map((post) => (
                   <PostCard key={post.id} post={post} />
                 ))}
               </div>
-            </Reveal>
+            </ScrollSlide>
           ) : null}
         </>
       ) : (

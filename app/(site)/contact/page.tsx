@@ -2,6 +2,7 @@ import { ArrowUpRight, Mail } from 'lucide-react'
 import type { Metadata } from 'next'
 
 import { ContactForm } from '@/components/contact/contact-form'
+import { ScrollSlide } from '@/components/motion/scroll-slide'
 import { PageHeader } from '@/components/ui/page-header'
 import { SOCIAL_ICONS } from '@/components/ui/social-icons'
 import { getContactContent, getSiteContent } from '@/lib/content'
@@ -28,17 +29,22 @@ export default async function ContactPage() {
 
   return (
     <div className="py-14">
-      <PageHeader path="~/contact" title={contact.heading} intro={contact.intro} />
+      <ScrollSlide from="left">
+        <PageHeader path="~/contact" title={contact.heading} intro={contact.intro} />
+      </ScrollSlide>
 
       <div className="mt-12 grid gap-8 lg:grid-cols-[1fr_340px]">
-        <div className="h-fit rounded-3xl border border-border bg-surface p-6 shadow-[0_30px_60px_rgba(0,0,0,0.25)] sm:p-8">
-          <ContactForm
-            form={contact.form}
-            turnstileSiteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
-          />
-        </div>
+        <ScrollSlide from="left" className="h-fit">
+          <div className="rounded-3xl border border-border bg-surface p-6 shadow-[0_30px_60px_rgba(0,0,0,0.25)] sm:p-8">
+            <ContactForm
+              form={contact.form}
+              turnstileSiteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
+            />
+          </div>
+        </ScrollSlide>
 
-        <aside className="space-y-8">
+        <ScrollSlide from="right">
+          <aside className="space-y-8">
           <div className="rounded-3xl border border-border bg-surface p-6">
             <div className="flex items-center gap-3">
               <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-primary/30 bg-primary/10 text-primary">
@@ -84,7 +90,8 @@ export default async function ContactPage() {
               {site.availability}
             </p>
           </div>
-        </aside>
+          </aside>
+        </ScrollSlide>
       </div>
     </div>
   )

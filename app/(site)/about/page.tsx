@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 
-import { Reveal } from '@/components/motion/reveal'
+import { ScrollSlide } from '@/components/motion/scroll-slide'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { getAboutContent, getHomeContent, getSiteContent } from '@/lib/content'
 
@@ -32,8 +32,8 @@ export default function AboutPage() {
           aria-hidden="true"
           className="pointer-events-none absolute -top-28 right-0 h-72 w-72 rounded-full bg-primary/10 blur-3xl"
         />
-        <div className="relative grid items-center gap-10 lg:grid-cols-[1fr_auto]">
-          <div>
+        <div className="relative flex flex-col gap-10 lg:grid lg:grid-cols-[1fr_auto]">
+          <ScrollSlide from="left" className="lg:col-start-1 lg:row-start-1">
             <p className="font-mono text-[11px] tracking-[0.18em] text-highlight uppercase">
               ~/about
             </p>
@@ -44,51 +44,67 @@ export default function AboutPage() {
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-highlight" />
               {site.availability}
             </p>
-            {lead ? (
-              <p className="mt-7 max-w-2xl text-lg leading-relaxed text-foreground/90">
+          </ScrollSlide>
+
+          {/* Portrait medallion — the hero's Dawn/Dusk pair,
+              large and centred under the heading on mobile,
+              in the right column on desktop. */}
+          <ScrollSlide
+            from="right"
+            className="lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:self-center"
+          >
+            <div className="animate-float relative mx-auto w-fit lg:mx-0">
+              <div
+                aria-hidden="true"
+                className="absolute -inset-3 rounded-full bg-primary/20 blur-xl"
+              />
+              <div className="relative h-72 w-72 overflow-hidden rounded-full border-2 border-primary/60 shadow-[0_18px_40px_rgba(0,0,0,0.35)] sm:h-80 sm:w-80 lg:h-[380px] lg:w-[380px]">
+                <Image
+                  src={home.hero.circlePortraitUrl}
+                  alt=""
+                  aria-hidden="true"
+                  width={760}
+                  height={760}
+                  priority
+                  className="absolute inset-0 h-full w-full object-cover object-[center_18%] opacity-0 transition-opacity duration-700 dark:opacity-100"
+                />
+                <Image
+                  src={home.hero.circlePortraitLightUrl}
+                  alt={home.hero.portraitAlt}
+                  width={760}
+                  height={760}
+                  priority
+                  className="absolute inset-0 h-full w-full object-cover object-[center_18%] transition-opacity duration-700 dark:opacity-0"
+                />
+              </div>
+            </div>
+          </ScrollSlide>
+
+          {lead ? (
+            <ScrollSlide
+              from="left"
+              delay={0.12}
+              className="lg:col-start-1 lg:row-start-2"
+            >
+              <p className="max-w-2xl text-lg leading-relaxed text-foreground/90">
                 {lead}
               </p>
-            ) : null}
-          </div>
-
-          {/* Portrait medallion — the hero's Dawn/Dusk pair. */}
-          <div className="animate-float relative mx-auto lg:mx-0">
-            <div
-              aria-hidden="true"
-              className="absolute -inset-3 rounded-full bg-primary/20 blur-xl"
-            />
-            <div className="relative h-60 w-60 overflow-hidden rounded-full border-2 border-primary/60 shadow-[0_18px_40px_rgba(0,0,0,0.35)] sm:h-72 sm:w-72">
-              <Image
-                src={home.hero.circlePortraitUrl}
-                alt=""
-                aria-hidden="true"
-                width={640}
-                height={640}
-                priority
-                className="absolute inset-0 h-full w-full object-cover object-[center_18%] opacity-0 transition-opacity duration-700 dark:opacity-100"
-              />
-              <Image
-                src={home.hero.circlePortraitLightUrl}
-                alt={home.hero.portraitAlt}
-                width={640}
-                height={640}
-                priority
-                className="absolute inset-0 h-full w-full object-cover object-[center_18%] transition-opacity duration-700 dark:opacity-0"
-              />
-            </div>
-          </div>
+            </ScrollSlide>
+          ) : null}
         </div>
       </header>
 
       {restBio.length > 0 ? (
-        <div className="mt-10 max-w-3xl space-y-5 leading-[1.85] text-muted-foreground">
-          {restBio.map((paragraph, index) => (
-            <p key={index}>{paragraph}</p>
-          ))}
-        </div>
+        <ScrollSlide from="up" className="mt-10">
+          <div className="max-w-3xl space-y-5 leading-[1.85] text-muted-foreground">
+            {restBio.map((paragraph, index) => (
+              <p key={index}>{paragraph}</p>
+            ))}
+          </div>
+        </ScrollSlide>
       ) : null}
 
-      <Reveal>
+      <ScrollSlide from="left">
         <section className="mt-20">
           <SectionHeading title="Where I've worked" />
           <div className="relative mt-10">
@@ -118,9 +134,9 @@ export default function AboutPage() {
             ))}
           </div>
         </section>
-      </Reveal>
+      </ScrollSlide>
 
-      <Reveal>
+      <ScrollSlide from="right">
         <section className="mt-20">
           <SectionHeading title="Education" />
           <div className="mt-8 grid gap-5 sm:grid-cols-2">
@@ -143,9 +159,9 @@ export default function AboutPage() {
             ))}
           </div>
         </section>
-      </Reveal>
+      </ScrollSlide>
 
-      <Reveal>
+      <ScrollSlide from="left">
         <section className="mt-20">
           <SectionHeading title="What I work with" />
           <div className="mt-8 grid gap-5 sm:grid-cols-2">
@@ -172,9 +188,9 @@ export default function AboutPage() {
             ))}
           </div>
         </section>
-      </Reveal>
+      </ScrollSlide>
 
-      <Reveal>
+      <ScrollSlide from="right">
         <section className="mt-20">
           <SectionHeading title="Certificates" />
           <ul className="mt-8 divide-y divide-border rounded-3xl border border-border bg-surface px-6 sm:px-7">
@@ -194,7 +210,7 @@ export default function AboutPage() {
             ))}
           </ul>
         </section>
-      </Reveal>
+      </ScrollSlide>
     </div>
   )
 }

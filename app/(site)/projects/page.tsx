@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
-import { Reveal } from '@/components/motion/reveal'
+import { ScrollSlide } from '@/components/motion/scroll-slide'
 import { ProjectCard } from '@/components/projects/project-card'
 import { PageHeader } from '@/components/ui/page-header'
 import { getPublishedProjects, TRACK_LABELS } from '@/lib/data'
@@ -45,15 +45,17 @@ export default async function ProjectsPage({ searchParams }: ProjectsPageProps) 
 
   return (
     <div className="py-14">
-      <PageHeader
-        path="~/projects"
-        title="Projects"
-        intro="The work itself, written up as case studies — what was built, how, and what it took to run it. Every claim here is from a real, delivered project."
-      >
-        <p className="mt-4 font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
-          {projects.length} case studies{yearRange ? ` · ${yearRange}` : ''}
-        </p>
-      </PageHeader>
+      <ScrollSlide from="left">
+        <PageHeader
+          path="~/projects"
+          title="Projects"
+          intro="The work itself, written up as case studies — what was built, how, and what it took to run it. Every claim here is from a real, delivered project."
+        >
+          <p className="mt-4 font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
+            {projects.length} case studies{yearRange ? ` · ${yearRange}` : ''}
+          </p>
+        </PageHeader>
+      </ScrollSlide>
 
       <div className="mt-10 flex flex-wrap gap-2">
         <Link href={filterLink(null)} className={chipClass(activeTrack === null)}>
@@ -71,13 +73,13 @@ export default async function ProjectsPage({ searchParams }: ProjectsPageProps) 
       </div>
 
       {visible.length > 0 ? (
-        <Reveal>
+        <ScrollSlide from="right">
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {visible.map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))}
           </div>
-        </Reveal>
+        </ScrollSlide>
       ) : (
         <p className="mt-10 rounded-3xl border border-border bg-surface p-6 text-muted-foreground">
           No published projects in this track yet.

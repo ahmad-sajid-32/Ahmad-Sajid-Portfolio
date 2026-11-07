@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
+import { ScrollSlide } from '@/components/motion/scroll-slide'
 import { CaseStudyBlocks } from '@/components/projects/case-study-blocks'
 import { GithubIcon } from '@/components/ui/brand-icons'
 import { TECH_ICONS } from '@/components/ui/tech-icons'
@@ -93,11 +94,12 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
         <ArrowLeft className="h-3.5 w-3.5" /> All projects
       </Link>
 
-      <header className="relative mt-10">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -top-24 right-0 h-72 w-72 rounded-full bg-primary/10 blur-3xl"
-        />
+      <ScrollSlide from="left">
+        <header className="relative mt-10">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -top-24 right-0 h-72 w-72 rounded-full bg-primary/10 blur-3xl"
+          />
         <div className="relative">
           <div className="flex flex-wrap items-center gap-2.5">
             <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3 py-1.5 font-mono text-[10px] tracking-[0.14em] text-foreground/90 uppercase">
@@ -119,11 +121,12 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
           <h1 className="mt-5 font-display text-5xl leading-[1.05] font-semibold tracking-tight sm:text-6xl">
             {project.title}
           </h1>
-          <p className="mt-4 max-w-2xl font-display text-2xl leading-snug text-muted-foreground italic">
-            {project.tagline}
-          </p>
-        </div>
-      </header>
+            <p className="mt-4 max-w-2xl font-display text-2xl leading-snug text-muted-foreground italic">
+              {project.tagline}
+            </p>
+          </div>
+        </header>
+      </ScrollSlide>
 
       {cover?.url ? (
         <div className="relative mt-10 aspect-[3/2] overflow-hidden rounded-3xl border border-border shadow-[0_40px_80px_rgba(0,0,0,0.35)]">
@@ -139,7 +142,8 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
         </div>
       ) : null}
 
-      <div className="mt-10 grid grid-cols-2 gap-6 rounded-3xl border border-border bg-surface p-6 sm:grid-cols-4 sm:p-7">
+      <ScrollSlide from="right" className="mt-10">
+        <div className="grid grid-cols-2 gap-6 rounded-3xl border border-border bg-surface p-6 sm:grid-cols-4 sm:p-7">
         <MetaItem label="Role" value={project.role} />
         <MetaItem label="Year" value={String(project.year)} />
         <MetaItem
@@ -156,8 +160,9 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
             DEPLOYMENT_LABELS[project.deploymentStatus] ??
             project.deploymentStatus
           }
-        />
-      </div>
+          />
+        </div>
+      </ScrollSlide>
 
       {project.techStack.length > 0 ? (
         <div className="mt-8">
@@ -267,10 +272,11 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
       ) : null}
 
       {(previous || next) && (
-        <nav
-          aria-label="More projects"
-          className="mt-10 grid gap-4 border-t border-border pt-8 sm:grid-cols-2"
-        >
+        <ScrollSlide from="up">
+          <nav
+            aria-label="More projects"
+            className="mt-10 grid gap-4 border-t border-border pt-8 sm:grid-cols-2"
+          >
           {previous ? (
             <Link
               href={`/projects/${previous.slug}`}
@@ -300,8 +306,9 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                 {next.title}
               </span>
             </Link>
-          ) : null}
-        </nav>
+            ) : null}
+          </nav>
+        </ScrollSlide>
       )}
     </article>
   )
