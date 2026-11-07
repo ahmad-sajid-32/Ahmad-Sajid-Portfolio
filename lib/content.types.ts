@@ -11,6 +11,8 @@ export interface SiteContent {
   nav: ContentLink[]
   socials: (ContentLink & { key: string })[]
   footerText: string
+  footerRibbon: string[]
+  coordinates: string
   defaultSeo: {
     title: string
     description: string

@@ -144,6 +144,11 @@
 @layer base {
   body {
     @apply bg-background font-sans text-foreground antialiased;
+    /* Decorative bleeds (coverflow fans, marquees) must never
+       widen the page on mobile. `clip` — unlike `hidden` —
+       creates no scroll container, so position: sticky keeps
+       working. */
+    overflow-x: clip;
   }
 
   /* Custom cursor is active (set by components/motion/cursor.tsx on

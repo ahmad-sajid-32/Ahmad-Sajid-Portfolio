@@ -6,19 +6,8 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState, type ReactNode } from 'react'
 
-import {
-  GithubIcon,
-  InstagramIcon,
-  LinkedinIcon,
-} from '@/components/ui/brand-icons'
+import { SOCIAL_ICONS } from '@/components/ui/social-icons'
 import { cn } from '@/lib/utils'
-
-/** Brand icons for the drawer footer, keyed by site.json social key. */
-const SOCIAL_ICONS: Record<string, ReactNode> = {
-  github: <GithubIcon className="h-[18px] w-[18px]" />,
-  linkedin: <LinkedinIcon className="h-[18px] w-[18px]" />,
-  instagram: <InstagramIcon className="h-[18px] w-[18px]" />,
-}
 
 interface MobileNavProps {
   nav: { label: string; href: string }[]

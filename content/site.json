@@ -5,6 +5,12 @@
     "title": "Ahmad Sajid — Software Engineer"
   },
   "footerText": "Designed and built by Ahmad Sajid — Next.js, Payload CMS and Supabase.",
+  "footerRibbon": [
+    "Let’s work together",
+    "Open to new roles",
+    "Backend · AI Agents · CRM · Frontend"
+  ],
+  "coordinates": "31.5204° N · 74.3587° E",
   "location": "Lahore, Pakistan",
   "name": "Ahmad Sajid",
   "nav": [
