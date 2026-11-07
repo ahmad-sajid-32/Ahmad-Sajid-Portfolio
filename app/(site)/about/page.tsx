@@ -26,7 +26,7 @@ export default function AboutPage() {
   const [lead, ...restBio] = about.bio
 
   return (
-    <div className="py-14">
+    <div className="page-gutter py-14">
       <header className="relative">
         <div
           aria-hidden="true"

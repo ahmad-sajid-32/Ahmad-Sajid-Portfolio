@@ -162,6 +162,16 @@
     @apply bg-background font-sans text-foreground antialiased;
   }
 
+  /* The layout is full width: <main> carries no padding, so
+     full-bleed sections (hero, marquees, the coverflow stage) can
+     reach the screen edges and their decorations are never sliced
+     at an inset boundary. Content blocks opt into the standard
+     inset with this class instead — one gutter scale everywhere
+     (the same values <main> used to carry). */
+  .page-gutter {
+    @apply px-6 sm:px-10 lg:px-14 xl:px-20;
+  }
+
   /* Custom cursor is active (set by components/motion/cursor.tsx on
      fine-pointer, motion-allowed devices only): hide the native
      cursor everywhere except form fields, where it is restored. */

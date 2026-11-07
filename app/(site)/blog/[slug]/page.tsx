@@ -68,7 +68,7 @@ export default async function PostDetailPage({ params }: PostPageProps) {
     .join(' · ')
 
   return (
-    <article className="py-14">
+    <article className="page-gutter py-14">
       <Link
         href="/blog"
         className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-4 py-2 font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase transition-all duration-300 hover:border-primary/50 hover:text-foreground"

@@ -17,7 +17,7 @@ export default async function BlogPage() {
   const [lead, ...rest] = posts
 
   return (
-    <div className="py-14">
+    <div className="page-gutter py-14">
       <PageHeader
         path="~/blog"
         title="Blog"

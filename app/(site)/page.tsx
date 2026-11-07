@@ -107,7 +107,7 @@ export default async function HomePage() {
           {'=>'}
         </span>
 
-        <div className="relative grid w-full flex-1 grid-cols-1 gap-x-10 gap-y-14 lg:grid-cols-[1fr_auto_1fr] lg:gap-10">
+        <div className="page-gutter relative grid w-full flex-1 grid-cols-1 gap-x-10 gap-y-14 lg:grid-cols-[1fr_auto_1fr] lg:gap-10">
           <div className="relative z-10 flex flex-col justify-between gap-10 pb-14">
             <SlideIn from="left">
               <p className="font-display text-2xl text-highlight italic">
@@ -149,14 +149,13 @@ export default async function HomePage() {
                   Dawn portraits cross-fade on the theme class, so
                   toggling never flashes or swaps abruptly. */}
               <div className="animate-float relative mx-auto lg:hidden">
-                {/* Halo, not a disc: a radial gradient that falls
-                    to fully transparent, sized well beyond the
-                    medallion, so the glow melts into the background
-                    with no visible edge (the old solid disc + blur
-                    read as a cut-off circle on phones). */}
+                {/* Same glow construction as the About page
+                    medallion (Ahmad: About renders it correctly) —
+                    a compact blurred disc that always completes
+                    its fade well inside the layout. */}
                 <div
                   aria-hidden="true"
-                  className="absolute -inset-20 rounded-full bg-[radial-gradient(circle_at_center,var(--color-primary)_0%,transparent_70%)] opacity-25 blur-2xl sm:-inset-24"
+                  className="absolute -inset-3 rounded-full bg-primary/20 blur-xl"
                 />
                 <div className="relative h-60 w-60 overflow-hidden rounded-full border-2 border-primary/60 shadow-[0_18px_40px_rgba(0,0,0,0.35)] sm:h-72 sm:w-72">
                   <Image
@@ -240,7 +239,7 @@ export default async function HomePage() {
       {/* Intro / expertise — the marquee above carries the
           section's top border, so the line stays a single
           hairline instead of doubling up. */}
-      <section className="py-14">
+      <section className="page-gutter py-14">
         <ScrollSlide from="left">
           <SectionHeading title={home.intro.heading} />
           <p className="mt-5 max-w-2xl leading-relaxed text-muted-foreground">
@@ -268,7 +267,7 @@ export default async function HomePage() {
           chosen prototype. */}
       {featured.length > 0 ? (
         <section className="border-t border-border py-14">
-          <ScrollSlide from="up">
+          <ScrollSlide from="up" className="page-gutter">
             <SectionHeading
               title={home.sections.featuredProjects}
               className="text-center"
@@ -291,7 +290,7 @@ export default async function HomePage() {
 
       {/* Latest posts — spotlight stage + playlist (Concept D) */}
       {posts.length > 0 ? (
-        <section className="border-t border-border py-14">
+        <section className="page-gutter border-t border-border py-14">
           <ScrollSlide from="left">
             <div className="flex items-center justify-between gap-6">
               <SectionHeading title={home.sections.latestPosts} />
@@ -316,7 +315,7 @@ export default async function HomePage() {
           one image) faded in from the left on the card's right
           side; a surface scrim keeps the text zone on solid
           card colour in both themes. */}
-      <section className="border-t border-border py-14">
+      <section className="page-gutter border-t border-border py-14">
         <Reveal>
           <div className="relative overflow-hidden rounded-[14px] border border-border bg-surface">
             <div

@@ -44,7 +44,7 @@ export default async function ProjectsPage({ searchParams }: ProjectsPageProps) 
       : ''
 
   return (
-    <div className="py-14">
+    <div className="page-gutter py-14">
       <PageHeader
           path="~/projects"
           title="Projects"
