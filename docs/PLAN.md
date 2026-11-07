@@ -346,3 +346,4 @@ stats 6/16/4, both carousels in markup, the CTA's optimized
 plane image serving 200, Copy B live. The sandbox browser
 renders a blank page for the live domain (proxy quirk), so
 live verification ran over HTTP + the live HTML.
+- 2026-11-07 — Footer mix LIVE on rebuild (5acf92d): ribbon + postcard (live Lahore clock) + giant name + © line only; Socials global in Payload (seeded, all surfaces read from it, hero/drawer keep 3); sticky header; coverflow mobile overflow fixed ([overflow-x:clip] + body clip; 390px scrollWidth verified). Payload CLI is broken in the sandbox (undici/Node 24) — migration hand-authored from the dev-pushed schema, ledger batch 2; see IDEAS-AND-DECISIONS.md before the next schema change.
