@@ -85,7 +85,7 @@ export function BlogSpotlight({ posts }: { posts: PostDoc[] }) {
             ) : null}
           </motion.div>
         </AnimatePresence>
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/35 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-background/10" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent" />
         <span className="absolute top-5 left-5 rounded-full border border-white/25 bg-background/50 px-3 py-1 font-mono text-[10px] tracking-[0.14em] text-white uppercase backdrop-blur">
           Now reading{post.category ? ` · ${post.category.name}` : ''}
@@ -105,7 +105,7 @@ export function BlogSpotlight({ posts }: { posts: PostDoc[] }) {
               <p className="mt-2.5 line-clamp-2 max-w-xl leading-relaxed text-white/75">
                 {post.excerpt}
               </p>
-              <p className="mt-4 flex items-center gap-4 font-mono text-[10px] tracking-[0.16em] text-white/60 uppercase">
+              <p className="mt-4 flex items-center gap-4 font-mono text-[10px] tracking-[0.16em] whitespace-nowrap text-white/60 uppercase">
                 {date ? <span>{date}</span> : null}
                 {post.readingTime ? <span>{post.readingTime} min read</span> : null}
                 <span className="inline-flex items-center gap-1.5 text-primary">
