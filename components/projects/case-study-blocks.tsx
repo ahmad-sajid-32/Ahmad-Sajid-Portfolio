@@ -25,8 +25,11 @@ function BlockSection({
 }) {
   return (
     <section className="border-t border-border py-10 first:border-t-0 first:pt-0">
-      <h2 className="font-display text-2xl font-medium sm:text-3xl">{title}</h2>
-      <div className="mt-4">{children}</div>
+      <h2 className="flex items-center gap-3.5 font-display text-2xl font-semibold tracking-tight sm:text-3xl">
+        <span aria-hidden="true" className="h-7 w-1 shrink-0 rounded-full bg-primary" />
+        {title}
+      </h2>
+      <div className="mt-5">{children}</div>
     </section>
   )
 }
@@ -44,11 +47,11 @@ export function CaseStudyBlocks({ blocks }: { blocks: CaseStudyBlock[] }) {
         if (block.blockType === 'features') {
           return (
             <BlockSection key={key} title="Key features">
-              <ul className="space-y-3">
+              <ul className="grid gap-3 sm:grid-cols-2">
                 {(block.items ?? []).map((item, itemIndex) => (
                   <li
                     key={item.id ?? itemIndex}
-                    className="flex gap-3 text-muted-foreground"
+                    className="flex gap-3 rounded-2xl border border-border bg-surface p-4 leading-relaxed text-foreground/90 transition-colors duration-300 hover:border-primary/40"
                   >
                     <span
                       aria-hidden
@@ -72,20 +75,20 @@ export function CaseStudyBlocks({ blocks }: { blocks: CaseStudyBlock[] }) {
                   .map((media) => (
                     <div
                       key={media.id}
-                      className="relative aspect-[3/2] overflow-hidden rounded-[14px] border border-border"
+                      className="group relative aspect-[3/2] overflow-hidden rounded-3xl border border-border"
                     >
                       <Image
                         src={media.url ?? ''}
                         alt={media.alt}
                         fill
                         sizes="(max-width: 640px) 100vw, 50vw"
-                        className="object-cover"
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
                       />
                     </div>
                   ))}
               </div>
               {block.videoEmbedUrl ? (
-                <div className="mt-4 aspect-video overflow-hidden rounded-[14px] border border-border">
+                <div className="mt-4 aspect-video overflow-hidden rounded-3xl border border-border">
                   <iframe
                     src={block.videoEmbedUrl}
                     title="Project video"
@@ -105,7 +108,7 @@ export function CaseStudyBlocks({ blocks }: { blocks: CaseStudyBlock[] }) {
             <BlockSection key={key} title={title}>
               <RichText data={block.body} />
               {block.blockType === 'architecture' && isMedia(block.diagram) ? (
-                <div className="relative mt-6 aspect-[16/9] overflow-hidden rounded-[14px] border border-border">
+                <div className="relative mt-6 aspect-[16/9] overflow-hidden rounded-3xl border border-border bg-surface">
                   <Image
                     src={block.diagram.url ?? ''}
                     alt={block.diagram.alt}

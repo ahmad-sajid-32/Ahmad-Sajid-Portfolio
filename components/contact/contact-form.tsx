@@ -52,7 +52,7 @@ export function ContactForm({ form, turnstileSiteKey }: ContactFormProps) {
 
   if (state === 'sent') {
     return (
-      <div className="rounded-[14px] border border-border bg-surface p-6">
+      <div className="rounded-3xl border border-border bg-surface p-6">
         <p className="font-medium text-success">{form.successMessage}</p>
       </div>
     )

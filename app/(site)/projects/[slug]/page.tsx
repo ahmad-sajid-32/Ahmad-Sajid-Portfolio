@@ -1,9 +1,12 @@
+import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 import { CaseStudyBlocks } from '@/components/projects/case-study-blocks'
+import { GithubIcon } from '@/components/ui/brand-icons'
+import { TECH_ICONS } from '@/components/ui/tech-icons'
 import {
   DEPLOYMENT_LABELS,
   PROJECT_TYPE_LABELS,
@@ -85,28 +88,45 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
     <article className="py-14">
       <Link
         href="/projects"
-        className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase transition-colors hover:text-foreground"
+        className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-4 py-2 font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase transition-all duration-300 hover:border-primary/50 hover:text-foreground"
       >
-        ← All projects
+        <ArrowLeft className="h-3.5 w-3.5" /> All projects
       </Link>
 
-      <header className="mt-8">
-        <p className="font-mono text-[11px] tracking-[0.18em] text-highlight uppercase">
-          {PROJECT_TYPE_LABELS[project.projectType] ?? project.projectType}
-          {' · '}
-          {DEPLOYMENT_LABELS[project.deploymentStatus] ??
-            project.deploymentStatus}
-        </p>
-        <h1 className="mt-3 font-display text-5xl leading-tight font-medium">
-          {project.title}
-        </h1>
-        <p className="mt-4 max-w-2xl font-display text-2xl leading-snug text-muted-foreground">
-          {project.tagline}
-        </p>
+      <header className="relative mt-10">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -top-24 right-0 h-72 w-72 rounded-full bg-primary/10 blur-3xl"
+        />
+        <div className="relative">
+          <div className="flex flex-wrap items-center gap-2.5">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3 py-1.5 font-mono text-[10px] tracking-[0.14em] text-foreground/90 uppercase">
+              <span className="h-1 w-1 rounded-full bg-primary" />
+              {PROJECT_TYPE_LABELS[project.projectType] ?? project.projectType}
+            </span>
+            {project.deploymentStatus === 'deployed' ? (
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-highlight/50 bg-background/60 px-3 py-1.5 font-mono text-[10px] tracking-[0.14em] text-highlight uppercase backdrop-blur">
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-highlight" />
+                {DEPLOYMENT_LABELS[project.deploymentStatus]}
+              </span>
+            ) : (
+              <span className="inline-flex items-center rounded-full border border-border px-3 py-1.5 font-mono text-[10px] tracking-[0.14em] text-muted-foreground uppercase">
+                {DEPLOYMENT_LABELS[project.deploymentStatus] ??
+                  project.deploymentStatus}
+              </span>
+            )}
+          </div>
+          <h1 className="mt-5 font-display text-5xl leading-[1.05] font-semibold tracking-tight sm:text-6xl">
+            {project.title}
+          </h1>
+          <p className="mt-4 max-w-2xl font-display text-2xl leading-snug text-muted-foreground italic">
+            {project.tagline}
+          </p>
+        </div>
       </header>
 
       {cover?.url ? (
-        <div className="relative mt-10 aspect-[3/2] overflow-hidden rounded-[14px] border border-border">
+        <div className="relative mt-10 aspect-[3/2] overflow-hidden rounded-3xl border border-border shadow-[0_40px_80px_rgba(0,0,0,0.35)]">
           <Image
             src={cover.url}
             alt={cover.alt}
@@ -115,10 +135,11 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
             sizes="(max-width: 1024px) 100vw, 1024px"
             className="object-cover"
           />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent" />
         </div>
       ) : null}
 
-      <div className="mt-10 grid grid-cols-2 gap-6 border-y border-border py-6 sm:grid-cols-4">
+      <div className="mt-10 grid grid-cols-2 gap-6 rounded-3xl border border-border bg-surface p-6 sm:grid-cols-4 sm:p-7">
         <MetaItem label="Role" value={project.role} />
         <MetaItem label="Year" value={String(project.year)} />
         <MetaItem
@@ -147,8 +168,15 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
             {project.techStack.map((tech) => (
               <span
                 key={tech.id}
-                className="rounded-full border border-border px-2.5 py-1 font-mono text-[10px] tracking-[0.14em] text-muted-foreground uppercase"
+                className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1.5 font-mono text-[10px] tracking-[0.14em] text-foreground/90 uppercase"
               >
+                {TECH_ICONS[tech.slug] ? (
+                  <span className="inline-flex [&>svg]:h-3.5 [&>svg]:w-3.5">
+                    {TECH_ICONS[tech.slug]}
+                  </span>
+                ) : (
+                  <span className="h-1 w-1 rounded-full bg-primary" />
+                )}
                 {tech.name}
               </span>
             ))}
@@ -163,9 +191,9 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
               href={project.liveUrl}
               target="_blank"
               rel="noreferrer"
-              className="rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground"
+              className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[0_10px_30px_rgba(232,163,61,0.35)] transition-transform duration-300 hover:-translate-y-0.5"
             >
-              Visit live site
+              Visit live site <ArrowUpRight className="h-4 w-4" />
             </a>
           ) : null}
           {project.githubUrl ? (
@@ -173,9 +201,9 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
               href={project.githubUrl}
               target="_blank"
               rel="noreferrer"
-              className="rounded-lg border border-input px-5 py-2.5 text-sm font-medium"
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-6 py-3 text-sm font-medium transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/50"
             >
-              View on GitHub
+              <GithubIcon className="h-4 w-4" /> View on GitHub
             </a>
           ) : null}
         </div>
@@ -197,14 +225,14 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
               .map((media) => (
                 <div
                   key={media.id}
-                  className="relative aspect-[3/2] overflow-hidden rounded-[14px] border border-border"
+                  className="group relative aspect-[3/2] overflow-hidden rounded-3xl border border-border"
                 >
                   <Image
                     src={media.url ?? ''}
                     alt={media.alt}
                     fill
                     sizes="(max-width: 640px) 100vw, 50vw"
-                    className="object-cover"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
               ))}
@@ -215,7 +243,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
       {project.videoEmbedUrl ? (
         <section className="border-t border-border py-10">
           <h2 className="font-display text-2xl font-medium sm:text-3xl">Demo</h2>
-          <div className="mt-4 aspect-video overflow-hidden rounded-[14px] border border-border">
+          <div className="mt-4 aspect-video overflow-hidden rounded-3xl border border-border">
             <iframe
               src={project.videoEmbedUrl}
               title={`${project.title} demo video`}
@@ -232,7 +260,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
           <h2 className="font-display text-2xl font-medium sm:text-3xl">Demo</h2>
           <video
             controls
-            className="mt-4 w-full rounded-[14px] border border-border"
+            className="mt-4 w-full rounded-3xl border border-border"
             src={project.video.url}
           />
         </section>
@@ -241,24 +269,36 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
       {(previous || next) && (
         <nav
           aria-label="More projects"
-          className="mt-6 flex items-center justify-between border-t border-border pt-8"
+          className="mt-10 grid gap-4 border-t border-border pt-8 sm:grid-cols-2"
         >
           {previous ? (
             <Link
               href={`/projects/${previous.slug}`}
-              className="font-mono text-[11px] tracking-[0.18em] text-accent uppercase"
+              className="group rounded-3xl border border-border bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50"
             >
-              ← {previous.title}
+              <span className="inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
+                <ArrowLeft className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-x-1" />
+                Previous project
+              </span>
+              <span className="mt-3 block font-display text-2xl font-semibold tracking-tight">
+                {previous.title}
+              </span>
             </Link>
           ) : (
-            <span />
+            <span className="hidden sm:block" />
           )}
           {next ? (
             <Link
               href={`/projects/${next.slug}`}
-              className="font-mono text-[11px] tracking-[0.18em] text-accent uppercase"
+              className="group rounded-3xl border border-border bg-surface p-6 text-right transition-all duration-300 hover:-translate-y-1 hover:border-primary/50"
             >
-              {next.title} →
+              <span className="inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
+                Next project
+                <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+              </span>
+              <span className="mt-3 block font-display text-2xl font-semibold tracking-tight">
+                {next.title}
+              </span>
             </Link>
           ) : null}
         </nav>
