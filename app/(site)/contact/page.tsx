@@ -28,7 +28,7 @@ export default async function ContactPage() {
   const socials = await getSocialLinks()
 
   return (
-    <div className="py-14">
+    <div className="page-gutter py-14">
       <PageHeader path="~/contact" title={contact.heading} intro={contact.intro} />
 
       <div className="mt-12 grid gap-8 lg:grid-cols-[1fr_340px]">
