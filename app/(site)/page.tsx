@@ -312,22 +312,50 @@ export default async function HomePage() {
         </section>
       ) : null}
 
-      {/* Contact CTA */}
+      {/* Contact CTA — paper-plane art (Dawn/Dusk relights of
+          one image) faded in from the left on the card's right
+          side; a surface scrim keeps the text zone on solid
+          card colour in both themes. */}
       <section className="border-t border-border py-14">
         <Reveal>
-          <div className="rounded-[14px] border border-border bg-surface p-8 sm:p-10">
-          <h2 className="font-display text-3xl leading-tight font-medium">
-            {home.sections.contactCta.heading}
-          </h2>
-          <p className="mt-3 max-w-xl text-muted-foreground">
-            {home.sections.contactCta.body}
-          </p>
-          <Link
-            href={home.sections.contactCta.href}
-            className="mt-6 inline-block rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground"
-          >
-            {home.sections.contactCta.label}
-          </Link>
+          <div className="relative overflow-hidden rounded-[14px] border border-border bg-surface">
+            <div
+              aria-hidden="true"
+              className="absolute inset-y-0 right-0 w-[70%] [mask-image:linear-gradient(to_right,transparent,black_55%)] sm:w-[62%] lg:w-[58%]"
+            >
+              <Image
+                src={home.sections.contactCta.imageLightUrl}
+                alt=""
+                fill
+                sizes="(max-width: 640px) 70vw, (max-width: 1024px) 62vw, 58vw"
+                className="object-cover object-center"
+              />
+              <Image
+                src={home.sections.contactCta.imageUrl}
+                alt=""
+                fill
+                sizes="(max-width: 640px) 70vw, (max-width: 1024px) 62vw, 58vw"
+                className="object-cover object-center opacity-0 transition-opacity duration-700 dark:opacity-100"
+              />
+            </div>
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-gradient-to-r from-surface from-25% via-surface/70 via-55% to-transparent"
+            />
+            <div className="relative max-w-lg p-8 sm:p-10">
+              <h2 className="font-display text-3xl leading-tight font-medium">
+                {home.sections.contactCta.heading}
+              </h2>
+              <p className="mt-3 leading-relaxed text-muted-foreground">
+                {home.sections.contactCta.body}
+              </p>
+              <Link
+                href={home.sections.contactCta.href}
+                className="mt-6 inline-block rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground"
+              >
+                {home.sections.contactCta.label}
+              </Link>
+            </div>
           </div>
         </Reveal>
       </section>

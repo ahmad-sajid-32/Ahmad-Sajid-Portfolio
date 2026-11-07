@@ -59,6 +59,8 @@ export interface HomeContent {
       body: string
       label: string
       href: string
+      imageUrl: string
+      imageLightUrl: string
     }
   }
 }

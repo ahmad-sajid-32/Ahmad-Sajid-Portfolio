@@ -302,3 +302,32 @@ PUBLISHED in the database (published 5 Nov 2026), not drafts —
 so this section renders live content today. All three posts
 currently share one generic cover in the CMS; per-post covers
 can be swapped in the admin whenever Ahmad wants topic art.
+
+## Contact CTA: paper-plane art + Copy B (added 2026-11-07, on rebuild)
+
+The home page's last original section. Ahmad asked for a
+generated image on the card's empty right side, faded from
+left to right, plus stronger copy. Two prototype rounds:
+atmospheric art (Lahore skyline, night desk, amber ribbons)
+was rejected as "random" — he wanted contact-related imagery;
+round 2 offered a glowing envelope, a paper plane, and glass
+chat bubbles. He picked the PAPER PLANE + Copy B ("Tell me
+about the role or the project — the stack, the problem, the
+deadline. I reply personally to every message, and the first
+reply is never a template." — now sections.contactCta.body).
+
+Per Ahmad's follow-up, there are TWO versions of the image:
+the Dusk original and a Dawn RELIGHT of the same image (same
+plane, trail and clouds; only the lighting changed — the
+portrait rule applied to art). Both live in Payload Media
+(id 21 cta-paper-plane.webp, id 20 cta-paper-plane-dawn.webp;
+uploaded via the temporary token route, deleted after) and
+are wired as contactCta.imageUrl / imageLightUrl, cross-fading
+on the theme class like the portraits. The image layer sits
+on the right 58-70% of the card under a left-to-right mask
+fade; a surface scrim (solid to 25%, 70% at 55%) keeps the
+text column on near-solid card colour. Contrast verified by
+CDP screenshots in BOTH themes using the real image files
+(local temp swap, restored before push): Dawn needed the
+scrim strengthened and the image narrowed after the first
+pass — the shipped values are the corrected ones.

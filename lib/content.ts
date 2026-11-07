@@ -94,6 +94,8 @@ const homeSchema = z.object({
       body: z.string().min(1),
       label: z.string().min(1),
       href: z.string().min(1),
+      imageUrl: z.string().min(1),
+      imageLightUrl: z.string().min(1),
     }),
   }),
 })

@@ -91,10 +91,12 @@
   },
   "sections": {
     "contactCta": {
-      "body": "I reply personally to every message.",
+      "body": "Tell me about the role or the project — the stack, the problem, the deadline. I reply personally to every message, and the first reply is never a template.",
       "heading": "Have a role or a project in mind?",
       "href": "/contact",
-      "label": "Contact me"
+      "label": "Contact me",
+      "imageUrl": "/api/media/file/cta-paper-plane.webp",
+      "imageLightUrl": "/api/media/file/cta-paper-plane-dawn.webp"
     },
     "featuredProjects": "Featured projects",
     "latestPosts": "Latest from the blog",
