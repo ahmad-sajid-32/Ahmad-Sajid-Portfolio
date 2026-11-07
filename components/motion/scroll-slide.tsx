@@ -21,10 +21,11 @@ const OFFSETS = {
 /**
  * Scroll-triggered directional reveal — the site-wide sibling
  * of the hero's intro-gated SlideIn. Content glides in from
- * the given side with a fade, once, when it enters the
- * viewport; sections alternate sides down the page so
- * scrolling feels choreographed rather than uniform. Under
- * reduced motion the content simply renders.
+ * the given side with a fade EVERY time it enters the
+ * viewport (Ahmad asked for the animations to replay with
+ * each scroll, 2026-11-07); sections alternate sides down
+ * the page so scrolling feels choreographed rather than
+ * uniform. Under reduced motion the content simply renders.
  */
 export function ScrollSlide({
   children,
@@ -45,7 +46,7 @@ export function ScrollSlide({
       className={className}
       initial={{ opacity: 0, x: offset.x, y: offset.y }}
       whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ once: true, margin: '-60px' }}
+      viewport={{ once: false, margin: '-60px' }}
       transition={{ duration: 0.85, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
