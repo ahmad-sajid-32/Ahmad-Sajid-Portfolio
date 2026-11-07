@@ -101,12 +101,24 @@ export function ExpertiseIndex({ areas }: { areas: ExpertiseArea[] }) {
         {areas.map((area, index) => {
           const isActive = index === active
           return (
-            <div
+            <motion.div
               key={area.title}
               ref={(el) => {
                 rowRefs.current[index] = el
               }}
               className="border-t border-border last:border-b"
+              {...(reduceMotion
+                ? {}
+                : {
+                    initial: { opacity: 0, x: -48 },
+                    whileInView: { opacity: 1, x: 0 },
+                    viewport: { once: true, margin: '-40px' },
+                    transition: {
+                      duration: 0.65,
+                      delay: index * 0.14,
+                      ease: [0.22, 1, 0.36, 1] as const,
+                    },
+                  })}
             >
               <button
                 type="button"
@@ -164,7 +176,7 @@ export function ExpertiseIndex({ areas }: { areas: ExpertiseArea[] }) {
                   </motion.div>
                 )}
               </AnimatePresence>
-            </div>
+            </motion.div>
           )
         })}
       </div>

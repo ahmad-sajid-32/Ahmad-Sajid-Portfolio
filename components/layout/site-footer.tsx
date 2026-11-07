@@ -3,6 +3,7 @@ import { getSiteContent } from '@/lib/content'
 import { getSocialLinks } from '@/lib/data'
 
 import { FooterClock } from './footer-clock'
+import { FooterWord } from './footer-word'
 
 /**
  * The footer, site-wide: a scrolling ribbon, the postcard
@@ -75,12 +76,14 @@ export async function SiteFooter() {
         </div>
       </div>
 
-      {/* Big sign-off */}
+      {/* Big sign-off — the name drops in letter by letter,
+          like the hero's DEVELOPER word, when it scrolls
+          into view (FooterWord carries the gradient). */}
       <p
         aria-hidden="true"
-        className="mt-10 bg-gradient-to-b from-primary via-primary/60 to-primary/5 bg-clip-text px-2 text-center font-display text-[11.5vw] leading-none font-bold tracking-tight whitespace-nowrap text-transparent select-none"
+        className="mt-10 px-2 text-center font-display text-[11.5vw] leading-none font-bold tracking-tight whitespace-nowrap select-none"
       >
-        {site.name.toUpperCase()}
+        <FooterWord word={site.name.toUpperCase()} />
       </p>
 
       {/* Copyright */}

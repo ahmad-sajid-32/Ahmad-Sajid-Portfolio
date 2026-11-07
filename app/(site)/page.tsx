@@ -10,6 +10,7 @@ import { HeroWord } from '@/components/hero/hero-word'
 import { ExpertiseIndex } from '@/components/home/expertise-index'
 import { TechMarquee } from '@/components/home/tech-marquee'
 import { Reveal } from '@/components/motion/reveal'
+import { ScrollSlide } from '@/components/motion/scroll-slide'
 import { SlideIn } from '@/components/motion/slide-in'
 import { ProjectsCoverflow } from '@/components/home/projects-coverflow'
 import { SectionHeading } from '@/components/ui/section-heading'
@@ -235,16 +236,18 @@ export default async function HomePage() {
           section's top border, so the line stays a single
           hairline instead of doubling up. */}
       <section className="py-14">
-        <Reveal>
+        <ScrollSlide from="left">
           <SectionHeading title={home.intro.heading} />
           <p className="mt-5 max-w-2xl leading-relaxed text-muted-foreground">
             {home.intro.body}
           </p>
-        </Reveal>
-        <Reveal className="mt-10">
+        </ScrollSlide>
+        {/* The index rows carry their own staggered
+            left-to-right reveal, so no wrapper here. */}
+        <div className="mt-10">
           <ExpertiseIndex areas={home.expertise} />
-        </Reveal>
-        <div className="mt-12 text-center">
+        </div>
+        <Reveal className="mt-12 text-center">
           <Link
             href={home.intro.aboutCta.href}
             className="group inline-flex items-center gap-2 rounded-lg border border-input px-5 py-2.5 text-sm font-medium transition-colors duration-300 hover:border-primary/60 hover:text-primary"
@@ -252,7 +255,7 @@ export default async function HomePage() {
             {home.intro.aboutCta.label}
             <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
           </Link>
-        </div>
+        </Reveal>
       </section>
 
       {/* Featured projects — 3D coverflow carousel (Concept C);
@@ -264,9 +267,9 @@ export default async function HomePage() {
             title={home.sections.featuredProjects}
             className="text-center"
           />
-          <Reveal className="mt-4">
+          <ScrollSlide from="left" className="mt-4">
             <ProjectsCoverflow projects={featured} />
-          </Reveal>
+          </ScrollSlide>
           <div className="mt-10 text-center">
             <Link
               href="/projects"
@@ -292,11 +295,11 @@ export default async function HomePage() {
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
-          <Reveal>
+          <ScrollSlide from="right">
             <div className="mt-10">
               <BlogSpotlight posts={posts} />
             </div>
-          </Reveal>
+          </ScrollSlide>
         </section>
       ) : null}
 

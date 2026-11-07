@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation'
 
 import { RichText } from '@/components/content/rich-text'
 import { formatDate } from '@/components/blog/post-card'
+import { ScrollSlide } from '@/components/motion/scroll-slide'
 import { getPostBySlug, getPublishedPosts } from '@/lib/data'
 
 interface PostPageProps {
@@ -75,7 +76,8 @@ export default async function PostDetailPage({ params }: PostPageProps) {
         <ArrowLeft className="h-3.5 w-3.5" /> All posts
       </Link>
 
-      <header className="relative mt-10 max-w-3xl">
+      <ScrollSlide from="left">
+        <header className="relative mt-10 max-w-3xl">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute -top-24 right-0 h-72 w-72 rounded-full bg-primary/10 blur-3xl"
@@ -95,11 +97,12 @@ export default async function PostDetailPage({ params }: PostPageProps) {
           <h1 className="mt-5 font-display text-4xl leading-[1.08] font-semibold tracking-tight sm:text-5xl">
             {post.title}
           </h1>
-          <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-            {post.excerpt}
-          </p>
-        </div>
-      </header>
+            <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+              {post.excerpt}
+            </p>
+          </div>
+        </header>
+      </ScrollSlide>
 
       {cover?.url ? (
         <div className="relative mt-10 aspect-[3/2] overflow-hidden rounded-3xl border border-border shadow-[0_40px_80px_rgba(0,0,0,0.35)]">
@@ -134,10 +137,11 @@ export default async function PostDetailPage({ params }: PostPageProps) {
       ) : null}
 
       {(previous || next) && (
-        <nav
-          aria-label="More posts"
-          className="mt-10 grid gap-4 border-t border-border pt-8 sm:grid-cols-2"
-        >
+        <ScrollSlide from="up">
+          <nav
+            aria-label="More posts"
+            className="mt-10 grid gap-4 border-t border-border pt-8 sm:grid-cols-2"
+          >
           {previous ? (
             <Link
               href={`/blog/${previous.slug}`}
@@ -167,8 +171,9 @@ export default async function PostDetailPage({ params }: PostPageProps) {
                 {next.title}
               </span>
             </Link>
-          ) : null}
-        </nav>
+            ) : null}
+          </nav>
+        </ScrollSlide>
       )}
     </article>
   )
