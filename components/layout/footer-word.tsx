@@ -33,10 +33,10 @@ export function FooterWord({ word }: { word: string }) {
           className={letterClass}
           initial={{ opacity: 0, y: -56 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-40px' }}
+          viewport={{ once: false, margin: '-40px' }}
           transition={{
             duration: 0.7,
-            delay: 0.04 + index * 0.06,
+            delay: 0.05 + index * 0.1,
             ease: [0.22, 1, 0.36, 1],
           }}
         >
