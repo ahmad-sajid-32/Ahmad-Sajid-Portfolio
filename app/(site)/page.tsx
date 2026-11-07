@@ -149,9 +149,14 @@ export default async function HomePage() {
                   Dawn portraits cross-fade on the theme class, so
                   toggling never flashes or swaps abruptly. */}
               <div className="animate-float relative mx-auto lg:hidden">
+                {/* Halo, not a disc: a radial gradient that falls
+                    to fully transparent, sized well beyond the
+                    medallion, so the glow melts into the background
+                    with no visible edge (the old solid disc + blur
+                    read as a cut-off circle on phones). */}
                 <div
                   aria-hidden="true"
-                  className="absolute -inset-3 rounded-full bg-primary/20 blur-xl"
+                  className="absolute -inset-20 rounded-full bg-[radial-gradient(circle_at_center,var(--color-primary)_0%,transparent_70%)] opacity-25 blur-2xl sm:-inset-24"
                 />
                 <div className="relative h-60 w-60 overflow-hidden rounded-full border-2 border-primary/60 shadow-[0_18px_40px_rgba(0,0,0,0.35)] sm:h-72 sm:w-72">
                   <Image
@@ -269,7 +274,7 @@ export default async function HomePage() {
               className="text-center"
             />
           </ScrollSlide>
-          <ScrollSlide from="left" className="mt-4">
+          <ScrollSlide from="up" className="mt-4">
             <ProjectsCoverflow projects={featured} />
           </ScrollSlide>
           <Reveal className="mt-10 text-center">

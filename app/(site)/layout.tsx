@@ -73,7 +73,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         <LenisProvider />
         <Cursor />
         <SiteHeader />
-        <main className="w-full px-6 sm:px-10 lg:px-14 xl:px-20">{children}</main>
+        <main className="w-full overflow-x-clip px-6 sm:px-10 lg:px-14 xl:px-20">{children}</main>
         <SiteFooter />
       </body>
     </html>

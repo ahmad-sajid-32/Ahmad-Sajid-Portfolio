@@ -136,7 +136,7 @@ export function ProjectsCoverflow({ projects }: { projects: ProjectDoc[] }) {
       onBlur={() => setPaused(false)}
     >
       <div
-        className={`relative cursor-grab touch-pan-y select-none [perspective:1200px] [overflow-x:clip] ${stageHeight}`}
+        className={`relative cursor-grab touch-pan-y select-none [perspective:1200px] [overflow-x:clip] [mask-image:linear-gradient(to_right,transparent,black_4%,black_96%,transparent)] ${stageHeight}`}
         onPointerDown={(event) => {
           dragStartX.current = event.clientX
         }}
