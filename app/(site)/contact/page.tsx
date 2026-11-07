@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { ContactForm } from '@/components/contact/contact-form'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { getContactContent, getSiteContent } from '@/lib/content'
+import { getSocialLinks } from '@/lib/data'
 
 export const metadata: Metadata = {
   title: 'Contact',
@@ -10,9 +11,10 @@ export const metadata: Metadata = {
     'Contact Ahmad Sajid — hiring, freelance projects, or questions about the work. Replies are personal, not automated.',
 }
 
-export default function ContactPage() {
+export default async function ContactPage() {
   const contact = getContactContent()
   const site = getSiteContent()
+  const socials = await getSocialLinks()
 
   return (
     <div className="py-14">
@@ -52,7 +54,7 @@ export default function ContactPage() {
               className="[&_h2]:text-2xl"
             />
             <ul className="mt-4 space-y-3">
-              {site.socials.map((social) => (
+              {socials.map((social) => (
                 <li key={social.key}>
                   <a
                     href={social.href}

@@ -3,12 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 
-import {
-  FacebookIcon,
-  GithubIcon,
-  InstagramIcon,
-  LinkedinIcon,
-} from '@/components/ui/brand-icons'
+import { SOCIAL_ICONS } from '@/components/ui/social-icons'
 
 import { BlogSpotlight } from '@/components/home/blog-spotlight'
 import { HeroWord } from '@/components/hero/hero-word'
@@ -23,25 +18,18 @@ import {
   getFeaturedProjects,
   getHeroCounts,
   getPublishedPosts,
+  getSocialLinks,
   getTechnologies,
 } from '@/lib/data'
 
-/** Brand icons for the hero social badges, keyed by site.json social key. */
-const SOCIAL_ICONS: Record<string, ReactNode> = {
-  github: <GithubIcon className="h-[18px] w-[18px]" />,
-  linkedin: <LinkedinIcon className="h-[18px] w-[18px]" />,
-  instagram: <InstagramIcon className="h-[18px] w-[18px]" />,
-  facebook: <FacebookIcon className="h-[18px] w-[18px]" />,
-  // Lucide has no Fiverr mark; the badge carries its "fi" monogram.
-  fiverr: <span className="text-[13px] font-bold tracking-tight">fi</span>,
-}
-
+/** The hero keeps exactly three social badges. */
 const HERO_SOCIAL_KEYS = ['github', 'linkedin', 'instagram']
 
 export default async function HomePage() {
   const home = getHomeContent()
   const site = getSiteContent()
-  const heroSocials = site.socials.filter((social) =>
+  const socialLinks = await getSocialLinks()
+  const heroSocials = socialLinks.filter((social) =>
     HERO_SOCIAL_KEYS.includes(social.key),
   )
   // Hero stats are computed, never typed: project and technology
@@ -70,7 +58,7 @@ export default async function HomePage() {
       addressLocality: 'Lahore',
       addressCountry: 'PK',
     },
-    sameAs: site.socials
+    sameAs: socialLinks
       .map((social) => social.href)
       .filter((href) => href.startsWith('http')),
     knowsAbout: home.expertise.map((area) => area.title),

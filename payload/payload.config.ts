@@ -9,6 +9,7 @@ import { buildConfig } from 'payload'
 import sharp from 'sharp'
 import { fileURLToPath } from 'url'
 
+import { Socials } from './globals/Socials'
 import { ContactSubmissions } from './collections/ContactSubmissions'
 import { Media } from './collections/Media'
 import { PostCategories } from './collections/PostCategories'
@@ -40,6 +41,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Projects, Technologies, Posts, PostCategories, ContactSubmissions],
+  globals: [Socials],
   // Email via Resend when RESEND_API_KEY is set; without it Payload
   // logs mail to the console (safe for local dev). The onboarding
   // sender can only deliver to the Resend account owner's inbox —

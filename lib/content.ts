@@ -38,6 +38,8 @@ const siteSchema = z.object({
     }),
   ),
   footerText: z.string().min(1),
+  footerRibbon: z.array(z.string().min(1)).min(1),
+  coordinates: z.string().min(1),
   defaultSeo: z.object({
     title: z.string().min(1),
     description: z.string().min(1),

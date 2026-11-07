@@ -81,6 +81,65 @@ async function payload() {
   return getPayload({ config })
 }
 
+export interface SocialLink {
+  key: string
+  label: string
+  href: string
+}
+
+const PLATFORM_LABELS: Record<string, string> = {
+  github: 'GitHub',
+  linkedin: 'LinkedIn',
+  instagram: 'Instagram',
+  facebook: 'Facebook',
+  fiverr: 'Fiverr',
+  upwork: 'Upwork',
+  x: 'X',
+  youtube: 'YouTube',
+  whatsapp: 'WhatsApp',
+  email: 'Email',
+  phone: 'Phone',
+  website: 'Website',
+}
+
+/**
+ * Social & contact-channel links from the Socials global
+ * (Payload admin → Globals → Social Links) — the single
+ * source every social surface renders from: footer, contact
+ * page, hero/drawer subsets, Person JSON-LD. Links are
+ * managed in the CMS; if the global is empty or unreadable,
+ * the site.json set is the fallback so the site never loses
+ * its links.
+ */
+export async function getSocialLinks(): Promise<SocialLink[]> {
+  try {
+    const payloadClient = await payload()
+    const global = (await payloadClient.findGlobal({
+      slug: 'socials',
+      overrideAccess: false,
+      depth: 0,
+    })) as unknown as {
+      links?: { platform?: string; url?: string; label?: string | null }[] | null
+    }
+    const links = (global.links ?? [])
+      .filter((link) => link?.platform && link?.url)
+      .map((link) => ({
+        key: link.platform as string,
+        label: link.label || PLATFORM_LABELS[link.platform as string] || (link.platform as string),
+        href: link.url as string,
+      }))
+    if (links.length > 0) return links
+  } catch {
+    // Fall through to the static fallback below.
+  }
+  const { getSiteContent } = await import('./content')
+  return getSiteContent().socials.map((social) => ({
+    key: social.key,
+    label: social.label,
+    href: social.href,
+  }))
+}
+
 export async function getPublishedProjects(): Promise<ProjectDoc[]> {
   const payloadClient = await payload()
   const result = await payloadClient.find({
