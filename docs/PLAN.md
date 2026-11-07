@@ -331,3 +331,18 @@ CDP screenshots in BOTH themes using the real image files
 (local temp swap, restored before push): Dawn needed the
 scrim strengthened and the image narrowed after the first
 pass — the shipped values are the corrected ones.
+
+## Post-launch batch MERGED & LIVE (2026-11-07)
+
+PR #7 merged rebuild into main (merge commit c5d8437) on
+Ahmad's go — no code conflicts. The batch: loader-gated hero
+entrances, Dawn/Dusk portrait cross-fade, desert theme
+toggle, mobile drawer nav, tech marquee, Giant Index (What I
+do), numbered eyebrows removed, 3D coverflow with 5-in-view
+scaling, blog Spotlight Stage, and the Contact CTA
+paper-plane art with Copy B. Verified live at
+ahmad-sajid.vercel.app: routes 200 (draft project 404), hero
+stats 6/16/4, both carousels in markup, the CTA's optimized
+plane image serving 200, Copy B live. The sandbox browser
+renders a blank page for the live domain (proxy quirk), so
+live verification ran over HTTP + the live HTML.
