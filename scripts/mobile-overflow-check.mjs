@@ -14,6 +14,12 @@
  *   2. Chrome with CDP on port 9223, e.g. chrome-headless-shell
  *      --remote-debugging-port=9223 --user-data-dir=/tmp/chrome-profile
  *
+ * It also checks card links for internally clipped content
+ * (an <a> whose scrollWidth exceeds its clientWidth): the
+ * featured blog card once sized its grid column to its widest
+ * row and clipped its own title — invisible to scrollWidth
+ * checks because the card hides its overflow (2026-11-08).
+ *
  * Run from the app root:  node scripts/mobile-overflow-check.mjs
  * Exit code 0 = no page can scroll sideways at 390px or 360px.
  */
@@ -80,6 +86,26 @@ for (const width of WIDTHS) {
   for (const path of PAGES) {
     await send('Page.navigate', { url: `${BASE}${path}` })
     await sleep(3500)
+    const clipped = await evalJs(`(() => {
+      const bad = []
+      for (const a of document.querySelectorAll('a')) {
+        if (a.scrollWidth > a.clientWidth + 2) {
+          bad.push({
+            href: a.getAttribute('href'),
+            sw: a.scrollWidth,
+            cw: a.clientWidth,
+            text: (a.textContent || '').trim().slice(0, 40),
+          })
+        }
+      }
+      return bad
+    })()`)
+    for (const b of clipped) {
+      failures++
+      console.log(
+        `FAIL ${width}px ${path}: link card clips its content (scrollWidth=${b.sw} > clientWidth=${b.cw}) href=${b.href} "${b.text}"`,
+      )
+    }
     for (const y of [0, 500, 1200, 2400, 99999]) {
       const m = await evalJs(`(async () => {
         window.scrollTo(0, ${y})

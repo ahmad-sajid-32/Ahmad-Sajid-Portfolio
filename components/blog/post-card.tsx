@@ -60,7 +60,7 @@ export function PostCard({
       <Link
         href={`/blog/${post.slug}`}
         data-cursor="view"
-        className="group grid overflow-hidden rounded-3xl border border-border bg-surface transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_30px_60px_rgba(0,0,0,0.35)] md:grid-cols-2"
+        className="group grid grid-cols-1 overflow-hidden rounded-3xl border border-border bg-surface transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_30px_60px_rgba(0,0,0,0.35)] md:grid-cols-2"
       >
         {cover?.url ? (
           <div className="relative aspect-[16/10] overflow-hidden md:aspect-auto md:h-full md:min-h-[320px]">
@@ -74,8 +74,8 @@ export function PostCard({
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/15 via-transparent to-transparent" />
           </div>
         ) : null}
-        <div className="flex flex-col p-7 sm:p-9">
-          <div className="flex items-center gap-3">
+        <div className="flex min-w-0 flex-col p-7 sm:p-9">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
             <CategoryPill name={category} />
             {meta ? (
               <span className="font-mono text-[10px] tracking-[0.14em] whitespace-nowrap text-muted-foreground uppercase">
@@ -83,7 +83,7 @@ export function PostCard({
               </span>
             ) : null}
           </div>
-          <h3 className="mt-5 font-display text-3xl leading-tight font-semibold tracking-tight sm:text-4xl">
+          <h3 className="mt-5 font-display text-[1.65rem] leading-snug font-semibold tracking-tight sm:text-4xl sm:leading-tight">
             {post.title}
           </h3>
           <p className="mt-3 line-clamp-3 leading-relaxed text-muted-foreground">
