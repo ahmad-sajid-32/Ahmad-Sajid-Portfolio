@@ -34,10 +34,7 @@ export default function AboutPage() {
         />
         <div className="relative flex flex-col gap-10 lg:grid lg:grid-cols-[1fr_auto]">
           <ScrollSlide from="left" className="lg:col-start-1 lg:row-start-1">
-            <p className="font-mono text-[11px] tracking-[0.18em] text-highlight uppercase">
-              ~/about
-            </p>
-            <h1 className="mt-3 font-display text-5xl leading-[1.05] font-semibold tracking-tight sm:text-6xl">
+            <h1 className="font-display text-5xl leading-[1.05] font-semibold tracking-tight sm:text-6xl">
               {about.heading}
             </h1>
             <p className="mt-6 inline-flex items-center gap-2 rounded-full border border-highlight/50 bg-background/60 px-3.5 py-1.5 font-mono text-[10px] tracking-[0.14em] text-highlight uppercase backdrop-blur">

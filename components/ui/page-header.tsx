@@ -3,8 +3,6 @@ import type { ReactNode } from 'react'
 import { ScrollSlide } from '@/components/motion/scroll-slide'
 
 interface PageHeaderProps {
-  /** Mono path label, e.g. "~/projects" — the subpage signature. */
-  path: string
   title: string
   intro?: string
   /** Optional extra row under the intro (counts, meta, pills). */
@@ -13,14 +11,15 @@ interface PageHeaderProps {
 
 /**
  * Shared subpage header, in the home page's current language:
- * the mono path label, a large Fraunces title, a muted intro,
- * and a soft amber glow behind the top corner for the glossy
- * depth the home sections have. Its pieces reveal on their
- * own — label and title from the left, the intro just behind
- * them, any extra row rising last — so pages using this
- * header should NOT wrap it in another reveal.
+ * a large Fraunces title, a muted intro, and a soft amber
+ * glow behind the top corner for the glossy depth the home
+ * sections have. Its pieces reveal on their own — title from
+ * the left, the intro just behind it, any extra row rising
+ * last — so pages using this header should NOT wrap it in
+ * another reveal. (The mono "~/page" overline that used to
+ * sit above the title was removed on Ahmad's call, 2026-11-08.)
  */
-export function PageHeader({ path, title, intro, children }: PageHeaderProps) {
+export function PageHeader({ title, intro, children }: PageHeaderProps) {
   return (
     <header className="relative">
       <div
@@ -29,10 +28,7 @@ export function PageHeader({ path, title, intro, children }: PageHeaderProps) {
       />
       <div className="relative">
         <ScrollSlide from="left">
-          <p className="font-mono text-[11px] tracking-[0.18em] text-highlight uppercase">
-            {path}
-          </p>
-          <h1 className="mt-3 font-display text-5xl leading-[1.05] font-semibold tracking-tight sm:text-6xl">
+          <h1 className="font-display text-5xl leading-[1.05] font-semibold tracking-tight sm:text-6xl">
             {title}
           </h1>
         </ScrollSlide>

@@ -19,7 +19,6 @@ export default async function BlogPage() {
   return (
     <div className="page-gutter py-14">
       <PageHeader
-        path="~/blog"
         title="Blog"
         intro="What building and running real systems teaches you — deployment, retrieval, automation, and the lessons that arrive with an invoice attached."
       />
