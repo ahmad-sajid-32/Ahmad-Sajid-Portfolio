@@ -18,13 +18,11 @@ export default async function BlogPage() {
 
   return (
     <div className="py-14">
-      <ScrollSlide from="left">
-        <PageHeader
-          path="~/blog"
-          title="Blog"
-          intro="What building and running real systems teaches you — deployment, retrieval, automation, and the lessons that arrive with an invoice attached."
-        />
-      </ScrollSlide>
+      <PageHeader
+        path="~/blog"
+        title="Blog"
+        intro="What building and running real systems teaches you — deployment, retrieval, automation, and the lessons that arrive with an invoice attached."
+      />
 
       {posts.length > 0 ? (
         <>
@@ -34,13 +32,18 @@ export default async function BlogPage() {
             </div>
           </ScrollSlide>
           {rest.length > 0 ? (
-            <ScrollSlide from="right">
-              <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                {rest.map((post) => (
-                  <PostCard key={post.id} post={post} />
-                ))}
-              </div>
-            </ScrollSlide>
+            <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {rest.map((post, index) => (
+                <ScrollSlide
+                  key={post.id}
+                  from={index % 2 === 0 ? 'right' : 'left'}
+                  delay={(index % 3) * 0.08}
+                  className="h-full"
+                >
+                  <PostCard post={post} />
+                </ScrollSlide>
+              ))}
+            </div>
           ) : null}
         </>
       ) : (

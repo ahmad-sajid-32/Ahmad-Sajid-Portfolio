@@ -1,11 +1,22 @@
 import { RichText as PayloadRichText } from '@payloadcms/richtext-lexical/react'
 
+import { ScrollSlide } from '@/components/motion/scroll-slide'
+
 interface RichTextProps {
   // Lexical editor state from Payload.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: any
   className?: string
 }
+
+/**
+ * Node types whose rendered block gets its own scroll reveal,
+ * so article prose animates block by block as it is read
+ * rather than arriving as one static column. Each override
+ * calls the package's default converter and wraps its output
+ * — the rendering itself is unchanged.
+ */
+const REVEALED_NODE_TYPES = ['paragraph', 'heading', 'quote', 'list', 'upload']
 
 /**
  * Renders Payload Lexical content with theme-token typography. The
@@ -34,8 +45,26 @@ export function RichText({ data, className = '' }: RichTextProps) {
         className,
       ].join(' ')}
     >
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      <PayloadRichText data={data as any} />
+      <PayloadRichText
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        data={data as any}
+        converters={({ defaultConverters }) => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const base = defaultConverters as any
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const wrapped: Record<string, any> = { ...base }
+          for (const key of REVEALED_NODE_TYPES) {
+            if (typeof base[key] === 'function') {
+              const converter = base[key]
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              wrapped[key] = (props: any) => (
+                <ScrollSlide from="up">{converter(props)}</ScrollSlide>
+              )
+            }
+          }
+          return wrapped
+        }}
+      />
     </div>
   )
 }

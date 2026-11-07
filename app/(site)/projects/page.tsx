@@ -45,8 +45,7 @@ export default async function ProjectsPage({ searchParams }: ProjectsPageProps) 
 
   return (
     <div className="py-14">
-      <ScrollSlide from="left">
-        <PageHeader
+      <PageHeader
           path="~/projects"
           title="Projects"
           intro="The work itself, written up as case studies — what was built, how, and what it took to run it. Every claim here is from a real, delivered project."
@@ -55,31 +54,37 @@ export default async function ProjectsPage({ searchParams }: ProjectsPageProps) 
             {projects.length} case studies{yearRange ? ` · ${yearRange}` : ''}
           </p>
         </PageHeader>
+
+      <ScrollSlide from="up" className="mt-10">
+        <div className="flex flex-wrap gap-2">
+          <Link href={filterLink(null)} className={chipClass(activeTrack === null)}>
+            All
+          </Link>
+          {Object.entries(TRACK_LABELS).map(([value, label]) => (
+            <Link
+              key={value}
+              href={filterLink(value)}
+              className={chipClass(activeTrack === value)}
+            >
+              {label}
+            </Link>
+          ))}
+        </div>
       </ScrollSlide>
 
-      <div className="mt-10 flex flex-wrap gap-2">
-        <Link href={filterLink(null)} className={chipClass(activeTrack === null)}>
-          All
-        </Link>
-        {Object.entries(TRACK_LABELS).map(([value, label]) => (
-          <Link
-            key={value}
-            href={filterLink(value)}
-            className={chipClass(activeTrack === value)}
-          >
-            {label}
-          </Link>
-        ))}
-      </div>
-
       {visible.length > 0 ? (
-        <ScrollSlide from="right">
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {visible.map((project) => (
-              <ProjectCard key={project.id} project={project} />
-            ))}
-          </div>
-        </ScrollSlide>
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {visible.map((project, index) => (
+            <ScrollSlide
+              key={project.id}
+              from={index % 2 === 0 ? 'left' : 'right'}
+              delay={(index % 3) * 0.08}
+              className="h-full"
+            >
+              <ProjectCard project={project} />
+            </ScrollSlide>
+          ))}
+        </div>
       ) : (
         <p className="mt-10 rounded-3xl border border-border bg-surface p-6 text-muted-foreground">
           No published projects in this track yet.

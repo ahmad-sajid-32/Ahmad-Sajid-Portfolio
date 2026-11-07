@@ -95,28 +95,32 @@ export default function AboutPage() {
       </header>
 
       {restBio.length > 0 ? (
-        <ScrollSlide from="up" className="mt-10">
-          <div className="max-w-3xl space-y-5 leading-[1.85] text-muted-foreground">
-            {restBio.map((paragraph, index) => (
-              <p key={index}>{paragraph}</p>
-            ))}
-          </div>
-        </ScrollSlide>
+        <div className="mt-10 max-w-3xl space-y-5 leading-[1.85] text-muted-foreground">
+          {restBio.map((paragraph, index) => (
+            <ScrollSlide key={index} from="up" delay={index * 0.1}>
+              <p>{paragraph}</p>
+            </ScrollSlide>
+          ))}
+        </div>
       ) : null}
 
-      <ScrollSlide from="left">
-        <section className="mt-20">
+      <section className="mt-20">
+        <ScrollSlide from="left">
           <SectionHeading title="Where I've worked" />
-          <div className="relative mt-10">
-            <div
-              aria-hidden="true"
-              className="absolute top-2 bottom-2 left-[5px] w-px bg-gradient-to-b from-primary/60 via-border to-transparent"
-            />
-            {about.experience.map((item) => (
-              <article
-                key={`${item.role}-${item.period}`}
-                className="relative pb-10 pl-10 last:pb-0"
-              >
+        </ScrollSlide>
+        <div className="relative mt-10">
+          <div
+            aria-hidden="true"
+            className="absolute top-2 bottom-2 left-[5px] w-px bg-gradient-to-b from-primary/60 via-border to-transparent"
+          />
+          {about.experience.map((item, index) => (
+            <ScrollSlide
+              key={`${item.role}-${item.period}`}
+              from="left"
+              delay={index * 0.12}
+              className="pb-10 last:pb-0"
+            >
+              <article className="relative pl-10">
                 <span
                   aria-hidden="true"
                   className="absolute top-1.5 left-0 h-[11px] w-[11px] rounded-full border-2 border-primary bg-background"
@@ -131,20 +135,24 @@ export default function AboutPage() {
                   {item.summary}
                 </p>
               </article>
-            ))}
-          </div>
-        </section>
-      </ScrollSlide>
+            </ScrollSlide>
+          ))}
+        </div>
+      </section>
 
-      <ScrollSlide from="right">
-        <section className="mt-20">
+      <section className="mt-20">
+        <ScrollSlide from="right">
           <SectionHeading title="Education" />
-          <div className="mt-8 grid gap-5 sm:grid-cols-2">
-            {about.education.map((item) => (
-              <div
-                key={item.title}
-                className="rounded-3xl border border-border bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 sm:p-7"
-              >
+        </ScrollSlide>
+        <div className="mt-8 grid gap-5 sm:grid-cols-2">
+          {about.education.map((item, index) => (
+            <ScrollSlide
+              key={item.title}
+              from="right"
+              delay={index * 0.1}
+              className="h-full"
+            >
+              <div className="h-full rounded-3xl border border-border bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 sm:p-7">
                 <p className="inline-flex rounded-full border border-border bg-background/50 px-3 py-1 font-mono text-[10px] tracking-[0.14em] text-muted-foreground uppercase">
                   {item.period}
                 </p>
@@ -156,20 +164,24 @@ export default function AboutPage() {
                   {item.summary}
                 </p>
               </div>
-            ))}
-          </div>
-        </section>
-      </ScrollSlide>
+            </ScrollSlide>
+          ))}
+        </div>
+      </section>
 
-      <ScrollSlide from="left">
-        <section className="mt-20">
+      <section className="mt-20">
+        <ScrollSlide from="left">
           <SectionHeading title="What I work with" />
-          <div className="mt-8 grid gap-5 sm:grid-cols-2">
-            {about.skillGroups.map((group) => (
-              <div
-                key={group.title}
-                className="rounded-3xl border border-border bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 sm:p-7"
-              >
+        </ScrollSlide>
+        <div className="mt-8 grid gap-5 sm:grid-cols-2">
+          {about.skillGroups.map((group, index) => (
+            <ScrollSlide
+              key={group.title}
+              from="left"
+              delay={index * 0.1}
+              className="h-full"
+            >
+              <div className="h-full rounded-3xl border border-border bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 sm:p-7">
                 <h3 className="font-display text-2xl font-semibold tracking-tight">
                   {group.title}
                 </h3>
@@ -185,32 +197,35 @@ export default function AboutPage() {
                   ))}
                 </div>
               </div>
-            ))}
-          </div>
-        </section>
-      </ScrollSlide>
+            </ScrollSlide>
+          ))}
+        </div>
+      </section>
 
-      <ScrollSlide from="right">
-        <section className="mt-20">
+      <section className="mt-20">
+        <ScrollSlide from="right">
           <SectionHeading title="Certificates" />
-          <ul className="mt-8 divide-y divide-border rounded-3xl border border-border bg-surface px-6 sm:px-7">
-            {about.certificates.map((cert) => (
-              <li
-                key={cert.name}
-                className="flex flex-wrap items-center justify-between gap-3 py-5"
-              >
-                <div>
-                  <p className="font-medium">{cert.name}</p>
-                  <p className="text-sm text-muted-foreground">{cert.issuer}</p>
-                </div>
-                <p className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 font-mono text-[10px] tracking-[0.14em] text-foreground/90 uppercase">
-                  {cert.year}
-                </p>
-              </li>
-            ))}
-          </ul>
-        </section>
-      </ScrollSlide>
+        </ScrollSlide>
+        <ul className="mt-8 divide-y divide-border rounded-3xl border border-border bg-surface px-6 sm:px-7">
+          {about.certificates.map((cert, index) => (
+            <ScrollSlide
+              as="li"
+              key={cert.name}
+              from="right"
+              delay={index * 0.07}
+              className="flex flex-wrap items-center justify-between gap-3 py-5"
+            >
+              <div>
+                <p className="font-medium">{cert.name}</p>
+                <p className="text-sm text-muted-foreground">{cert.issuer}</p>
+              </div>
+              <p className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 font-mono text-[10px] tracking-[0.14em] text-foreground/90 uppercase">
+                {cert.year}
+              </p>
+            </ScrollSlide>
+          ))}
+        </ul>
+      </section>
     </div>
   )
 }

@@ -1,4 +1,3 @@
-import { ArrowRight } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -55,10 +54,6 @@ export function ProjectCard({ project }: { project: ProjectDoc }) {
             </span>
           ))}
         </div>
-        <p className="mt-6 inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.18em] text-accent uppercase">
-          View case study
-          <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
-        </p>
       </div>
     </Link>
   )

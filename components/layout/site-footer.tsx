@@ -2,6 +2,8 @@ import { SOCIAL_ICONS } from '@/components/ui/social-icons'
 import { getSiteContent } from '@/lib/content'
 import { getSocialLinks } from '@/lib/data'
 
+import { ScrollSlide } from '@/components/motion/scroll-slide'
+
 import { FooterClock } from './footer-clock'
 import { FooterWord } from './footer-word'
 
@@ -51,29 +53,35 @@ export async function SiteFooter() {
 
       {/* Postcard */}
       <div className="px-6 pt-10 text-center sm:px-10 lg:px-14 xl:px-20">
-        <p className="font-mono text-[10px] tracking-[0.28em] text-muted-foreground uppercase">
-          {site.coordinates}
-        </p>
-        <p className="mt-3 font-display text-3xl font-semibold">{site.location}</p>
-        <p className="mt-2 font-mono text-xs tracking-[0.18em] text-muted-foreground uppercase">
-          Local time <FooterClock /> · UTC +5
-        </p>
-        <div className="mt-7 flex flex-wrap justify-center gap-2.5">
-          {socials.map((social) => (
-            <a
-              key={social.key}
-              href={social.href}
-              aria-label={social.label}
-              title={social.label}
-              {...(social.href.startsWith('http')
-                ? { target: '_blank', rel: 'noreferrer' }
-                : {})}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface/60 text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/60 hover:text-primary"
-            >
-              {SOCIAL_ICONS[social.key] ?? social.label}
-            </a>
-          ))}
-        </div>
+        <ScrollSlide from="up">
+          <p className="font-mono text-[10px] tracking-[0.28em] text-muted-foreground uppercase">
+            {site.coordinates}
+          </p>
+          <p className="mt-3 font-display text-3xl font-semibold">
+            {site.location}
+          </p>
+          <p className="mt-2 font-mono text-xs tracking-[0.18em] text-muted-foreground uppercase">
+            Local time <FooterClock /> · UTC +5
+          </p>
+        </ScrollSlide>
+        <ScrollSlide from="up" delay={0.12} className="mt-7">
+          <div className="flex flex-wrap justify-center gap-2.5">
+            {socials.map((social) => (
+              <a
+                key={social.key}
+                href={social.href}
+                aria-label={social.label}
+                title={social.label}
+                {...(social.href.startsWith('http')
+                  ? { target: '_blank', rel: 'noreferrer' }
+                  : {})}
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface/60 text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/60 hover:text-primary"
+              >
+                {SOCIAL_ICONS[social.key] ?? social.label}
+              </a>
+            ))}
+          </div>
+        </ScrollSlide>
       </div>
 
       {/* Big sign-off — the name drops in letter by letter,
