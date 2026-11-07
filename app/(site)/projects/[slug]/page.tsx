@@ -87,15 +87,8 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
 
   return (
     <article className="page-gutter py-14">
-      <Link
-        href="/projects"
-        className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-4 py-2 font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase transition-all duration-300 hover:border-primary/50 hover:text-foreground"
-      >
-        <ArrowLeft className="h-3.5 w-3.5" /> All projects
-      </Link>
-
       <ScrollSlide from="left">
-        <header className="relative mt-10">
+        <header className="relative">
           <div
             aria-hidden="true"
             className="pointer-events-none absolute -top-24 right-0 h-72 w-72 rounded-full bg-primary/10 blur-3xl"

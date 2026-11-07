@@ -29,7 +29,7 @@ export default async function ContactPage() {
 
   return (
     <div className="page-gutter py-14">
-      <PageHeader path="~/contact" title={contact.heading} intro={contact.intro} />
+      <PageHeader title={contact.heading} intro={contact.intro} />
 
       <div className="mt-12 grid gap-8 lg:grid-cols-[1fr_340px]">
         <ScrollSlide from="left" className="h-fit">

@@ -46,7 +46,6 @@ export default async function ProjectsPage({ searchParams }: ProjectsPageProps) 
   return (
     <div className="page-gutter py-14">
       <PageHeader
-          path="~/projects"
           title="Projects"
           intro="The work itself, written up as case studies — what was built, how, and what it took to run it. Every claim here is from a real, delivered project."
         >
