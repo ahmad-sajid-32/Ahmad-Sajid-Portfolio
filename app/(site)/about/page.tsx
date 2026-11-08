@@ -48,28 +48,28 @@ export default function AboutPage() {
               in the right column on desktop. */}
           <ScrollSlide
             from="right"
-            className="lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:self-center"
+            className="lg:col-start-2 lg:row-start-1 lg:row-span-3 lg:self-center"
           >
             <div className="animate-float relative mx-auto w-fit lg:mx-0">
               <div
                 aria-hidden="true"
                 className="absolute -inset-3 rounded-full bg-primary/20 blur-xl"
               />
-              <div className="relative h-72 w-72 overflow-hidden rounded-full border-2 border-primary/60 shadow-[0_18px_40px_rgba(0,0,0,0.35)] sm:h-80 sm:w-80 lg:h-[380px] lg:w-[380px]">
+              <div className="relative h-72 w-72 overflow-hidden rounded-full border-2 border-primary/60 shadow-[0_18px_40px_rgba(0,0,0,0.35)] sm:h-80 sm:w-80 lg:h-[440px] lg:w-[440px] xl:h-[500px] xl:w-[500px]">
                 <Image
                   src={home.hero.circlePortraitUrl}
                   alt=""
                   aria-hidden="true"
-                  width={760}
-                  height={760}
+                  width={1000}
+                  height={1000}
                   priority
                   className="absolute inset-0 h-full w-full object-cover object-[center_18%] opacity-0 transition-opacity duration-700 dark:opacity-100"
                 />
                 <Image
                   src={home.hero.circlePortraitLightUrl}
                   alt={home.hero.portraitAlt}
-                  width={760}
-                  height={760}
+                  width={1000}
+                  height={1000}
                   priority
                   className="absolute inset-0 h-full w-full object-cover object-[center_18%] transition-opacity duration-700 dark:opacity-0"
                 />
@@ -88,18 +88,22 @@ export default function AboutPage() {
               </p>
             </ScrollSlide>
           ) : null}
+
+          {/* The remaining bio lives in the same grid row
+              flow (row 3) so the portrait, spanning all three
+              rows, centres against the whole intro — heading,
+              lead and bio — instead of just the heading. */}
+          {restBio.length > 0 ? (
+            <div className="max-w-3xl space-y-5 leading-[1.85] text-muted-foreground lg:col-start-1 lg:row-start-3">
+              {restBio.map((paragraph, index) => (
+                <ScrollSlide key={index} from="up" delay={index * 0.1}>
+                  <p>{paragraph}</p>
+                </ScrollSlide>
+              ))}
+            </div>
+          ) : null}
         </div>
       </header>
-
-      {restBio.length > 0 ? (
-        <div className="mt-10 max-w-3xl space-y-5 leading-[1.85] text-muted-foreground">
-          {restBio.map((paragraph, index) => (
-            <ScrollSlide key={index} from="up" delay={index * 0.1}>
-              <p>{paragraph}</p>
-            </ScrollSlide>
-          ))}
-        </div>
-      ) : null}
 
       <section className="mt-20">
         <ScrollSlide from="left">
