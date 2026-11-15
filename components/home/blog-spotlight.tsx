@@ -105,7 +105,7 @@ export function BlogSpotlight({ posts }: { posts: PostDoc[] }) {
               <p className="mt-2.5 line-clamp-2 max-w-xl leading-relaxed text-white/75">
                 {post.excerpt}
               </p>
-              <p className="mt-4 flex items-center gap-4 font-mono text-[10px] tracking-[0.16em] whitespace-nowrap text-white/60 uppercase">
+              <p className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-[10px] tracking-[0.16em] text-white/60 uppercase">
                 {date ? <span>{date}</span> : null}
                 {post.readingTime ? <span>{post.readingTime} min read</span> : null}
                 <span className="inline-flex items-center gap-1.5 text-primary">
