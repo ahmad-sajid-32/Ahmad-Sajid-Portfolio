@@ -60,8 +60,8 @@ export default function AboutPage() {
                   src={home.hero.circlePortraitUrl}
                   alt=""
                   aria-hidden="true"
-                  width={1000}
-                  height={1000}
+                  width={1600}
+                  height={1600}
                   priority
                   placeholder={home.hero.circlePortraitBlur ? 'blur' : 'empty'}
                   blurDataURL={home.hero.circlePortraitBlur}
@@ -70,8 +70,8 @@ export default function AboutPage() {
                 <Image
                   src={home.hero.circlePortraitLightUrl}
                   alt={home.hero.portraitAlt}
-                  width={1000}
-                  height={1000}
+                  width={1600}
+                  height={1600}
                   priority
                   placeholder={home.hero.circlePortraitLightBlur ? 'blur' : 'empty'}
                   blurDataURL={home.hero.circlePortraitLightBlur}
