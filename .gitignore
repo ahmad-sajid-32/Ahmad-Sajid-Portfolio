@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# decoded portrait PNGs — build artefacts of scripts/decode-portraits.mjs
+# (sources live in assets/portraits/*.png.b64)
+/public/images/*.png
+!/public/images/.gitkeep

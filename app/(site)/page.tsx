@@ -162,8 +162,8 @@ export default async function HomePage() {
                     src={home.hero.circlePortraitUrl}
                     alt=""
                     aria-hidden="true"
-                    width={1000}
-                    height={1000}
+                    width={1600}
+                    height={1600}
                     priority
                     placeholder={home.hero.circlePortraitBlur ? 'blur' : 'empty'}
                     blurDataURL={home.hero.circlePortraitBlur}
@@ -172,8 +172,8 @@ export default async function HomePage() {
                   <Image
                     src={home.hero.circlePortraitLightUrl}
                     alt={home.hero.portraitAlt}
-                    width={1000}
-                    height={1000}
+                    width={1600}
+                    height={1600}
                     priority
                     placeholder={home.hero.circlePortraitLightBlur ? 'blur' : 'empty'}
                     blurDataURL={home.hero.circlePortraitLightBlur}
@@ -188,8 +188,8 @@ export default async function HomePage() {
                   src={home.hero.portraitUrl}
                   alt=""
                   aria-hidden="true"
-                  width={1360}
-                  height={1088}
+                  width={1600}
+                  height={1280}
                   priority
                   placeholder={home.hero.portraitBlur ? 'blur' : 'empty'}
                   blurDataURL={home.hero.portraitBlur}
@@ -198,8 +198,8 @@ export default async function HomePage() {
                 <Image
                   src={home.hero.portraitLightUrl}
                   alt={home.hero.portraitAlt}
-                  width={1360}
-                  height={1088}
+                  width={1600}
+                  height={1280}
                   priority
                   placeholder={home.hero.portraitLightBlur ? 'blur' : 'empty'}
                   blurDataURL={home.hero.portraitLightBlur}
