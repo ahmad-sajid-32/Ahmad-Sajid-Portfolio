@@ -4,6 +4,7 @@ import { getSiteContent } from '@/lib/content'
 import { getSocialLinks } from '@/lib/data'
 
 import { MobileNav } from './mobile-nav'
+import { NavLinks } from './nav-links'
 import { ThemeToggle } from './theme-toggle'
 
 /**
@@ -31,23 +32,21 @@ export async function SiteHeader() {
         className="absolute inset-0 border-b border-border bg-background/85 backdrop-blur-md"
       />
       <div className="relative flex w-full items-center justify-between gap-6 px-6 py-4 sm:px-10 lg:px-14 xl:px-20">
-        <Link
-          href="/"
-          className="font-mono text-xs font-semibold tracking-[0.18em] uppercase"
-        >
-          {site.name}
+        <Link href="/" className="flex items-center gap-3" aria-label={site.name}>
+          <span
+            aria-hidden="true"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] bg-primary font-display text-[15px] font-bold text-primary-foreground"
+          >
+            AS
+          </span>
+          <span className="hidden font-display text-lg leading-none font-semibold tracking-tight whitespace-nowrap sm:block">
+            {site.name}
+            <span aria-hidden="true" className="text-primary">
+              .
+            </span>
+          </span>
         </Link>
-        <nav aria-label="Primary" className="hidden items-center gap-6 sm:flex">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase transition-colors hover:text-foreground"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+        <NavLinks items={navItems} />
         <div className="flex items-center gap-3">
           <ThemeToggle />
           <MobileNav nav={site.nav} socials={drawerSocials} />
