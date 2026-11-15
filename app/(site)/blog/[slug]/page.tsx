@@ -13,10 +13,9 @@ interface PostPageProps {
   params: Promise<{ slug: string }>
 }
 
-export async function generateStaticParams() {
-  const posts = await getPublishedPosts()
-  return posts.map((post) => ({ slug: post.slug }))
-}
+// Post content comes from Payload at navigation time. This lets the
+// segment loading boundary render while the database reads are pending.
+export const dynamic = 'force-dynamic'
 
 export async function generateMetadata({
   params,

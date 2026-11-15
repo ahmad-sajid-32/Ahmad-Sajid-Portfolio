@@ -11,6 +11,8 @@ export const metadata: Metadata = {
     'Notes on backend engineering, AI agents and automation from Ahmad Sajid — production lessons, RAG, and the occasional expensive mistake, documented.',
 }
 
+export const dynamic = 'force-dynamic'
+
 export default async function BlogPage() {
   const posts = await getPublishedPosts()
 
@@ -25,7 +27,7 @@ export default async function BlogPage() {
 
       {posts.length > 0 ? (
         <>
-          <ScrollSlide from="left">
+          <ScrollSlide from="up">
             <div className="mt-12">
               <PostCard post={lead} featured />
             </div>
@@ -35,7 +37,7 @@ export default async function BlogPage() {
               {rest.map((post, index) => (
                 <ScrollSlide
                   key={post.id}
-                  from={index % 2 === 0 ? 'right' : 'left'}
+                  from="up"
                   delay={(index % 3) * 0.08}
                   className="h-full"
                 >

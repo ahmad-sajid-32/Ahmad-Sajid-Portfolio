@@ -76,7 +76,7 @@ export default async function ProjectsPage({ searchParams }: ProjectsPageProps) 
           {visible.map((project, index) => (
             <ScrollSlide
               key={project.id}
-              from={index % 2 === 0 ? 'left' : 'right'}
+              from="up"
               delay={(index % 3) * 0.08}
               className="h-full"
             >
