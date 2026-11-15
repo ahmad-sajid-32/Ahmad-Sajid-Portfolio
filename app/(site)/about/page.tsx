@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { ScrollSlide } from '@/components/motion/scroll-slide'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { getAboutContent, getHomeContent, getSiteContent } from '@/lib/content'
+import { IMAGES } from '@/lib/images'
 
 export const metadata: Metadata = {
   title: 'About',
@@ -57,24 +58,18 @@ export default function AboutPage() {
               />
               <div className="relative h-72 w-72 overflow-hidden rounded-full border-2 border-primary/60 shadow-[0_18px_40px_rgba(0,0,0,0.35)] sm:h-80 sm:w-80 lg:h-[440px] lg:w-[440px] xl:h-[500px] xl:w-[500px]">
                 <Image
-                  src={home.hero.circlePortraitUrl}
+                  src={IMAGES.heroPortraitStudio}
                   alt=""
                   aria-hidden="true"
-                  width={1600}
-                  height={1600}
                   priority
-                  placeholder={home.hero.circlePortraitBlur ? 'blur' : 'empty'}
-                  blurDataURL={home.hero.circlePortraitBlur}
+                  placeholder="blur"
                   className="absolute inset-0 h-full w-full object-cover object-[center_18%] opacity-0 transition-opacity duration-700 dark:opacity-100"
                 />
                 <Image
-                  src={home.hero.circlePortraitLightUrl}
+                  src={IMAGES.heroPortraitStudioDawn}
                   alt={home.hero.portraitAlt}
-                  width={1600}
-                  height={1600}
                   priority
-                  placeholder={home.hero.circlePortraitLightBlur ? 'blur' : 'empty'}
-                  blurDataURL={home.hero.circlePortraitLightBlur}
+                  placeholder="blur"
                   className="absolute inset-0 h-full w-full object-cover object-[center_18%] transition-opacity duration-700 dark:opacity-0"
                 />
               </div>

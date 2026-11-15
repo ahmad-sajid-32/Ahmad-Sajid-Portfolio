@@ -25,14 +25,6 @@ export interface HomeContent {
     name: string
     role: string
     giantWord: string
-    portraitUrl: string
-    portraitLightUrl: string
-    circlePortraitUrl: string
-    circlePortraitLightUrl: string
-    portraitBlur?: string
-    portraitLightBlur?: string
-    circlePortraitBlur?: string
-    circlePortraitLightBlur?: string
     portraitAlt: string
     statement: string
     stats: {
@@ -65,8 +57,6 @@ export interface HomeContent {
       body: string
       label: string
       href: string
-      imageUrl: string
-      imageLightUrl: string
     }
   }
 }

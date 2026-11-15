@@ -15,6 +15,7 @@ import { SlideIn } from '@/components/motion/slide-in'
 import { ProjectsCoverflow } from '@/components/home/projects-coverflow'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { getHomeContent, getSiteContent } from '@/lib/content'
+import { IMAGES } from '@/lib/images'
 import {
   getFeaturedProjects,
   getHeroCounts,
@@ -159,24 +160,18 @@ export default async function HomePage() {
                 />
                 <div className="relative h-60 w-60 overflow-hidden rounded-full border-2 border-primary/60 shadow-[0_18px_40px_rgba(0,0,0,0.35)] sm:h-72 sm:w-72">
                   <Image
-                    src={home.hero.circlePortraitUrl}
+                    src={IMAGES.heroPortraitStudio}
                     alt=""
                     aria-hidden="true"
-                    width={1600}
-                    height={1600}
                     priority
-                    placeholder={home.hero.circlePortraitBlur ? 'blur' : 'empty'}
-                    blurDataURL={home.hero.circlePortraitBlur}
+                    placeholder="blur"
                     className="absolute inset-0 h-full w-full object-cover object-[center_18%] opacity-0 transition-opacity duration-700 dark:opacity-100"
                   />
                   <Image
-                    src={home.hero.circlePortraitLightUrl}
+                    src={IMAGES.heroPortraitStudioDawn}
                     alt={home.hero.portraitAlt}
-                    width={1600}
-                    height={1600}
                     priority
-                    placeholder={home.hero.circlePortraitLightBlur ? 'blur' : 'empty'}
-                    blurDataURL={home.hero.circlePortraitLightBlur}
+                    placeholder="blur"
                     className="absolute inset-0 h-full w-full object-cover object-[center_18%] transition-opacity duration-700 dark:opacity-0"
                   />
                 </div>
@@ -185,24 +180,18 @@ export default async function HomePage() {
                   cross-faded per theme the same way. */}
               <div className="relative hidden w-[min(88vw,420px)] sm:w-[500px] lg:block lg:w-[620px] xl:w-[680px]">
                 <Image
-                  src={home.hero.portraitUrl}
+                  src={IMAGES.heroPortrait}
                   alt=""
                   aria-hidden="true"
-                  width={1600}
-                  height={1280}
                   priority
-                  placeholder={home.hero.portraitBlur ? 'blur' : 'empty'}
-                  blurDataURL={home.hero.portraitBlur}
+                  placeholder="blur"
                   className="h-auto w-full opacity-0 drop-shadow-[0_24px_48px_rgba(0,0,0,0.45)] transition-opacity duration-700 dark:opacity-100"
                 />
                 <Image
-                  src={home.hero.portraitLightUrl}
+                  src={IMAGES.heroPortraitDawn}
                   alt={home.hero.portraitAlt}
-                  width={1600}
-                  height={1280}
                   priority
-                  placeholder={home.hero.portraitLightBlur ? 'blur' : 'empty'}
-                  blurDataURL={home.hero.portraitLightBlur}
+                  placeholder="blur"
                   className="absolute inset-0 h-full w-full object-contain drop-shadow-[0_24px_48px_rgba(0,0,0,0.30)] transition-opacity duration-700 dark:opacity-0"
                 />
               </div>
@@ -331,14 +320,14 @@ export default async function HomePage() {
               className="absolute inset-y-0 right-0 w-[70%] [mask-image:linear-gradient(to_right,transparent,black_55%)] sm:w-[62%] lg:w-[58%]"
             >
               <Image
-                src={home.sections.contactCta.imageLightUrl}
+                src={IMAGES.ctaPaperPlaneDawn}
                 alt=""
                 fill
                 sizes="(max-width: 640px) 70vw, (max-width: 1024px) 62vw, 58vw"
                 className="object-cover object-center"
               />
               <Image
-                src={home.sections.contactCta.imageUrl}
+                src={IMAGES.ctaPaperPlane}
                 alt=""
                 fill
                 sizes="(max-width: 640px) 70vw, (max-width: 1024px) 62vw, 58vw"
