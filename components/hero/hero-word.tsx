@@ -7,9 +7,9 @@ import { useIntroReady } from '@/components/motion/use-intro-ready'
 /**
  * The hero's giant background word. Each letter drops in from above
  * with a fade, one at a time from left to right, once the loader
- * releases the intro; the amber gradient is vertical, so it reads
- * identically on every letter. Under reduced motion the word
- * renders statically.
+ * releases the intro. The letters replay when the word re-enters the
+ * viewport; the amber gradient is vertical, so it reads identically
+ * on every letter. Under reduced motion the word renders statically.
  */
 export function HeroWord({ word }: { word: string }) {
   const reduceMotion = useReducedMotion()
@@ -34,7 +34,8 @@ export function HeroWord({ word }: { word: string }) {
           aria-hidden="true"
           className={letterClass}
           initial={{ opacity: 0, y: -72 }}
-          animate={introReady ? { opacity: 1, y: 0 } : undefined}
+          whileInView={introReady ? { opacity: 1, y: 0 } : undefined}
+          viewport={{ once: false, margin: '-60px' }}
           transition={{
             duration: 0.7,
             delay: 0.05 + index * 0.07,
