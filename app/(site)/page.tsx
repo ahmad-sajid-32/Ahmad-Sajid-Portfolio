@@ -162,17 +162,21 @@ export default async function HomePage() {
                     src={home.hero.circlePortraitUrl}
                     alt=""
                     aria-hidden="true"
-                    width={640}
-                    height={640}
+                    width={1000}
+                    height={1000}
                     priority
+                    placeholder={home.hero.circlePortraitBlur ? 'blur' : 'empty'}
+                    blurDataURL={home.hero.circlePortraitBlur}
                     className="absolute inset-0 h-full w-full object-cover object-[center_18%] opacity-0 transition-opacity duration-700 dark:opacity-100"
                   />
                   <Image
                     src={home.hero.circlePortraitLightUrl}
                     alt={home.hero.portraitAlt}
-                    width={640}
-                    height={640}
+                    width={1000}
+                    height={1000}
                     priority
+                    placeholder={home.hero.circlePortraitLightBlur ? 'blur' : 'empty'}
+                    blurDataURL={home.hero.circlePortraitLightBlur}
                     className="absolute inset-0 h-full w-full object-cover object-[center_18%] transition-opacity duration-700 dark:opacity-0"
                   />
                 </div>
@@ -184,17 +188,21 @@ export default async function HomePage() {
                   src={home.hero.portraitUrl}
                   alt=""
                   aria-hidden="true"
-                  width={1600}
-                  height={1280}
+                  width={1360}
+                  height={1088}
                   priority
+                  placeholder={home.hero.portraitBlur ? 'blur' : 'empty'}
+                  blurDataURL={home.hero.portraitBlur}
                   className="h-auto w-full opacity-0 drop-shadow-[0_24px_48px_rgba(0,0,0,0.45)] transition-opacity duration-700 dark:opacity-100"
                 />
                 <Image
                   src={home.hero.portraitLightUrl}
                   alt={home.hero.portraitAlt}
-                  width={1600}
-                  height={1280}
+                  width={1360}
+                  height={1088}
                   priority
+                  placeholder={home.hero.portraitLightBlur ? 'blur' : 'empty'}
+                  blurDataURL={home.hero.portraitLightBlur}
                   className="absolute inset-0 h-full w-full object-contain drop-shadow-[0_24px_48px_rgba(0,0,0,0.30)] transition-opacity duration-700 dark:opacity-0"
                 />
               </div>

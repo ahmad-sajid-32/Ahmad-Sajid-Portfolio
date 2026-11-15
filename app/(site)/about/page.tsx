@@ -63,6 +63,8 @@ export default function AboutPage() {
                   width={1000}
                   height={1000}
                   priority
+                  placeholder={home.hero.circlePortraitBlur ? 'blur' : 'empty'}
+                  blurDataURL={home.hero.circlePortraitBlur}
                   className="absolute inset-0 h-full w-full object-cover object-[center_18%] opacity-0 transition-opacity duration-700 dark:opacity-100"
                 />
                 <Image
@@ -71,6 +73,8 @@ export default function AboutPage() {
                   width={1000}
                   height={1000}
                   priority
+                  placeholder={home.hero.circlePortraitLightBlur ? 'blur' : 'empty'}
+                  blurDataURL={home.hero.circlePortraitLightBlur}
                   className="absolute inset-0 h-full w-full object-cover object-[center_18%] transition-opacity duration-700 dark:opacity-0"
                 />
               </div>

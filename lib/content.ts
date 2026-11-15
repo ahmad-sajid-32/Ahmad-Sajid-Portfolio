@@ -56,6 +56,10 @@ const homeSchema = z.object({
     portraitLightUrl: z.string().min(1),
     circlePortraitUrl: z.string().min(1),
     circlePortraitLightUrl: z.string().min(1),
+    portraitBlur: z.string().optional(),
+    portraitLightBlur: z.string().optional(),
+    circlePortraitBlur: z.string().optional(),
+    circlePortraitLightBlur: z.string().optional(),
     portraitAlt: z.string().min(1),
     statement: z.string().min(1),
     stats: z

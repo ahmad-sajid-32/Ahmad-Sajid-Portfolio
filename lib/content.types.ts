@@ -29,6 +29,10 @@ export interface HomeContent {
     portraitLightUrl: string
     circlePortraitUrl: string
     circlePortraitLightUrl: string
+    portraitBlur?: string
+    portraitLightBlur?: string
+    circlePortraitBlur?: string
+    circlePortraitLightBlur?: string
     portraitAlt: string
     statement: string
     stats: {
