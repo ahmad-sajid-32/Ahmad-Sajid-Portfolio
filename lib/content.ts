@@ -52,14 +52,6 @@ const homeSchema = z.object({
     name: z.string().min(1),
     role: z.string().min(1),
     giantWord: z.string().min(1),
-    portraitUrl: z.string().min(1),
-    portraitLightUrl: z.string().min(1),
-    circlePortraitUrl: z.string().min(1),
-    circlePortraitLightUrl: z.string().min(1),
-    portraitBlur: z.string().optional(),
-    portraitLightBlur: z.string().optional(),
-    circlePortraitBlur: z.string().optional(),
-    circlePortraitLightBlur: z.string().optional(),
     portraitAlt: z.string().min(1),
     statement: z.string().min(1),
     stats: z
@@ -100,8 +92,6 @@ const homeSchema = z.object({
       body: z.string().min(1),
       label: z.string().min(1),
       href: z.string().min(1),
-      imageUrl: z.string().min(1),
-      imageLightUrl: z.string().min(1),
     }),
   }),
 })
