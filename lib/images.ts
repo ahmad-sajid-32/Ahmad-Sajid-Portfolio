@@ -1,3 +1,5 @@
+import uafLogo from '@/assets/portraits/uaf-logo.png'
+import universityOfOkaraLogo from '@/assets/portraits/university-of-okara-logo.jpg'
 import ctaPaperPlane from '@/assets/portraits/cta-paper-plane.webp'
 import ctaPaperPlaneDawn from '@/assets/portraits/cta-paper-plane-dawn.webp'
 import heroPortrait from '@/assets/portraits/hero-portrait.png'
@@ -22,3 +24,16 @@ export const IMAGES = {
   ctaPaperPlane,
   ctaPaperPlaneDawn,
 } as const
+
+/**
+ * University emblems for the About education cards, keyed by
+ * the `logo` slug in about.json. Same static-import route as
+ * the brand imagery: they live in assets/portraits/ alongside
+ * the portraits (the folder Ahmad uploads brand files to).
+ */
+export const EDUCATION_LOGOS = {
+  uaf: uafLogo,
+  'university-of-okara': universityOfOkaraLogo,
+} as const
+
+export type EducationLogoSlug = keyof typeof EDUCATION_LOGOS

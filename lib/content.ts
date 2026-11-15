@@ -113,6 +113,7 @@ const aboutSchema = z.object({
       institution: z.string().min(1),
       period: z.string().min(1),
       summary: z.string().min(1),
+      logo: z.enum(['uaf', 'university-of-okara']),
     }),
   ),
   skillGroups: z.array(
@@ -125,7 +126,8 @@ const aboutSchema = z.object({
     z.object({
       name: z.string().min(1),
       issuer: z.string().min(1),
-      year: z.string().min(1),
+      issued: z.string().min(1),
+      url: z.string().url().optional(),
     }),
   ),
 })
