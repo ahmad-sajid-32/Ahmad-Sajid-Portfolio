@@ -54,16 +54,46 @@ export function ThemeToggle() {
     }
   }
 
+  const switchProps = {
+    type: 'button' as const,
+    role: 'switch' as const,
+    'aria-checked': isDusk,
+    onClick: toggle,
+    'aria-label': `Desert theme toggle — currently ${isDusk ? 'Dusk (night)' : 'Dawn (day)'}; switch to ${isDusk ? 'Dawn' : 'Dusk'}`,
+    title: isDusk ? 'Switch to Dawn' : 'Switch to Dusk',
+  }
+
   return (
-    <button
-      type="button"
-      role="switch"
-      aria-checked={isDusk}
-      onClick={toggle}
-      aria-label={`Desert theme toggle — currently ${isDusk ? 'Dusk (night)' : 'Dawn (day)'}; switch to ${isDusk ? 'Dawn' : 'Dusk'}`}
-      title={isDusk ? 'Switch to Dawn' : 'Switch to Dusk'}
-      className="relative block h-9 w-[76px] shrink-0 overflow-hidden rounded-full border border-border shadow-[inset_0_1px_4px_rgba(0,0,0,0.25)] transition-transform duration-300 hover:scale-[1.04] focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none"
-    >
+    <>
+      {/* Compact toggle for small screens (Ahmad, 2026-11-15):
+          the 76px desert scene is too wide on a phone header,
+          so below sm the switch is a single round icon button.
+          The animation is the same one the scene's disc uses —
+          the sun and moon glyphs cross-fade while rotating
+          ±90° — just without the landscape around it. */}
+      <button
+        {...switchProps}
+        className="relative block h-9 w-9 shrink-0 rounded-full border border-border bg-surface/60 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none sm:hidden"
+      >
+        <Sun
+          aria-hidden="true"
+          className={cn(
+            'absolute inset-0 m-auto h-[18px] w-[18px] text-primary transition-all duration-500',
+            isDusk ? 'rotate-90 opacity-0' : 'rotate-0 opacity-100',
+          )}
+        />
+        <Moon
+          aria-hidden="true"
+          className={cn(
+            'absolute inset-0 m-auto h-[17px] w-[17px] text-foreground transition-all duration-500',
+            isDusk ? 'rotate-0 opacity-100' : '-rotate-90 opacity-0',
+          )}
+        />
+      </button>
+      <button
+        {...switchProps}
+        className="relative hidden h-9 w-[76px] shrink-0 overflow-hidden rounded-full border border-border shadow-[inset_0_1px_4px_rgba(0,0,0,0.25)] transition-transform duration-300 hover:scale-[1.04] focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none sm:block"
+      >
       {/* Dawn sky */}
       <span
         aria-hidden="true"
@@ -171,6 +201,7 @@ export function ThemeToggle() {
           )}
         />
       </span>
-    </button>
+      </button>
+    </>
   )
 }
