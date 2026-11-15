@@ -16,7 +16,7 @@ export function ProjectCard({ project }: { project: ProjectDoc }) {
     <Link
       href={`/projects/${project.slug}`}
       data-cursor="view"
-      className="group block overflow-hidden rounded-3xl border border-border bg-surface transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/50 hover:shadow-[0_30px_60px_rgba(0,0,0,0.35)]"
+      className="group flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-surface transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/50 hover:shadow-[0_30px_60px_rgba(0,0,0,0.35)]"
     >
       {cover?.url ? (
         <div className="relative aspect-[16/10] overflow-hidden">
@@ -25,7 +25,7 @@ export function ProjectCard({ project }: { project: ProjectDoc }) {
             alt={cover.alt}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
           />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/15 via-transparent to-transparent" />
           {project.deploymentStatus === 'deployed' ? (
@@ -36,14 +36,14 @@ export function ProjectCard({ project }: { project: ProjectDoc }) {
           ) : null}
         </div>
       ) : null}
-      <div className="p-6 sm:p-7">
+      <div className="flex flex-1 flex-col p-6 sm:p-7">
         <h3 className="font-display text-[26px] leading-snug font-semibold tracking-tight sm:text-3xl">
           {project.title}
         </h3>
         <p className="mt-2 line-clamp-2 leading-relaxed text-muted-foreground">
           {project.tagline}
         </p>
-        <div className="mt-5 flex flex-wrap gap-2">
+        <div className="mt-auto flex flex-wrap gap-2 pt-5">
           {project.tracks.map((track) => (
             <span
               key={track}
