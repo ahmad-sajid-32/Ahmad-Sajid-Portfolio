@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 
 import { ExperienceTimeline } from '@/components/about/experience-timeline'
+import { SkillsBento } from '@/components/about/skills-bento'
 import { ScrollSlide } from '@/components/motion/scroll-slide'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { getAboutContent, getHomeContent, getSiteContent } from '@/lib/content'
@@ -155,33 +156,7 @@ export default function AboutPage() {
         <ScrollSlide from="left">
           <SectionHeading title="What I work with" />
         </ScrollSlide>
-        <div className="mt-8 grid gap-5 sm:grid-cols-2">
-          {about.skillGroups.map((group, index) => (
-            <ScrollSlide
-              key={group.title}
-              from="left"
-              delay={index * 0.1}
-              className="h-full"
-            >
-              <div className="h-full rounded-3xl border border-border bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 sm:p-7">
-                <h3 className="font-display text-2xl font-semibold tracking-tight">
-                  {group.title}
-                </h3>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {group.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3 py-1.5 font-mono text-[10px] tracking-[0.14em] text-foreground/90 uppercase"
-                    >
-                      <span className="h-1 w-1 rounded-full bg-primary" />
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </ScrollSlide>
-          ))}
-        </div>
+        <SkillsBento groups={about.skillGroups} />
       </section>
 
       <section className="mt-20">

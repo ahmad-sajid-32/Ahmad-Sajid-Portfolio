@@ -75,6 +75,8 @@
     "heading": "About",
     "skillGroups": [
         {
+            "accent": "Core strength",
+            "featured": true,
             "skills": [
                 "Python",
                 "FastAPI",
@@ -117,6 +119,8 @@
             "title": "Data & Cloud"
         },
         {
+            "accent": "Current focus",
+            "featured": true,
             "skills": [
                 "AI Agents",
                 "Prompt Engineering",

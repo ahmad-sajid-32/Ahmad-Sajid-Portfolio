@@ -80,6 +80,8 @@ export interface AboutContent {
   skillGroups: {
     title: string
     skills: string[]
+    accent?: string
+    featured?: boolean
   }[]
   certificates: {
     name: string

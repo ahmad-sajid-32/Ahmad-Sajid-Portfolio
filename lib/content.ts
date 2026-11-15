@@ -120,6 +120,8 @@ const aboutSchema = z.object({
     z.object({
       title: z.string().min(1),
       skills: z.array(z.string().min(1)).min(1),
+      accent: z.string().min(1).optional(),
+      featured: z.boolean().optional(),
     }),
   ),
   certificates: z.array(
