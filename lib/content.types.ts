@@ -75,6 +75,7 @@ export interface AboutContent {
     institution: string
     period: string
     summary: string
+    logo: 'uaf' | 'university-of-okara'
   }[]
   skillGroups: {
     title: string
@@ -83,7 +84,8 @@ export interface AboutContent {
   certificates: {
     name: string
     issuer: string
-    year: string
+    issued: string
+    url?: string
   }[]
 }
 

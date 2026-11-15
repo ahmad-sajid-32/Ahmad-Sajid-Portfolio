@@ -114,8 +114,8 @@ export function ExpertiseIndex({ areas }: { areas: ExpertiseArea[] }) {
                     whileInView: { opacity: 1, x: 0 },
                     viewport: { once: false, margin: '-40px' },
                     transition: {
-                      duration: 0.8,
-                      delay: index * 0.3,
+                      duration: 0.65,
+                      delay: index * 0.22,
                       ease: [0.22, 1, 0.36, 1] as const,
                     },
                   })}

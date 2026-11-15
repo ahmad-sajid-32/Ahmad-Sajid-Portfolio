@@ -21,10 +21,10 @@ const OFFSETS = {
 } as const
 
 /**
- * One-shot entrance (hero): content glides in from a side or rises
- * from below with a fade — once the first-load loader releases the
- * intro (useIntroReady), so the choreography is seen rather than
- * spent behind the loader veil. Under reduced motion the content
+ * Hero entrance: content glides in from a side or rises from below
+ * with a fade once the first-load loader releases the intro
+ * (useIntroReady). It then replays whenever it enters the viewport,
+ * like the site's scroll reveals. Under reduced motion the content
  * simply renders.
  */
 export function SlideIn({ children, from = 'up', delay = 0, className }: SlideInProps) {
@@ -41,7 +41,8 @@ export function SlideIn({ children, from = 'up', delay = 0, className }: SlideIn
     <motion.div
       className={className}
       initial={{ opacity: 0, x: offset.x, y: offset.y }}
-      animate={introReady ? { opacity: 1, x: 0, y: 0 } : undefined}
+      whileInView={introReady ? { opacity: 1, x: 0, y: 0 } : undefined}
+      viewport={{ once: false, margin: '-60px' }}
       transition={{ duration: 0.85, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}

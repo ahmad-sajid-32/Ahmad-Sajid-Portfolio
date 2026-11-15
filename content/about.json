@@ -1,1 +1,133 @@
-{"bio":["I'm a software engineer based in Lahore, Pakistan. My core strength is backend development — APIs, data models and integrations — and for the last two years I've paired that with AI: agents that call real tools, answer real customers, and run in production.","At Devisgon I grew from intern to Associate Software Engineer, was named project lead on the LaForme booking platform, and led delivery of the Total Store back-office system — 14 modules, handed over with a 13-page client guide I wrote. Alongside that, I've freelanced since May 2024 for clients who needed systems built end to end.","My final-year project, the UAF Smart E-Library, added a RAG retrieval layer with pgvector. My flagship personal build, MeMySelfI AI, is an agent platform I designed, deployed with Docker on AWS EC2 behind a CI/CD pipeline I set up myself, and managed in live production. Game development is the passion that brought me to this field — it's the track I'm growing into next."],"certificates":[{"issuer":"Google","name":"Google Prompting Essentials","year":"2025"},{"issuer":"Google / Coursera","name":"Introduction to Git and GitHub","year":"2025"}],"education":[{"institution":"University of Okara","period":"2026 — in progress","summary":"Postgraduate study alongside professional work.","title":"MS Computer Science"},{"institution":"University of Agriculture Faisalabad (UAF)","period":"2022 — 2026","summary":"CGPA 3.62/4.0. Final-year project: UAF Smart E-Library with a RAG/pgvector retrieval layer.","title":"BS Computer Science"}],"experience":[{"company":"Devisgon Pvt Ltd","period":"Aug 2025 — Oct 2026","role":"Associate Software Engineer","summary":"Backend and full-stack delivery across client platforms; named project lead on LaForme; led delivery of the Total Store back-office (14 modules); supervised university interns as Site Supervisor."},{"company":"Devisgon Pvt Ltd","period":"May 2025 — Aug 2025","role":"Software Engineering Intern","summary":"Worked across the stack on production codebases before converting to the Associate role."},{"company":"Independent","period":"May 2024 — Present","role":"Freelance Software Developer","summary":"End-to-end builds for clients — web platforms, automations and AI integrations."}],"heading":"About","skillGroups":[{"skills":["Python","FastAPI","Flask","Node.js","NestJS","Express","PHP","Laravel","REST APIs"],"title":"Backend"},{"skills":["TypeScript","JavaScript","React.js","Next.js","HTML","CSS","Tailwind CSS","Bootstrap"],"title":"Frontend"},{"skills":["PostgreSQL","MySQL","MongoDB","Docker","AWS","Supabase","Vercel","Render","Git","GitHub"],"title":"Data & Cloud"},{"skills":["AI Agents","Prompt Engineering","n8n","Zapier","Make","Zoho CRM","HubSpot","GoHighLevel"],"title":"AI & Automation"}]}
+{
+    "bio": [
+        "I'm Ahmad Sajid, a software engineer from Okara, now based in Lahore. Game development is what brought me to this field, and I still build with that instinct \u2014 software should feel alive on the other side of the screen. These days that means backends, AI agents and automation: systems that hold up in the real world, for real users.",
+        "I started freelancing in May 2024, while still at university, building web platforms and automations end to end for clients. My degree ran alongside it \u2014 at the University of Agriculture Faisalabad, my final-year project, the UAF Smart E-Library, taught a library catalogue to answer questions through a RAG retrieval layer over pgvector. In 2025 I joined Devisgon, growing from intern to Associate Software Engineer: named project lead on the LaForme booking platform, I led delivery of the Total Store back-office system \u2014 live in production today as NEXRA \u2014 and supervised university interns as a Site Supervisor.",
+        "My flagship personal build is MeMySelfI AI, an agent platform I designed and shipped myself: Docker on AWS EC2, a CI/CD pipeline I set up and managed, and a run in live production. I'm now reading for an MS in Computer Science at the University of Okara alongside my work \u2014 and in the background I'm growing into game development, the track I started out wanting."
+    ],
+    "certificates": [
+        {
+            "issued": "May 2026",
+            "issuer": "Syntecxhub",
+            "name": "Machine Learning Internship",
+            "url": "https://syntecxhub.com/certificate/SH07MLJiXbSpxgX6"
+        },
+        {
+            "issued": "Dec 2025",
+            "issuer": "HP LIFE",
+            "name": "AI for Beginners Certificate",
+            "url": "https://www.life-global.org/certificate/5c284688-fbd1-4991-80ea-d1ea96194b05"
+        },
+        {
+            "issued": "Oct 2025",
+            "issuer": "Google",
+            "name": "Introduction to Git and GitHub",
+            "url": "https://www.coursera.org/account/accomplishments/verify/0R0OQ4J0DIWZ"
+        },
+        {
+            "issued": "Oct 2025",
+            "issuer": "Google",
+            "name": "Crash Course on Python",
+            "url": "https://www.coursera.org/account/accomplishments/records/W9ECBN55E479"
+        },
+        {
+            "issued": "Jul 2025",
+            "issuer": "Google",
+            "name": "Google Prompting Essentials",
+            "url": "https://www.coursera.org/account/accomplishments/specialization/certificate/21YNZLT45MJG"
+        }
+    ],
+    "education": [
+        {
+            "institution": "University of Okara",
+            "logo": "university-of-okara",
+            "period": "2026 \u2014 in progress",
+            "summary": "Postgraduate study alongside professional work.",
+            "title": "MS Computer Science"
+        },
+        {
+            "institution": "University of Agriculture Faisalabad (UAF)",
+            "logo": "uaf",
+            "period": "2022 \u2014 2026",
+            "summary": "CGPA 3.62/4.0. Final-year project: UAF Smart E-Library with a RAG/pgvector retrieval layer.",
+            "title": "BS Computer Science"
+        }
+    ],
+    "experience": [
+        {
+            "company": "Devisgon Pvt Ltd",
+            "period": "Aug 2025 \u2014 Oct 2026",
+            "role": "Associate Software Engineer",
+            "summary": "Backend and full-stack delivery across client platforms; named project lead on LaForme; led delivery of the Total Store back-office (14 modules); supervised university interns as Site Supervisor."
+        },
+        {
+            "company": "Devisgon Pvt Ltd",
+            "period": "May 2025 \u2014 Aug 2025",
+            "role": "Software Engineering Intern",
+            "summary": "Worked across the stack on production codebases before converting to the Associate role."
+        },
+        {
+            "company": "Independent",
+            "period": "May 2024 \u2014 Present",
+            "role": "Freelance Software Developer",
+            "summary": "End-to-end builds for clients \u2014 web platforms, automations and AI integrations."
+        }
+    ],
+    "heading": "About",
+    "skillGroups": [
+        {
+            "skills": [
+                "Python",
+                "FastAPI",
+                "Flask",
+                "Node.js",
+                "NestJS",
+                "Express",
+                "PHP",
+                "Laravel",
+                "REST APIs"
+            ],
+            "title": "Backend"
+        },
+        {
+            "skills": [
+                "TypeScript",
+                "JavaScript",
+                "React.js",
+                "Next.js",
+                "HTML",
+                "CSS",
+                "Tailwind CSS",
+                "Bootstrap"
+            ],
+            "title": "Frontend"
+        },
+        {
+            "skills": [
+                "PostgreSQL",
+                "MySQL",
+                "MongoDB",
+                "Docker",
+                "AWS",
+                "Supabase",
+                "Vercel",
+                "Render",
+                "Git",
+                "GitHub"
+            ],
+            "title": "Data & Cloud"
+        },
+        {
+            "skills": [
+                "AI Agents",
+                "Prompt Engineering",
+                "n8n",
+                "Zapier",
+                "Make",
+                "Zoho CRM",
+                "HubSpot",
+                "GoHighLevel"
+            ],
+            "title": "AI & Automation"
+        }
+    ]
+}

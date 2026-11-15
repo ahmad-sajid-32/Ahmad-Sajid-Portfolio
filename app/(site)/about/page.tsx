@@ -1,15 +1,17 @@
+import { ArrowUpRight } from 'lucide-react'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 
+import { ExperienceTimeline } from '@/components/about/experience-timeline'
 import { ScrollSlide } from '@/components/motion/scroll-slide'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { getAboutContent, getHomeContent, getSiteContent } from '@/lib/content'
-import { IMAGES } from '@/lib/images'
+import { EDUCATION_LOGOS, IMAGES } from '@/lib/images'
 
 export const metadata: Metadata = {
   title: 'About',
   description:
-    'About Ahmad Sajid — backend-focused software engineer in Lahore: Devisgon experience, freelance work, education and certificates.',
+    'About Ahmad Sajid — software engineer in Lahore: his story, where he has worked, education and certificates.',
 }
 
 /**
@@ -108,36 +110,7 @@ export default function AboutPage() {
         <ScrollSlide from="left">
           <SectionHeading title="Where I've worked" />
         </ScrollSlide>
-        <div className="relative mt-10">
-          <div
-            aria-hidden="true"
-            className="absolute top-2 bottom-2 left-[5px] w-px bg-gradient-to-b from-primary/60 via-border to-transparent"
-          />
-          {about.experience.map((item, index) => (
-            <ScrollSlide
-              key={`${item.role}-${item.period}`}
-              from="left"
-              delay={index * 0.12}
-              className="pb-10 last:pb-0"
-            >
-              <article className="relative pl-10">
-                <span
-                  aria-hidden="true"
-                  className="absolute top-1.5 left-0 h-[11px] w-[11px] rounded-full border-2 border-primary bg-background"
-                />
-                <p className="inline-flex rounded-full border border-border bg-surface px-3 py-1 font-mono text-[10px] tracking-[0.14em] text-muted-foreground uppercase">
-                  {item.period}
-                </p>
-                <h3 className="mt-3 font-display text-2xl font-semibold tracking-tight">
-                  {item.role} · {item.company}
-                </h3>
-                <p className="mt-2 max-w-2xl leading-relaxed text-muted-foreground">
-                  {item.summary}
-                </p>
-              </article>
-            </ScrollSlide>
-          ))}
-        </div>
+        <ExperienceTimeline items={about.experience} />
       </section>
 
       <section className="mt-20">
@@ -153,10 +126,19 @@ export default function AboutPage() {
               className="h-full"
             >
               <div className="h-full rounded-3xl border border-border bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 sm:p-7">
-                <p className="inline-flex rounded-full border border-border bg-background/50 px-3 py-1 font-mono text-[10px] tracking-[0.14em] text-muted-foreground uppercase">
-                  {item.period}
-                </p>
-                <h3 className="mt-4 font-display text-2xl font-semibold tracking-tight">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-white p-1.5 shadow-sm">
+                    <Image
+                      src={EDUCATION_LOGOS[item.logo]}
+                      alt={`${item.institution} logo`}
+                      className="h-full w-full object-contain"
+                    />
+                  </div>
+                  <p className="inline-flex rounded-full border border-border bg-background/50 px-3 py-1 font-mono text-[10px] tracking-[0.14em] text-muted-foreground uppercase">
+                    {item.period}
+                  </p>
+                </div>
+                <h3 className="mt-5 font-display text-2xl font-semibold tracking-tight">
                   {item.title}
                 </h3>
                 <p className="mt-1 font-medium">{item.institution}</p>
@@ -207,23 +189,51 @@ export default function AboutPage() {
           <SectionHeading title="Certificates" />
         </ScrollSlide>
         <ul className="mt-8 divide-y divide-border rounded-3xl border border-border bg-surface px-6 sm:px-7">
-          {about.certificates.map((cert, index) => (
-            <ScrollSlide
-              as="li"
-              key={cert.name}
-              from="right"
-              delay={index * 0.07}
-              className="flex flex-wrap items-center justify-between gap-3 py-5"
-            >
-              <div>
-                <p className="font-medium">{cert.name}</p>
-                <p className="text-sm text-muted-foreground">{cert.issuer}</p>
-              </div>
-              <p className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 font-mono text-[10px] tracking-[0.14em] text-foreground/90 uppercase">
-                {cert.year}
-              </p>
-            </ScrollSlide>
-          ))}
+          {about.certificates.map((cert, index) => {
+            const row = (
+              <>
+                <div>
+                  <p className="font-medium">{cert.name}</p>
+                  <p className="text-sm text-muted-foreground">{cert.issuer}</p>
+                </div>
+                <span className="flex items-center gap-3">
+                  <span className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 font-mono text-[10px] tracking-[0.14em] text-foreground/90 uppercase">
+                    {cert.issued}
+                  </span>
+                  {cert.url ? (
+                    <ArrowUpRight
+                      aria-hidden="true"
+                      className="h-4 w-4 text-muted-foreground transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-primary"
+                    />
+                  ) : null}
+                </span>
+              </>
+            )
+            return (
+              <ScrollSlide
+                as="li"
+                key={cert.name}
+                from="right"
+                delay={index * 0.07}
+              >
+                {cert.url ? (
+                  <a
+                    href={cert.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`${cert.name} — view credential`}
+                    className="group -mx-2 flex flex-wrap items-center justify-between gap-3 rounded-xl px-2 py-5 transition-colors hover:bg-background/40"
+                  >
+                    {row}
+                  </a>
+                ) : (
+                  <div className="flex flex-wrap items-center justify-between gap-3 py-5">
+                    {row}
+                  </div>
+                )}
+              </ScrollSlide>
+            )
+          })}
         </ul>
       </section>
     </div>
