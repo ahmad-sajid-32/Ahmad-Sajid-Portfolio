@@ -9,7 +9,7 @@ import {
   useTransform,
   type MotionValue,
 } from 'motion/react'
-import { useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 
 export interface ExperienceItem {
   role: string
@@ -41,38 +41,87 @@ export function ExperienceTimeline({ items }: { items: ExperienceItem[] }) {
     damping: 25,
     restDelta: 0.001,
   })
-  const tipTop = useTransform(progress, (v) => `${v * 100}%`)
+
+  /**
+   * The line spans exactly from the first node's centre to
+   * the last node's centre — it must stop at the last badge,
+   * not trail below it to the container's bottom edge
+   * (Ahmad, 2026-11-16). Measured from layout offsets
+   * (offsetTop/offsetHeight), which the entries' entrance
+   * transforms do not disturb; recomputed on resize and once
+   * webfonts land.
+   */
+  const [span, setSpan] = useState<{ top: number; height: number } | null>(
+    null,
+  )
+  useLayoutEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+    const measure = () => {
+      const nodes = container.querySelectorAll<HTMLElement>(
+        '[data-timeline-node]',
+      )
+      if (nodes.length === 0) return
+      const centre = (node: HTMLElement) => {
+        let y = node.offsetTop + node.offsetHeight / 2
+        let parent = node.offsetParent as HTMLElement | null
+        while (parent && parent !== container) {
+          y += parent.offsetTop
+          parent = parent.offsetParent as HTMLElement | null
+        }
+        return y
+      }
+      const first = centre(nodes[0])
+      const last = centre(nodes[nodes.length - 1])
+      setSpan({ top: first, height: Math.max(0, last - first) })
+    }
+    measure()
+    const observer = new ResizeObserver(measure)
+    observer.observe(container)
+    document.fonts?.ready.then(measure).catch(() => {})
+    return () => observer.disconnect()
+  }, [items])
+
+  const tipTop = useTransform(progress, (v) =>
+    span ? `${span.top + v * span.height}px` : '0px',
+  )
+  const spanStyle = span
+    ? { top: span.top, height: span.height }
+    : undefined
+  const spanClass = span ? '' : 'top-2 bottom-2'
 
   return (
     <div ref={containerRef} className="relative mt-10">
       {/* Rail */}
       <div
         aria-hidden="true"
-        className="absolute top-2 bottom-2 left-[5px] w-px bg-border"
+        style={spanStyle}
+        className={`absolute left-[5px] w-px bg-border ${spanClass}`}
       />
       {reduceMotion ? (
         <div
           aria-hidden="true"
-          className="absolute top-2 bottom-2 left-[4px] w-[3px] rounded-full bg-primary"
+          style={spanStyle}
+          className={`absolute left-[4px] w-[3px] rounded-full bg-primary ${spanClass}`}
         />
       ) : (
         <>
           {/* Glow underlay — a blurred copy of the fill. */}
           <motion.div
             aria-hidden="true"
-            style={{ scaleY: progress }}
-            className="absolute top-2 bottom-2 left-[3px] w-[5px] origin-top rounded-full bg-primary/40 blur-[6px]"
+            style={{ scaleY: progress, ...spanStyle }}
+            className={`absolute left-[3px] w-[5px] origin-top rounded-full bg-primary/40 blur-[6px] ${spanClass}`}
           />
           <motion.div
             aria-hidden="true"
-            style={{ scaleY: progress }}
-            className="absolute top-2 bottom-2 left-[4px] w-[3px] origin-top rounded-full bg-gradient-to-b from-highlight via-primary to-primary"
+            style={{ scaleY: progress, ...spanStyle }}
+            className={`absolute left-[4px] w-[3px] origin-top rounded-full bg-gradient-to-b from-highlight via-primary to-primary ${spanClass}`}
           />
           {/* The lit tip riding the end of the fill. */}
           <motion.span
             aria-hidden="true"
             style={{ top: tipTop }}
-            className="absolute left-[5px] z-10 mt-2 -translate-x-1/2"
+            className="absolute left-[5px] z-10 -translate-x-1/2 -translate-y-1/2"
           >
             <span className="absolute top-1/2 left-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/40 blur-[5px]" />
             <span className="block h-[9px] w-[9px] rounded-full bg-primary" />
@@ -115,6 +164,7 @@ function TimelineEntry({
   const node = (
     <span
       aria-hidden="true"
+      data-timeline-node=""
       className={`absolute top-1.5 left-0 h-[11px] w-[11px] rounded-full border-2 transition-all duration-500 ${
         lit || reduceMotion
           ? 'border-primary bg-primary shadow-[0_0_10px] shadow-primary/60'
