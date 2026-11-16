@@ -150,6 +150,7 @@ const contactSchema = z.object({
     label: z.string().min(1),
     address: z.string().email(),
   }),
+  emailBannerHeading: z.string().min(1),
   socialsHeading: z.string().min(1),
 })
 

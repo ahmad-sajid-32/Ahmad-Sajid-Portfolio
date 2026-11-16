@@ -107,5 +107,6 @@ export interface ContactContent {
     label: string
     address: string
   }
+  emailBannerHeading: string
   socialsHeading: string
 }
