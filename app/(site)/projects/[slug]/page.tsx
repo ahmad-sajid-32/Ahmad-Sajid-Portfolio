@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -7,6 +7,7 @@ import { notFound } from 'next/navigation'
 import { ScrollSlide } from '@/components/motion/scroll-slide'
 import { CaseStudyBlocks } from '@/components/projects/case-study-blocks'
 import { VideoEmbed } from '@/components/projects/video-embed'
+import { DetailPaginator } from '@/components/ui/detail-paginator'
 import { GithubIcon } from '@/components/ui/brand-icons'
 import { TECH_ICONS } from '@/components/ui/tech-icons'
 import {
@@ -298,41 +299,26 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
 
       {(previous || next) && (
         <ScrollSlide from="up">
-          <nav
-            aria-label="More projects"
-            className="mt-10 grid gap-4 border-t border-border pt-8 sm:grid-cols-2"
-          >
-          {previous ? (
-            <Link
-              href={`/projects/${previous.slug}`}
-              className="group rounded-3xl border border-border bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50"
-            >
-              <span className="inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
-                <ArrowLeft className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-x-1" />
-                Previous project
-              </span>
-              <span className="mt-3 block font-display text-2xl font-semibold tracking-tight">
-                {previous.title}
-              </span>
-            </Link>
-          ) : (
-            <span className="hidden sm:block" />
-          )}
-          {next ? (
-            <Link
-              href={`/projects/${next.slug}`}
-              className="group rounded-3xl border border-border bg-surface p-6 text-right transition-all duration-300 hover:-translate-y-1 hover:border-primary/50"
-            >
-              <span className="inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
-                Next project
-                <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
-              </span>
-              <span className="mt-3 block font-display text-2xl font-semibold tracking-tight">
-                {next.title}
-              </span>
-            </Link>
-            ) : null}
-          </nav>
+          <div className="mt-10 border-t border-border pt-8">
+            <DetailPaginator
+              ariaLabel="More projects"
+              prev={
+                previous
+                  ? {
+                      href: `/projects/${previous.slug}`,
+                      title: previous.title,
+                    }
+                  : null
+              }
+              next={
+                next
+                  ? { href: `/projects/${next.slug}`, title: next.title }
+                  : null
+              }
+              prevLabel="Previous project"
+              nextLabel="Next project"
+            />
+          </div>
         </ScrollSlide>
       )}
     </article>

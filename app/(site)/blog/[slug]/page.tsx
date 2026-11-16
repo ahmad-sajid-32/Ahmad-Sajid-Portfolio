@@ -1,12 +1,11 @@
-import { ArrowLeft, ArrowRight } from 'lucide-react'
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 import { RichText } from '@/components/content/rich-text'
 import { formatDate } from '@/components/blog/post-card'
 import { ScrollSlide } from '@/components/motion/scroll-slide'
+import { DetailPaginator } from '@/components/ui/detail-paginator'
 import { getPostBySlug, getPublishedPosts } from '@/lib/data'
 
 interface PostPageProps {
@@ -131,41 +130,21 @@ export default async function PostDetailPage({ params }: PostPageProps) {
 
       {(previous || next) && (
         <ScrollSlide from="up">
-          <nav
-            aria-label="More posts"
-            className="mt-10 grid gap-4 border-t border-border pt-8 sm:grid-cols-2"
-          >
-          {previous ? (
-            <Link
-              href={`/blog/${previous.slug}`}
-              className="group rounded-3xl border border-border bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50"
-            >
-              <span className="inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
-                <ArrowLeft className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-x-1" />
-                Newer post
-              </span>
-              <span className="mt-3 line-clamp-2 block font-display text-2xl font-semibold tracking-tight">
-                {previous.title}
-              </span>
-            </Link>
-          ) : (
-            <span className="hidden sm:block" />
-          )}
-          {next ? (
-            <Link
-              href={`/blog/${next.slug}`}
-              className="group rounded-3xl border border-border bg-surface p-6 text-right transition-all duration-300 hover:-translate-y-1 hover:border-primary/50"
-            >
-              <span className="inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
-                Older post
-                <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
-              </span>
-              <span className="mt-3 line-clamp-2 block font-display text-2xl font-semibold tracking-tight">
-                {next.title}
-              </span>
-            </Link>
-            ) : null}
-          </nav>
+          <div className="mt-10 border-t border-border pt-8">
+            <DetailPaginator
+              ariaLabel="More posts"
+              prev={
+                previous
+                  ? { href: `/blog/${previous.slug}`, title: previous.title }
+                  : null
+              }
+              next={
+                next ? { href: `/blog/${next.slug}`, title: next.title } : null
+              }
+              prevLabel="Newer post"
+              nextLabel="Older post"
+            />
+          </div>
         </ScrollSlide>
       )}
     </article>
