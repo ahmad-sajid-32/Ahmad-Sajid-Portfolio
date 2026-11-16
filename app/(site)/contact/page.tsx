@@ -50,7 +50,7 @@ export default async function ContactPage() {
         </p>
       </ScrollSlide>
 
-      <div className="mt-10 grid items-stretch gap-8 lg:grid-cols-[5fr_6fr]">
+      <div className="mt-10 grid items-stretch gap-8 lg:grid-cols-[6fr_5fr]">
         <ScrollSlide from="left" className="h-full">
           <div className="h-full rounded-3xl border border-border bg-surface p-6 shadow-[0_30px_60px_rgba(0,0,0,0.25)] sm:p-8">
             <ContactForm
@@ -75,10 +75,10 @@ export default async function ContactPage() {
                   {...(social.href.startsWith('http')
                     ? { target: '_blank', rel: 'noreferrer' }
                     : {})}
-                  className="group flex flex-col rounded-3xl border border-border bg-surface p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/50"
+                  className="group flex flex-col rounded-3xl border border-border bg-surface p-3 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/50"
                 >
                   <span className="flex flex-1 items-center justify-center">
-                    <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-border bg-background/40 text-muted-foreground transition-colors duration-300 group-hover:border-primary/50 group-hover:text-primary [&>svg]:h-6 [&>svg]:w-6">
+                    <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-border bg-background/40 text-muted-foreground transition-colors duration-300 group-hover:border-primary/50 group-hover:text-primary sm:h-14 sm:w-14 [&>svg]:h-5 [&>svg]:w-5 sm:[&>svg]:h-6 sm:[&>svg]:w-6">
                       {SOCIAL_ICONS[social.key] ?? social.label}
                     </span>
                   </span>
@@ -100,14 +100,14 @@ export default async function ContactPage() {
 
       <div className="mt-20">
         <ScrollSlide from="up">
-          <h2 className="font-display text-3xl font-semibold tracking-tight">
+          <h2 className="font-display text-2xl font-semibold tracking-tight sm:text-3xl">
             {contact.emailBannerHeading}
           </h2>
         </ScrollSlide>
         <ScrollSlide from="up">
           <a
             href={`mailto:${contact.emailCard.address}`}
-            className="group mt-6 flex flex-wrap items-center gap-4 rounded-3xl border border-border bg-surface p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/50 sm:p-8"
+            className="group mt-6 flex flex-wrap items-center gap-4 rounded-3xl border border-border bg-surface p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/50 sm:p-8"
           >
             <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-primary/30 bg-primary/10 text-primary">
               <Mail className="h-5 w-5" />
@@ -116,7 +116,7 @@ export default async function ContactPage() {
               <span className="block font-mono text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
                 {contact.emailCard.label}
               </span>
-              <span className="mt-1 block font-display text-2xl font-semibold tracking-tight break-all sm:text-3xl">
+              <span className="mt-1 block font-display text-xl font-semibold tracking-tight break-all sm:text-3xl">
                 {contact.emailCard.address}
               </span>
             </span>
