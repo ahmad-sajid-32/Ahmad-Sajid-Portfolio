@@ -97,7 +97,7 @@ export default async function PostDetailPage({ params }: PostPageProps) {
 
       {cover?.url ? (
         <ScrollSlide from="up" className="mt-10">
-          <div className="relative aspect-[3/2] overflow-hidden rounded-3xl border border-border shadow-[0_40px_80px_rgba(0,0,0,0.35)]">
+          <div className="relative aspect-[16/10] overflow-hidden rounded-3xl border border-border shadow-[0_40px_80px_rgba(0,0,0,0.35)] lg:aspect-[21/9]">
             <Image
               src={cover.url}
               alt={cover.alt}
@@ -111,7 +111,7 @@ export default async function PostDetailPage({ params }: PostPageProps) {
         </ScrollSlide>
       ) : null}
 
-      <div className="mt-12 max-w-3xl">
+      <div className="mt-12">
         <RichText data={post.content} />
       </div>
 
