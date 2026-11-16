@@ -40,7 +40,7 @@ export default async function ContactPage() {
   const socials = await getSocialLinks()
 
   return (
-    <div className="page-gutter py-14">
+    <div className="page-gutter py-10">
       <PageHeader title={contact.heading} intro={contact.intro} />
 
       <ScrollSlide from="up">
@@ -50,7 +50,7 @@ export default async function ContactPage() {
         </p>
       </ScrollSlide>
 
-      <div className="mt-10 grid items-stretch gap-8 lg:grid-cols-[6fr_5fr]">
+      <div className="mt-10 grid items-stretch gap-8 lg:grid-cols-[7fr_3fr]">
         <ScrollSlide from="left" className="h-full">
           <div className="h-full rounded-3xl border border-border bg-surface p-6 shadow-[0_30px_60px_rgba(0,0,0,0.25)] sm:p-8">
             <ContactForm

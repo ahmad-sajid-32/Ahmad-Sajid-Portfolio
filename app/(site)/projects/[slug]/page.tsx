@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation'
 
 import { ScrollSlide } from '@/components/motion/scroll-slide'
 import { CaseStudyBlocks } from '@/components/projects/case-study-blocks'
+import { VideoEmbed } from '@/components/projects/video-embed'
 import { GithubIcon } from '@/components/ui/brand-icons'
 import { TECH_ICONS } from '@/components/ui/tech-icons'
 import {
@@ -84,6 +85,20 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
 
   const cover = project.coverImage
 
+  // Dedupe (Ahmad's combo, 2026-11-16): media shown in the
+  // page-level gallery is skipped inside media-break blocks,
+  // and a project video embed already used in a block does
+  // not render a second time in the Demo section.
+  const galleryMediaIds = (project.gallery ?? [])
+    .map((entry) => entry.image)
+    .filter(isMedia)
+    .map((media) => media.id)
+  const blockEmbedUrls = (project.content ?? [])
+    .map((block) => block.videoEmbedUrl)
+    .filter((url): url is string => Boolean(url))
+  const showDemoEmbed =
+    project.videoEmbedUrl && !blockEmbedUrls.includes(project.videoEmbedUrl)
+
   return (
     <article className="page-gutter py-14">
       <ScrollSlide from="left">
@@ -121,7 +136,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
       </ScrollSlide>
 
       {cover?.url ? (
-        <div className="relative mt-10 aspect-[3/2] overflow-hidden rounded-3xl border border-border shadow-[0_40px_80px_rgba(0,0,0,0.35)]">
+        <div className="relative mt-10 aspect-[16/10] overflow-hidden rounded-3xl border border-border shadow-[0_40px_80px_rgba(0,0,0,0.35)] lg:aspect-[21/9]">
           <Image
             src={cover.url}
             alt={cover.alt}
@@ -216,7 +231,10 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
       )}
 
       <div className="mt-14">
-        <CaseStudyBlocks blocks={project.content ?? []} />
+        <CaseStudyBlocks
+          blocks={project.content ?? []}
+          excludeMediaIds={galleryMediaIds}
+        />
       </div>
 
       {project.gallery && project.gallery.length > 0 ? (
@@ -226,7 +244,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
               Gallery
             </h2>
           </ScrollSlide>
-          <div className="mt-4 grid gap-4 sm:grid-cols-2">
+          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {project.gallery
               .map((entry) => entry.image)
               .filter(isMedia)
@@ -237,7 +255,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                       src={media.url ?? ''}
                       alt={media.alt}
                       fill
-                      sizes="(max-width: 640px) 100vw, 50vw"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   </div>
@@ -247,19 +265,16 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
         </section>
       ) : null}
 
-      {project.videoEmbedUrl ? (
+      {showDemoEmbed ? (
         <section className="border-t border-border py-10">
           <ScrollSlide from="up">
             <h2 className="font-display text-2xl font-medium sm:text-3xl">
               Demo
             </h2>
-            <div className="mt-4 aspect-video overflow-hidden rounded-3xl border border-border">
-              <iframe
-                src={project.videoEmbedUrl}
+            <div className="mx-auto mt-4 w-full max-w-3xl">
+              <VideoEmbed
+                src={project.videoEmbedUrl as string}
                 title={`${project.title} demo video`}
-                className="h-full w-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
               />
             </div>
           </ScrollSlide>
@@ -274,7 +289,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
             </h2>
             <video
               controls
-              className="mt-4 w-full rounded-3xl border border-border"
+              className="mx-auto mt-4 w-full max-w-3xl rounded-3xl border border-border"
               src={project.video.url}
             />
           </ScrollSlide>
