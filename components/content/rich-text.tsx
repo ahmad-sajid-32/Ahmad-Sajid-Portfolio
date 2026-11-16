@@ -32,7 +32,7 @@ export function RichText({ data, className = '' }: RichTextProps) {
       className={[
         'text-base leading-relaxed text-foreground',
         '[&_p]:mb-5 [&_p]:leading-[1.85] [&_p]:text-muted-foreground',
-        '[&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:font-display [&_h2]:text-[28px] [&_h2]:font-semibold [&_h2]:tracking-tight [&_h2]:text-foreground',
+        '[&_h2]:relative [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:pl-5 [&_h2]:font-display [&_h2]:text-[28px] [&_h2]:font-semibold [&_h2]:tracking-tight [&_h2]:text-foreground [&_h2]:before:absolute [&_h2]:before:top-1/2 [&_h2]:before:left-0 [&_h2]:before:h-7 [&_h2]:before:w-1 [&_h2]:before:-translate-y-1/2 [&_h2]:before:rounded-full [&_h2]:before:bg-primary [&_h2]:before:content-[""]',
         '[&_h3]:mt-8 [&_h3]:mb-3 [&_h3]:font-display [&_h3]:text-[22px] [&_h3]:font-semibold [&_h3]:tracking-tight [&_h3]:text-foreground',
         '[&_ul]:mb-5 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-6 [&_ul]:leading-[1.8] [&_ul]:text-muted-foreground',
         '[&_ol]:mb-5 [&_ol]:list-decimal [&_ol]:space-y-1.5 [&_ol]:pl-6 [&_ol]:leading-[1.8] [&_ol]:text-muted-foreground',
