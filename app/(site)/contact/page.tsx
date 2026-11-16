@@ -15,13 +15,25 @@ export const metadata: Metadata = {
 }
 
 /**
- * Contact, in the home page's language: the form sits in a
- * glossy rounded-3xl panel; the aside carries the email card
- * and every social/contact channel from the Payload Socials
- * global as icon rows (link-in-bio style), with the
- * availability pill under them. The "Elsewhere" eyebrow is
- * gone, per the site-wide no-eyebrow rule.
+ * Contact (layout approved by Ahmad from the rendered
+ * prototype, 2026-11-16): a narrower form panel beside the
+ * social channels as a uniform grid of small tiles — icon
+ * in a medallion on top, small mono label at the bottom,
+ * three per row — stretched so the grid block ends level
+ * with the form. The availability pill sits under the
+ * intro. Beneath, the "Write to me directly" banner
+ * (Ahmad's pick, option C) carries the email address set
+ * large, for visitors who prefer their own mail app.
+ * Channels come from the Payload Socials global.
  */
+// Hover word per channel — the tile label swaps to an
+// action on hover (Ahmad's ask, 2026-11-16).
+const HOVER_WORDS: Record<string, string> = {
+  email: 'Write',
+  phone: 'Call',
+  whatsapp: 'Chat',
+}
+
 export default async function ContactPage() {
   const contact = getContactContent()
   const site = getSiteContent()
@@ -31,9 +43,16 @@ export default async function ContactPage() {
     <div className="page-gutter py-14">
       <PageHeader title={contact.heading} intro={contact.intro} />
 
-      <div className="mt-12 grid gap-8 lg:grid-cols-[1fr_340px]">
-        <ScrollSlide from="left" className="h-fit">
-          <div className="rounded-3xl border border-border bg-surface p-6 shadow-[0_30px_60px_rgba(0,0,0,0.25)] sm:p-8">
+      <ScrollSlide from="up">
+        <p className="mt-6 inline-flex items-center gap-2 rounded-full border border-highlight/50 bg-background/60 px-3.5 py-1.5 font-mono text-[10px] tracking-[0.14em] text-highlight uppercase backdrop-blur">
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-highlight" />
+          {site.availability}
+        </p>
+      </ScrollSlide>
+
+      <div className="mt-10 grid items-stretch gap-8 lg:grid-cols-[5fr_6fr]">
+        <ScrollSlide from="left" className="h-full">
+          <div className="h-full rounded-3xl border border-border bg-surface p-6 shadow-[0_30px_60px_rgba(0,0,0,0.25)] sm:p-8">
             <ContactForm
               form={contact.form}
               turnstileSiteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
@@ -41,64 +60,69 @@ export default async function ContactPage() {
           </div>
         </ScrollSlide>
 
-        <aside className="space-y-8">
+        <div className="flex h-full flex-col">
           <ScrollSlide from="right">
-            <div className="rounded-3xl border border-border bg-surface p-6">
-              <div className="flex items-center gap-3">
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-primary/30 bg-primary/10 text-primary">
-                  <Mail className="h-[18px] w-[18px]" />
-                </span>
-                <p className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
-                  {contact.emailCard.label}
-                </p>
-              </div>
-              <a
-                href={`mailto:${contact.emailCard.address}`}
-                className="mt-4 block font-medium break-all text-accent underline underline-offset-4"
-              >
-                {contact.emailCard.address}
-              </a>
-            </div>
+            <h2 className="font-display text-2xl font-semibold tracking-tight">
+              {contact.socialsHeading}
+            </h2>
           </ScrollSlide>
-
-          <div>
-            <ScrollSlide from="right">
-              <h2 className="font-display text-2xl font-semibold tracking-tight">
-                {contact.socialsHeading}
-              </h2>
-            </ScrollSlide>
-            <ul className="mt-4 space-y-2.5">
-              {socials.map((social, index) => (
-                <ScrollSlide
-                  as="li"
+          <ScrollSlide from="right" className="mt-4 flex-1">
+            <div className="grid h-full grid-cols-3 gap-3">
+              {socials.map((social) => (
+                <a
                   key={social.key}
-                  from="right"
-                  delay={index * 0.06}
+                  href={social.href}
+                  {...(social.href.startsWith('http')
+                    ? { target: '_blank', rel: 'noreferrer' }
+                    : {})}
+                  className="group flex flex-col rounded-3xl border border-border bg-surface p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/50"
                 >
-                  <a
-                    href={social.href}
-                    {...(social.href.startsWith('http')
-                      ? { target: '_blank', rel: 'noreferrer' }
-                      : {})}
-                    className="group flex items-center gap-3 rounded-2xl border border-border bg-surface px-4 py-3 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/50"
-                  >
-                    <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border bg-background/40 text-muted-foreground transition-colors duration-300 group-hover:border-primary/50 group-hover:text-primary">
+                  <span className="flex flex-1 items-center justify-center">
+                    <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-border bg-background/40 text-muted-foreground transition-colors duration-300 group-hover:border-primary/50 group-hover:text-primary [&>svg]:h-6 [&>svg]:w-6">
                       {SOCIAL_ICONS[social.key] ?? social.label}
                     </span>
-                    <span className="font-medium">{social.label}</span>
-                    <ArrowUpRight className="ml-auto h-4 w-4 text-muted-foreground transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-primary" />
-                  </a>
-                </ScrollSlide>
+                  </span>
+                  <span className="grid font-mono text-[10px] tracking-[0.14em] uppercase">
+                    <span className="col-start-1 row-start-1 text-center text-muted-foreground transition-all duration-300 group-hover:-translate-y-1 group-hover:opacity-0">
+                      {social.label}
+                    </span>
+                    <span className="col-start-1 row-start-1 flex translate-y-1 items-center justify-center gap-1 text-center text-primary opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                      {HOVER_WORDS[social.key] ?? 'Visit'}
+                      <ArrowUpRight className="h-3 w-3" />
+                    </span>
+                  </span>
+                </a>
               ))}
-            </ul>
-            <ScrollSlide from="right">
-              <p className="mt-6 inline-flex items-center gap-2 rounded-full border border-highlight/50 bg-background/60 px-3.5 py-1.5 font-mono text-[10px] tracking-[0.14em] text-highlight uppercase backdrop-blur">
-                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-highlight" />
-                {site.availability}
-              </p>
-            </ScrollSlide>
-          </div>
-        </aside>
+            </div>
+          </ScrollSlide>
+        </div>
+      </div>
+
+      <div className="mt-20">
+        <ScrollSlide from="up">
+          <h2 className="font-display text-3xl font-semibold tracking-tight">
+            {contact.emailBannerHeading}
+          </h2>
+        </ScrollSlide>
+        <ScrollSlide from="up">
+          <a
+            href={`mailto:${contact.emailCard.address}`}
+            className="group mt-6 flex flex-wrap items-center gap-4 rounded-3xl border border-border bg-surface p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/50 sm:p-8"
+          >
+            <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-primary/30 bg-primary/10 text-primary">
+              <Mail className="h-5 w-5" />
+            </span>
+            <span className="min-w-0">
+              <span className="block font-mono text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
+                {contact.emailCard.label}
+              </span>
+              <span className="mt-1 block font-display text-2xl font-semibold tracking-tight break-all sm:text-3xl">
+                {contact.emailCard.address}
+              </span>
+            </span>
+            <ArrowUpRight className="ml-auto h-6 w-6 shrink-0 text-muted-foreground transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-primary" />
+          </a>
+        </ScrollSlide>
       </div>
     </div>
   )
