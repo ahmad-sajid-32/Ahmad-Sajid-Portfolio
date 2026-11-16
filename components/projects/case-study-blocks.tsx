@@ -2,6 +2,7 @@ import Image from 'next/image'
 
 import { RichText } from '@/components/content/rich-text'
 import { ScrollSlide } from '@/components/motion/scroll-slide'
+import { VideoEmbed } from '@/components/projects/video-embed'
 import type { CaseStudyBlock, MediaDoc } from '@/lib/data'
 
 const SECTION_TITLES: Record<string, string> = {
@@ -47,7 +48,15 @@ function BlockSection({
   )
 }
 
-export function CaseStudyBlocks({ blocks }: { blocks: CaseStudyBlock[] }) {
+export function CaseStudyBlocks({
+  blocks,
+  excludeMediaIds = [],
+}: {
+  blocks: CaseStudyBlock[]
+  /** Media already shown in the page-level gallery — media
+   * breaks skip these so an image never appears twice. */
+  excludeMediaIds?: number[]
+}) {
   if (!blocks?.length) {
     return null
   }
@@ -82,13 +91,18 @@ export function CaseStudyBlocks({ blocks }: { blocks: CaseStudyBlock[] }) {
         }
 
         if (block.blockType === 'mediaSection') {
+          const items = (block.items ?? [])
+            .map((item) => item.media)
+            .filter(isMedia)
+            .filter((media) => !excludeMediaIds.includes(media.id))
+          if (items.length === 0 && !block.videoEmbedUrl) {
+            return null
+          }
           return (
-            <BlockSection key={key} title="Gallery" first={index === 0}>
-              <div className="grid gap-4 sm:grid-cols-2">
-                {(block.items ?? [])
-                  .map((item) => item.media)
-                  .filter(isMedia)
-                  .map((media, mediaIndex) => (
+            <BlockSection key={key} title="Media" first={index === 0}>
+              {items.length > 0 ? (
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {items.map((media, mediaIndex) => (
                     <ScrollSlide
                       key={media.id}
                       from="up"
@@ -99,22 +113,17 @@ export function CaseStudyBlocks({ blocks }: { blocks: CaseStudyBlock[] }) {
                           src={media.url ?? ''}
                           alt={media.alt}
                           fill
-                          sizes="(max-width: 640px) 100vw, 50vw"
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                           className="object-cover transition-transform duration-700 group-hover:scale-105"
                         />
                       </div>
                     </ScrollSlide>
                   ))}
-              </div>
+                </div>
+              ) : null}
               {block.videoEmbedUrl ? (
-                <div className="mt-4 aspect-video overflow-hidden rounded-3xl border border-border">
-                  <iframe
-                    src={block.videoEmbedUrl}
-                    title="Project video"
-                    className="h-full w-full"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
+                <div className="mx-auto mt-4 w-full max-w-3xl">
+                  <VideoEmbed src={block.videoEmbedUrl} title="Project video" />
                 </div>
               ) : null}
             </BlockSection>
@@ -128,12 +137,12 @@ export function CaseStudyBlocks({ blocks }: { blocks: CaseStudyBlock[] }) {
               <RichText data={block.body} />
               {block.blockType === 'architecture' && isMedia(block.diagram) ? (
                 <ScrollSlide from="up">
-                  <div className="relative mt-6 aspect-[16/9] overflow-hidden rounded-3xl border border-border bg-surface">
+                  <div className="relative mx-auto mt-6 aspect-[16/9] w-full max-w-3xl overflow-hidden rounded-3xl border border-border bg-surface">
                     <Image
                       src={block.diagram.url ?? ''}
                       alt={block.diagram.alt}
                       fill
-                      sizes="(max-width: 1024px) 100vw, 1024px"
+                      sizes="(max-width: 1024px) 100vw, 768px"
                       className="object-contain"
                     />
                   </div>
