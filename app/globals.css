@@ -141,6 +141,96 @@
   animation: eq-bounce 0.9s ease-in-out infinite;
 }
 
+/* Site loader: the legacy portfolio's gear spinner, ported as-is
+   (mechanism from the old static site's styles.css) and remapped
+   to this theme — amber in place of the legacy blue, the plum
+   highlight as the inner gear, a fixed warm cream for the bright
+   wedge. The shape never rotates: the conic gradient's angle is
+   what animates, and the @property registration below is what
+   makes that angle interpolable, so the wedge sweeps smoothly
+   with zero per-frame JS. */
+@property --loader-deg {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: -12deg;
+}
+
+@keyframes loader-spin {
+  from {
+    --loader-deg: -12deg;
+  }
+  to {
+    --loader-deg: 348deg;
+  }
+}
+
+.loader-gear {
+  --sz: 15vmin;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--sz);
+  height: var(--sz);
+  border-radius: calc(var(--sz) / 10);
+  background: conic-gradient(
+    from var(--loader-deg) at 50% 50%,
+    var(--primary) 0,
+    #fff3d6 25deg 50deg,
+    var(--primary) 51deg 100%
+  );
+  clip-path: polygon(
+    0% 0%,
+    40% 0%,
+    50% 10%,
+    60% 0%,
+    100% 0%,
+    100% 40%,
+    90% 50%,
+    100% 60%,
+    100% 100%,
+    60% 100%,
+    50% 90%,
+    40% 100%,
+    0% 100%,
+    0% 60%,
+    10% 50%,
+    0% 40%
+  );
+  animation: loader-spin 2.05s linear infinite;
+}
+
+.loader-gear::before {
+  content: '';
+  position: absolute;
+  /* A thicker rim than the legacy geometry (its inner gear sat
+     5% in; here ~9%) so the sweeping wedge reads clearly at a
+     glance, and a fixed deep plum for the inner gear so the amber
+     rim pops on both the Dawn and Dusk overlays. */
+  width: calc(100% - var(--sz) / 5.5);
+  height: calc(100% - var(--sz) / 5.5);
+  border-radius: calc(var(--sz) / 20);
+  background: #2a1530;
+  clip-path: polygon(
+    0% 0%,
+    38% 0%,
+    50% 12%,
+    62% 0%,
+    100% 0%,
+    100% 38%,
+    88% 50%,
+    100% 62%,
+    100% 100%,
+    62% 100%,
+    50% 88%,
+    38% 100%,
+    0% 100%,
+    0% 62%,
+    12% 50%,
+    0% 38%
+  );
+}
+
 @layer base {
   /* Decorative bleeds (coverflow fans, marquees) and the scroll
      reveals' off-canvas start positions must never widen the page
